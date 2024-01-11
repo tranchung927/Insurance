@@ -1,0 +1,78 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.nav-home-page {
+  flex-grow: 1;
+  gap: 24px;
+}
+.nav-item:hover {
+  color: #007bff!important;
+}
+/* styles.css */
+
+/* Màu khi hover */
+.navbar-nav .nav-item:hover {
+  background-color: #fff;/* Màu nền khi hover */
+}
+
+/* Hiệu ứng dropdown */
+.navbar-nav .nav-item:hover .nav-link {
+  color: #007bff; /* Màu chữ khi hover */
+  background-color: #fff;
+}
+
+/* Màu khi được chọn */
+.navbar-nav .nav-item.active .nav-link {
+  color: #007bff !important; /* Màu chữ khi được chọn */
+  font-weight: bold; /* Độ đậm khi được chọn */
+}
+
+/* Màu của dropdown menu */
+.navbar-nav .nav-item .dropdown-menu {
+  background-color: #fff; /* Màu nền của dropdown menu */
+}
+
+/* Màu chữ trong dropdown menu */
+.navbar-nav .nav-item .dropdown-menu a {
+  color: #333; /* Màu chữ trong dropdown menu */
+}
+
+/* Màu chữ khi hover trong dropdown menu */
+.navbar-nav .nav-item .dropdown-menu a:hover {
+  color: #007bff; /* Màu chữ khi hover trong dropdown menu */
+}

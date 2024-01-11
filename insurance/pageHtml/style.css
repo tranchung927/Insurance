@@ -1,0 +1,57 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Remove list styling */
+ul, ol {
+    list-style: none;
+}
+
+/* Remove default styles on anchor tags */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+     font-family: 'Roboto', sans-serif;
+    font-size: 16px ;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Các thẻ có thuộc tính chung */
+.button {
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 6px;
+    background: var(--gradient, linear-gradient(180deg, #01773D 0%, #00984E 100%));
+    -webkit-box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
+    border: solid 1px transparent;
+    cursor: pointer;
+    text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+   
+    
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.btn-nav {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+} 
+.container-fluid {
+    margin: 0 200px;
+    position: relative;
+  
+}
