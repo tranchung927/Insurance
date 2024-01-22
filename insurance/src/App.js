@@ -1,10 +1,10 @@
-import './App.css';
-import HomePage from './Page/HomePage';
-
+import "./App.css";
+import InsuranceRouter from "./Config/routers";
+import { DataProvider } from "./Context/data-context";
 function App() {
   return (
     <div className="App">
-      <HomePage/>
+     <DataProvider><InsuranceRouter/></DataProvider>
     </div>
   );
 }
