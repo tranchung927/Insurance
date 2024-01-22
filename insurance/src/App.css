@@ -1,78 +1,181 @@
-.App {
-  text-align: center;
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Remove list styling */
+ul, ol {
+    list-style: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Remove default styles on anchor tags */
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+body {
+     font-family: 'Roboto', sans-serif;
+    font-size: 16px ;
+    line-height: 1.6;
+    
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-.nav-home-page {
-  flex-grow: 1;
-  gap: 24px;
-}
-.nav-item:hover {
-  color: #007bff!important;
-}
-/* styles.css */
-
-/* Màu khi hover */
-.navbar-nav .nav-item:hover {
-  background-color: #fff;/* Màu nền khi hover */
-}
-
-/* Hiệu ứng dropdown */
-.navbar-nav .nav-item:hover .nav-link {
-  color: #007bff; /* Màu chữ khi hover */
+/* Các thẻ có thuộc tính chung */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure it's above other elements */
+  height: 70px;
   background-color: #fff;
 }
-
-/* Màu khi được chọn */
-.navbar-nav .nav-item.active .nav-link {
-  color: #007bff !important; /* Màu chữ khi được chọn */
-  font-weight: bold; /* Độ đậm khi được chọn */
+.tap-btn {
+  padding: 23px 10px !important;
+ 
 }
 
-/* Màu của dropdown menu */
-.navbar-nav .nav-item .dropdown-menu {
-  background-color: #fff; /* Màu nền của dropdown menu */
+.btn-padding {
+  padding: 12px  !important;
 }
 
-/* Màu chữ trong dropdown menu */
-.navbar-nav .nav-item .dropdown-menu a {
-  color: #333; /* Màu chữ trong dropdown menu */
-}
 
-/* Màu chữ khi hover trong dropdown menu */
-.navbar-nav .nav-item .dropdown-menu a:hover {
-  color: #007bff; /* Màu chữ khi hover trong dropdown menu */
+.container-fluid {
+    position: relative;
+  
+}
+.nav-a {
+  margin-right: 12px;
+}
+.nav-a :hover {
+    color: #01773D;
+    transition: all ease 0.3s;
+}
+.dropdown-menu {
+    width: 100% !important;
+    left: 0;
+    right: 0;
+  }
+.about-com {
+   padding: 12px 0;
+    background-image: url('./Img/bg-about-com.png'); /* Đặt đường dẫn đến hình nền của bạn */
+    background-size: cover; /* Chọn kiểu kích thước hình nền */
+    background-position: center; /* Căn chỉnh vị trí hình nền */
+  
+   /* Đặt kích thước hình nền là auto */
+    background-repeat: repeat;
+   
+}  
+.offer-bg {
+  padding: 12px ;
+  background-image: url('./Img/bg-offer.jpg'); /* Đặt đường dẫn đến hình nền của bạn */
+  background-size: cover; /* Chọn kiểu kích thước hình nền */
+  background-position: center; /* Căn chỉnh vị trí hình nền */
+  
+ /* Đặt kích thước hình nền là auto */
+  background-repeat: repeat;
+}
+.location-header {
+  color: #fff;
+  padding: 56px ;
+  background-image: url('./Img/bg-thonhtin.jpeg'); /* Đặt đường dẫn đến hình nền của bạn */
+  background-size: cover; /* Chọn kiểu kích thước hình nền */
+  background-position: center; /* Căn chỉnh vị trí hình nền */
+  border-radius: 20px;
+  
+ /* Đặt kích thước hình nền là auto */
+  background-repeat: repeat;
+}
+.company-introduction {
+    background-size: cover;
+    background-position: center center;
+    padding: 120px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .company-introduction h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+
+  .company-introduction p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+  }
+
+  .advantages {
+    display: flex;
+  
+    margin-bottom: 30px;
+    flex-direction: column;
+  }
+
+  .advantage {
+    flex: 0 0 30%;
+    text-align: center;
+  }
+
+  .contact-info {
+    font-size: 1.2em;
+  }
+
+  .navbar-nav .nav-link {
+    position: relative;
+    transition: color 0.3s; /* Smooth transition for color change */
+  }
+
+  .navbar-nav .nav-link::before {
+    content: '';
+    width: 0%;
+    height: 3px;
+    background: #01773D;
+    position: absolute;
+    left: 0;
+    bottom: -14px;
+    border-radius: 2px 2px 0px 0px;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    
+  }
+
+  .navbar-nav .nav-link:hover::before,
+  .navbar-nav .nav-link:focus::before {
+    width: 100%; /* Set the width to 100% on hover or focus */
+  }
+  .loyalCustomer {
+    padding: 12px;
+    border-radius: 10px;
+    font-size: x-large;
+    background-color: rgb(241 242 244);
+  }
+  .navbar-nav .dropdown-menu { 
+    margin-top: 14px;
+}
+.btn-hea-info {
+  padding: 16px 20px !important;
+    color: #01773D !important;
+    background-color: #fff !important;
+    border-radius: 10px;
+    min-width: 179px;
+    display: inline-block;
+    text-align: center;
+    font-weight: 600 !important;
+    
+}
+.btn-hea-info:hover {
+  color: #fff !important;
+    background-color: #01773D !important;
+    border: 1px solid #fff !important;
+}
+.footer-page{
+  background-color: #01773D;
+  color: #fff;
+  padding: 3% 0%;
 }
