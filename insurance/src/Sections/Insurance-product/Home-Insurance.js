@@ -12,7 +12,6 @@ import {
   Grid,
   TextField,
   Autocomplete,
-  Link,
 } from "@mui/material";
 
 import { DataContext } from "../../Context/data-context";
@@ -32,7 +31,7 @@ import * as Yup from "yup";
 
 const City = ["Tp.Hcm", "Hà Nội"];
 
-function LifeInsurance() {
+function HomeInsurance() {
   const [insuranceType, setInsuranceType] = useState({});
   const [finterData, setFinterData] = useState([]);
   const [otherProduct, setOtherProduct] = useState([]);
@@ -49,7 +48,9 @@ function LifeInsurance() {
     validationSchema: Yup.object({
       fullName: Yup.string().required("Field is required"),
       phoneNumber: Yup.string().required("Phone Number is required"),
-      email: Yup.string().email("Invalid email format"),
+      email: Yup.string()
+        .email("Invalid email format")
+       
     }),
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
@@ -58,7 +59,7 @@ function LifeInsurance() {
 
   useEffect(() => {
     const filteredInsuranceTypes = insuranceTypes.filter(
-      (item) => item.typeId === 1
+      (item) => item.typeId === 4
     );
     if (filteredInsuranceTypes.length > 0) {
       setInsuranceType(filteredInsuranceTypes[0]);
@@ -81,7 +82,7 @@ function LifeInsurance() {
       );
       setOtherProduct(data);
     }
-  }, [insuranceTypes, insuranceType]);
+  }, [insuranceTypes,insuranceType]);
 
   return (
     <>
@@ -113,7 +114,7 @@ function LifeInsurance() {
                 color: "#fff",
               }}
             >
-              Life Insurance
+             {insuranceType && insuranceType.typeName}
             </Typography>
           </Stack>
         </Stack>
@@ -177,7 +178,7 @@ function LifeInsurance() {
           </Stack>
           <Stack sx={{ flex: 1 }}>
             <img
-              src={`https://localhost:7064/InsuranceType/1`}
+              src={`https://localhost:7064/InsuranceType/${insuranceType.typeId}`}
               alt="Insurance House"
               style={{
                 width: "100%",
@@ -291,14 +292,14 @@ function LifeInsurance() {
                     color: "#02904a",
                   }}
                 >
-                  {insuranceType.typeName}
+                    {insuranceType.typeName}
                 </Typography>
               </Stack>
             </Stack>
             <Grid container spacing={2} sx={{ margin: "0px -18px !important" }}>
               {finterData.map((item, index) => (
                 <Grid item key={index} xs={12} sm={6} md={4}>
-                  <Card sx={{ height: 350 }}>
+                  <Card>
                     <CardActionArea>
                       <CardMedia
                         component="img"
@@ -505,7 +506,7 @@ function LifeInsurance() {
             <Grid container spacing={2} sx={{ margin: "0px -18px !important" }}>
               {otherProduct.map((item, index) => (
                 <Grid item key={index} xs={12} sm={6} md={4}>
-                  <a
+                   <a
                     href={`http://localhost:3000/product/${item.typeName.split(' ').join('')}`}
                     style={{ textDecoration: "none" }}
                   >
@@ -513,9 +514,10 @@ function LifeInsurance() {
                       <CardActionArea>
                         <CardMedia
                           component="img"
-                          height="100%"
+                          
                           image={`https://localhost:7064/InsuranceType/${item.typeId}`}
                           alt="green iguana"
+                          height="240px" 
                         />
                         <Stack
                           direction={{ xs: "column", sm: "row" }}
@@ -551,4 +553,4 @@ function LifeInsurance() {
   );
 }
 
-export default LifeInsurance;
+export default HomeInsurance;

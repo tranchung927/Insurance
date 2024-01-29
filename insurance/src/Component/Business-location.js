@@ -62,7 +62,7 @@ function BusinessLocation() {
         <Stack>
           <Button
             variant="outlined"
-            className="btn-hea-info"
+            className="btn-hea-info-white"
             sx={{
               margin: {
                 xs: "12px",

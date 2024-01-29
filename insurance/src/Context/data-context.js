@@ -6,9 +6,11 @@ export const DataContext = createContext();
 
 export const DataProvider = ({children}) => {
   const [insuranceTypes,setInsuranceType] = useState([]);
+  const [productNews,setProductNews] = useState([]);
+  // get all product
   useEffect(() => {
     axios
-      .get("https://localhost:7064/InsuranceType/getAll")
+      .get("https://localhost:7064/InsuranceType/getAllWithImages")
       .then((response) => {
         setInsuranceType(response.data);
       })
@@ -16,7 +18,19 @@ export const DataProvider = ({children}) => {
         console.error("Lỗi khi gọi API:", error);
       });
   }, []);
-  console.log(insuranceTypes)
+  // gett all product news
+  useEffect(() => {
+    axios
+      .get("https://localhost:7064/NewsInsuranceType/GetAllNewsInsuranceType")
+      .then((response) => {
+        setProductNews(response.data);
+      })
+      .catch((error) => {
+        console.error("Lỗi khi gọi API:", error);
+      });
+  }, []);
+  console.log(productNews);
+
   const peopleArray = [
     {
       name: "John Doe",
@@ -125,9 +139,8 @@ export const DataProvider = ({children}) => {
 
   return (
     <DataContext.Provider
-    value={{
-      
-      peopleArray,insuranceTypes, navItems, news
+    value={{ 
+      peopleArray,insuranceTypes, navItems, news,productNews
     }}
   >
     {children}
