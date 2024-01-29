@@ -1,15 +1,7 @@
 import React from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import {
- 
-  Button,
-  
-  AppBar,
-  IconButton,
-  Drawer,
-  Stack,
-} from "@mui/material";
+import { Button, AppBar, IconButton, Drawer, Stack } from "@mui/material";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
@@ -34,28 +26,25 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 
 import Collapse from "@mui/material/Collapse";
 
-
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { DataContext } from "../Context/data-context";
 
-
 const drawerWidth = 240;
 function Header(props) {
-
-    const { window } = props;
+  const { window } = props;
   const [value, setValue] = React.useState("1");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorElService, setAnchorElService] = React.useState(null);
 
   const [openChilProduct, setOpenChilProduct] = React.useState(false);
   const [openChilService, setOpenChilService] = React.useState(false);
-  const { insuranceTypes, navItems} =
-    useContext(DataContext);
-   
+  const { insuranceTypes, navItems } = useContext(DataContext);
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    if (newValue !== value) {
+      setValue(newValue);
+    }
   };
   const handleClickProduct = (event) => {
     setAnchorEl(event.currentTarget);
@@ -69,7 +58,6 @@ function Header(props) {
   const handleCloseService = () => {
     setAnchorElService(null);
   };
-  
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -136,7 +124,7 @@ function Header(props) {
         </ListItem>
 
         <Collapse in={openChilService} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
+          <List component="div" disablePadding>
             {navItems[2].children.map((chil, index) => (
               <Link
                 to={`/${chil}`}
@@ -167,8 +155,9 @@ function Header(props) {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
-    return ( <>
-     <AppBar component="nav" sx={{ backgroundColor: "white" }}>
+  return (
+    <>
+      <AppBar component="nav" sx={{ backgroundColor: "white" }}>
         <Toolbar
           sx={{
             margin: {
@@ -193,7 +182,9 @@ function Header(props) {
               component="div"
               sx={{ display: { xs: "none", sm: "block" }, color: "#000" }}
             >
-              Logo
+              <Link to="/" style={{ textDecoration: "none", color: "#000" }}>
+                Logo
+              </Link>
             </Typography>
             <Box
               sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center" }}
@@ -219,7 +210,6 @@ function Header(props) {
                       label={navItems[0].label}
                       value="1"
                       className="tap-btn"
-                      href="/Live%20Insurance"
                     />
 
                     <Tab
@@ -268,16 +258,22 @@ function Header(props) {
                   "aria-labelledby": "basic-button",
                 }}
               >
-                {insuranceTypes.map((item, index) => (
-                  <MenuItem key={index} onClick={handleClose}>
-                    <Link
-                       to={`/${"product/" + item.typeName.replace(/\s/g, '')}`}
-                      style={{ textDecoration: "none", color: "#000" }}
-                    >
-                      {item.typeName}
-                    </Link>
-                  </MenuItem>
-                ))}
+                {insuranceTypes.map((item, index) => {
+                  const productLink = `/${
+                    "product/" + item.typeName.replace(/\s/g, "")
+                  }`;
+
+                  return (
+                    <MenuItem key={index} onClick={handleClose}>
+                      <Link
+                        to={productLink}
+                        style={{ textDecoration: "none", color: "#000" }}
+                      >
+                        {item.typeName}
+                      </Link>
+                    </MenuItem>
+                  );
+                })}
               </Menu>
               <Menu
                 id="basic-menu-service"
@@ -301,7 +297,7 @@ function Header(props) {
               </Menu>
             </Box>
           </div>
-          <Button variant="contained" color="success" className="btn-padding">
+          <Button variant="contained" className="btn-hea-info-green">
             Register now
           </Button>
         </Toolbar>
@@ -325,7 +321,8 @@ function Header(props) {
           <div onClick={(e) => e.stopPropagation()}>{drawer}</div>
         </Drawer>
       </nav>
-    </> );
+    </>
+  );
 }
 
 export default Header;

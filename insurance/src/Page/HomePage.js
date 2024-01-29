@@ -199,15 +199,15 @@ const HomePage = () => {
                 <CardActionArea>
                   <CardMedia
                     component="img"
-                    height="140"
-                    image={require("../Img/insurance-house.jpeg")}
+                    height="200px"
+                    src={`https://localhost:7064/InsuranceType/${insurance.typeId}`}
                     alt="green iguana"
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                       {insurance.typeName}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="text.secondary" minHeight={"240px"}>
                       {insurance.description}
                     </Typography>
                   </CardContent>
