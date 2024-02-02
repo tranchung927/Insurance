@@ -27,8 +27,11 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
 
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { DataContext } from "../Context/data-context";
+
+import Contact from "../Page/Contact";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 function Header(props) {
@@ -36,16 +39,17 @@ function Header(props) {
   const [value, setValue] = React.useState("1");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorElService, setAnchorElService] = React.useState(null);
-
   const [openChilProduct, setOpenChilProduct] = React.useState(false);
   const [openChilService, setOpenChilService] = React.useState(false);
-  const { insuranceTypes, navItems } = useContext(DataContext);
+  const { insuranceTypes, navItems, valueTab, handleChangeTab } =
+    useContext(DataContext);
 
   const handleChange = (event, newValue) => {
     if (newValue !== value) {
       setValue(newValue);
     }
   };
+
   const handleClickProduct = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -58,6 +62,11 @@ function Header(props) {
   const handleCloseService = () => {
     setAnchorElService(null);
   };
+  const navigate = useNavigate();
+  const handleContact = () => {
+    navigate("/Contact");
+  };
+
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -68,6 +77,7 @@ function Header(props) {
     e.stopPropagation();
     setMobileOpen(!mobileOpen);
   };
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <div onClick={offDrawerToggle}>
@@ -94,17 +104,18 @@ function Header(props) {
             {openChilProduct ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
         </ListItem>
-
         <Collapse in={openChilProduct} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            {navItems[1].children.map((chil, index) => (
+            {insuranceTypes.map((chil, index) => (
               <Link
-                to={`/${chil}`}
+                to={`http://localhost:3000/product/${chil.typeName
+                  .split(" ")
+                  .join("")}`}
                 key={index}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <ListItemButton sx={{ pl: 4, textAlign: "center" }}>
-                  <ListItemText primary={chil} />
+                  <ListItemText primary={chil.typeName} />
                 </ListItemButton>
               </Link>
             ))}
@@ -144,11 +155,16 @@ function Header(props) {
             <ListItemText primary={navItems[3].label} />
           </ListItemButton>
         </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: "center" }}>
-            <ListItemText primary={navItems[4].label} />
-          </ListItemButton>
-        </ListItem>
+        <ListItem sx={{justifyContent:'center'}}  disablePadding>
+        <Link
+          to={`http://localhost:3000/Contact`}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >      
+            <ListItemButton sx={{ textAlign: "center" ,justifyContent:"center"}} onClick={offDrawerToggle}>
+              <ListItemText primary={navItems[4].label} />
+            </ListItemButton>
+        </Link>
+          </ListItem>
       </List>
     </Box>
   );
@@ -182,7 +198,13 @@ function Header(props) {
               component="div"
               sx={{ display: { xs: "none", sm: "block" }, color: "#000" }}
             >
-              <Link to="/" style={{ textDecoration: "none", color: "#000" }}>
+              <Link
+                to="/"
+                style={{ textDecoration: "none", color: "#000" }}
+                onClick={() => {
+                  setValue("1");
+                }}
+              >
                 Logo
               </Link>
             </Typography>
@@ -245,6 +267,8 @@ function Header(props) {
                       label={navItems[4].label}
                       value="5"
                       className="tap-btn"
+                      // href="/Contact"
+                      onClick={handleContact}
                     />
                   </TabList>
                 </Box>
