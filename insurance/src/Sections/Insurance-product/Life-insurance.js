@@ -29,6 +29,11 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const City = ["Tp.Hcm", "Hà Nội"];
 
@@ -37,6 +42,15 @@ function LifeInsurance() {
   const [finterData, setFinterData] = useState([]);
   const [otherProduct, setOtherProduct] = useState([]);
   const { insuranceTypes, productNews } = useContext(DataContext);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleClickOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -53,6 +67,8 @@ function LifeInsurance() {
     }),
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
+      console.log(values.fullName);
+      setOpenDialog(false);
     },
   });
 
@@ -162,6 +178,7 @@ function LifeInsurance() {
                   size="small"
                   className="btn-hea-info-green"
                   variant="contained"
+                  onClick={handleClickOpenDialog}
                 >
                   Further Advice
                 </Button>
@@ -506,7 +523,9 @@ function LifeInsurance() {
               {otherProduct.map((item, index) => (
                 <Grid item key={index} xs={12} sm={6} md={4}>
                   <a
-                    href={`http://localhost:3000/product/${item.typeName.split(' ').join('')}`}
+                    href={`http://localhost:3000/product/${item.typeName
+                      .split(" ")
+                      .join("")}`}
                     style={{ textDecoration: "none" }}
                   >
                     <Card sx={{ height: 550 }}>
@@ -546,6 +565,114 @@ function LifeInsurance() {
         </Box>
         <BusinessLocation />
         <Footer />
+        <Dialog
+          open={openDialog}
+          fullWidth
+          onClose={handleClose}
+          // PaperProps={{
+          //   component: "form",
+          //   onSubmit: (event) => {
+          //     event.preventDefault();
+          //     const formData = new FormData(event.currentTarget);
+          //     const formJson = Object.fromEntries(formData.entries());
+          //     const email = formJson.email;
+          //     console.log(email);
+          //     handleClose();
+          //   },
+          // }}
+        >
+          {/* Dialog */}
+          <DialogTitle> Want advice about products?</DialogTitle>
+          <DialogContent>
+            <form onSubmit={formik.handleSubmit}>
+              <Stack spacing={{ xs: 1, sm: 2, md: 4 }}>
+                <TextField
+                  id="fullName"
+                  label="customer's full name"
+                  variant="outlined"
+                  size="small"
+                  {...formik.getFieldProps("fullName")}
+                  error={
+                    formik.touched.fullName && Boolean(formik.errors.fullName)
+                  }
+                  helperText={formik.touched.fullName && formik.errors.fullName}
+                />
+                <TextField
+                  id="phoneNumber"
+                  label="Phone number"
+                  variant="outlined"
+                  size="small"
+                  {...formik.getFieldProps("phoneNumber")}
+                  error={
+                    formik.touched.phoneNumber &&
+                    Boolean(formik.errors.phoneNumber)
+                  }
+                  helperText={
+                    formik.touched.phoneNumber && formik.errors.phoneNumber
+                  }
+                />
+                <TextField
+                  id="Email"
+                  label="Email"
+                  variant="outlined"
+                  size="small"
+                  {...formik.getFieldProps("Email")}
+                  error={formik.touched.Email && Boolean(formik.errors.Email)}
+                  helperText={formik.touched.Email && formik.errors.Email}
+                />
+                {/* Other fields */}
+                <FormControl>
+                  <FormLabel id="demo-row-radio-buttons-group-label">
+                    Gender
+                  </FormLabel>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="row-radio-buttons-group"
+                    {...formik.getFieldProps("gender")}
+                  >
+                    <FormControlLabel
+                      value="female"
+                      control={<Radio />}
+                      label="Female"
+                    />
+                    <FormControlLabel
+                      value="male"
+                      control={<Radio />}
+                      label="Male"
+                    />
+                  </RadioGroup>
+                </FormControl>
+                <Autocomplete
+                  disablePortal
+                  options={City}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Select city and province"
+                      size="small"
+                    />
+                  )}
+                  value={formik.values.selectedCity}
+                  onChange={(event, value) => {
+                    formik.setFieldValue("selectedCity", value);
+                  }}
+                />
+                {/* <Button
+                      variant="contained"
+                      className="btn-hea-info-green"
+                      type="submit"
+                    >
+                      Send information
+                    </Button> */}
+                <DialogActions>
+                  <Button onClick={handleClose}>Cancel</Button>
+                  <Button type="submit">Subscribe</Button>
+                </DialogActions>
+              </Stack>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
     </>
   );

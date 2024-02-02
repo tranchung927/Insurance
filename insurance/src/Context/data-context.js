@@ -1,4 +1,4 @@
-import { createContext,useState,useEffect} from "react";
+import { createContext,useState,useEffect,useContext} from "react";
 import BannerNew from "../Img/banner-news.webp";
 
 import axios from "axios";
@@ -7,10 +7,21 @@ export const DataContext = createContext();
 export const DataProvider = ({children}) => {
   const [insuranceTypes,setInsuranceType] = useState([]);
   const [productNews,setProductNews] = useState([]);
+  const [businesslocation,getBussinessLocation] = useState([]);
+  const [provinces,setProvinces] = useState([]);
+  const [valueTab, setValueTab] = useState("0");
+  const [getAllProvince,setGetAllProvince] = useState([]);
+
+
+  console.log(valueTab)
+  const handleChangeTab = (event, newValue) => {
+    setValueTab(newValue);
+  };
+
   // get all product
   useEffect(() => {
     axios
-      .get("https://localhost:7064/InsuranceType/getAllWithImages")
+      .get("https://localhost:7064/InsuranceType/getAll")
       .then((response) => {
         setInsuranceType(response.data);
       })
@@ -29,7 +40,42 @@ export const DataProvider = ({children}) => {
         console.error("Lỗi khi gọi API:", error);
       });
   }, []);
-  console.log(productNews);
+  // gett all business location
+  useEffect(() => {
+    axios
+      .get("https://localhost:7064/BusinessLocation/GetAll")
+      .then((response) => {
+        getBussinessLocation(response.data);
+      })
+      .catch((error) => {
+        console.error("Lỗi khi gọi API:", error);
+      });
+  }, []);
+  
+  // gett all province
+  useEffect(() => {
+    axios
+      .get("https://localhost:7064/Province/GetProvince")
+      .then((response) => {
+        setProvinces(response.data);
+      })
+      .catch((error) => {
+        console.error("Lỗi khi gọi API:", error);
+      });
+  }, []);
+   // get all product
+   useEffect(() => {
+    axios
+      .get("https://vapi.vnappmob.com/api/province/")
+      .then((response) => {
+       setGetAllProvince(response.data);
+      })
+      .catch((error) => {
+        console.error("Lỗi khi gọi API:", error);
+      });
+  }, []);
+ 
+  
 
   const peopleArray = [
     {
@@ -87,12 +133,6 @@ export const DataProvider = ({children}) => {
     { label: "Introduce" },
     {
       label: "Product",
-      children: [
-        "Life Insurance",
-        "Medical Insurance",
-        "Moto Insurance",
-        "Home Insurance",
-      ],
     },
     { label: "Service", children: ["Suport ", "Other"] },
     { label: "News" },
@@ -136,11 +176,12 @@ export const DataProvider = ({children}) => {
     },
   ];
   
-
+console.log(getAllProvince)
   return (
     <DataContext.Provider
     value={{ 
-      peopleArray,insuranceTypes, navItems, news,productNews
+      peopleArray,insuranceTypes, navItems, news,productNews,businesslocation,provinces,getAllProvince
+      ,valueTab,handleChangeTab
     }}
   >
     {children}

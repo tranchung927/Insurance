@@ -31,7 +31,6 @@ import Header from "../Component/header";
 import Footer from "../Component/footer";
 import BusinessLocation from "../Component/Business-location";
 
-
 const HomePage = () => {
   const { peopleArray, insuranceTypes, navItems, news } =
     useContext(DataContext);
@@ -153,7 +152,7 @@ const HomePage = () => {
                 </strong>
               </p>
             </div>
-            <div style={{ marginTop: "12px", marginLeft: "40px" }}>
+            {/* <div style={{ marginTop: "12px", marginLeft: "40px" }}>
               <Button
                 variant="contained"
                 color="success"
@@ -162,7 +161,7 @@ const HomePage = () => {
               >
                 Detail now
               </Button>
-            </div>
+            </div> */}
           </Box>
         </Stack>
       </Stack>
@@ -192,39 +191,57 @@ const HomePage = () => {
             What Are We Offering
           </Typography>
         </Stack>
-        <Stack direction={{ xs: "column", sm: "row" }} spacing={3}>
-          {insuranceTypes.map((insurance, index) => (
-            <Stack key={index}>
-              <Card>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    height="200px"
-                    src={`https://localhost:7064/InsuranceType/${insurance.typeId}`}
-                    alt="green iguana"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {insurance.typeName}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" minHeight={"240px"}>
-                      {insurance.description}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
+        
+        <Grid container spacing={2} sx={{ margin: "0px -18px !important" }}>
+          {insuranceTypes.map((item, index) => (
+            <Grid item key={index} xs={12} sm={6} md={3}>
+              <a
+                href={`http://localhost:3000/product/${item.typeName
+                  .split(" ")
+                  .join("")}`}
+                style={{ textDecoration: "none" }}
+              >
+                <Card sx={{ height: "660px" }}>
+                  <CardActionArea>
+                    <CardMedia
+                      component="img"
+                      image={`https://localhost:7064/InsuranceType/${item.typeId}`}
+                      alt="green iguana"
+                      height="240px"
+                    />
+                    <Stack
+                      direction={{ xs: "column", sm: "row" }}
+                      spacing={2}
+                      sx={{ padding: "16px 0px 0px 16px" }}
+                    >
+                      <Typography variant="h5">{item.typeName}</Typography>
+                    </Stack>
+                    <CardContent sx={{ paddingTop: "0px" }}>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        minHeight={"260px"}
+                      >
+                        {item.description}
+                      </Typography>
+                    </CardContent>
+                    
+                  </CardActionArea>
+                  <CardActions >
                   <Button
                     variant="contained"
                     color="success"
                     endIcon={<ArrowForwardIcon />}
+                    textAlign="center"
                   >
                     Detail now
                   </Button>
-                </CardActions>
-              </Card>
-            </Stack>
+                  </CardActions>
+                </Card>
+              </a>
+            </Grid>
           ))}
-        </Stack>
+        </Grid>
       </Stack>
       {/* news */}
       <Box sx={{ backgroundColor: "#fafafa" }}>
@@ -316,7 +333,7 @@ const HomePage = () => {
         </Stack>
       </Box>
       {/* LIên hệ */}
-      <BusinessLocation/>
+      <BusinessLocation />
       {/* footer */}
       <Footer />
     </>
