@@ -69,6 +69,7 @@ function BusinessLocation() {
                 sm: "0",
               },
             }}
+            href="/Contact"
           >
             Find out more
           </Button>
