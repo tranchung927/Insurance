@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.4" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\4c290cc4-321c-44e1-bcda-21e1d0cf7a5d_25-hinh-nen-powerpoint-doc-dao-va-sang-tao-13.jpg" />
+    <None Include="wwwroot\77e13e9f-557b-4587-b6e9-702449de4758_bear-80.gif" />
+    <None Include="wwwroot\a0850256-f759-4f55-a3fa-4ec20f87c2d5_25-hinh-nen-powerpoint-doc-dao-va-sang-tao-13.jpg" />
+    <None Include="wwwroot\bbb.png" />
+  </ItemGroup>
+
+</Project>
