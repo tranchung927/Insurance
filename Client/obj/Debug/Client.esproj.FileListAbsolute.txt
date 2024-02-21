@@ -1,1 +1,2 @@
 C:\Users\ChungTV\Downloads\Insurance\Insurance\Client\obj\Debug\client.esproj.CoreCompileInputs.cache
+C:\Users\Soap\Source\Repos\Insurance\Client\obj\Debug\Client.esproj.CoreCompileInputs.cache
