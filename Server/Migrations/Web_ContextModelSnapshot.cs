@@ -211,6 +211,101 @@ namespace Server.Migrations
                     b.ToTable("insurance_type");
                 });
 
+            modelBuilder.Entity("Server.Data.HomeInsurance.HomeCoefficientEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<float>("Coefficient")
+                        .HasColumnType("real");
+
+                    b.Property<int>("HomeTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SizeTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HomeTypeId");
+
+                    b.HasIndex("SizeTypeId");
+
+                    b.ToTable("home_coefficient");
+                });
+
+            modelBuilder.Entity("Server.Data.HomeInsurance.HomeTypeEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("home_type");
+                });
+
+            modelBuilder.Entity("Server.Data.HomeInsurance.RiskCoefficientEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Value")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("risk_coefficient");
+                });
+
+            modelBuilder.Entity("Server.Data.HomeInsurance.SizeTypeEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("size_type");
+                });
+
             modelBuilder.Entity("Server.Data.LifeInsurance.DeathRateEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -490,6 +585,25 @@ namespace Server.Migrations
                     b.Navigation("InsuranceType");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Server.Data.HomeInsurance.HomeCoefficientEntity", b =>
+                {
+                    b.HasOne("Server.Data.HomeInsurance.HomeTypeEntity", "HomeType")
+                        .WithMany()
+                        .HasForeignKey("HomeTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Server.Data.HomeInsurance.SizeTypeEntity", "SizeType")
+                        .WithMany()
+                        .HasForeignKey("SizeTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("HomeType");
+
+                    b.Navigation("SizeType");
                 });
 
             modelBuilder.Entity("Server.Data.VehicleInsurance.VehiclePropertyEntity", b =>

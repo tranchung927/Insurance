@@ -19,6 +19,9 @@ using Server.Models.LifeInsurance;
 using Server.Repositories.LifeInsurance;
 using Server.Models.VehicleInsurance;
 using Server.Repositories.VehicleInsurance;
+using Server.Data.HomeInsurance;
+using Server.Repositories.HomeInsurance;
+using Server.Models.HomeInsurance;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -90,13 +93,27 @@ builder.Services.AddAutoMapper(typeof(Program));
 // đăng ký các lớp repository với phạm vi "Scoped". Điều này sẽ đảm bảo rằng mỗi yêu cầu web
 // sẽ có một thể hiện riêng của các lớp repository, và dữ liệu sẽ không bị lẫn lộn giữa các yêu cầu khác nhau.
 
+// người dùng
+builder.Services.AddScoped<IUsers_Repo, Users_Repo>();
+
+// bảo hiểm nhân thọ
 builder.Services.AddScoped<IRepository<JobsRiskModel>, JobsRisk_Repo>();
-builder.Services.AddScoped<IUsers_Repo,Users_Repo>();
-builder.Services.AddScoped<IRepository<InformationModel>, ClientSupport_Repo>();
 builder.Services.AddScoped<IRepository<DeathRateModel>, DeathRate_Repo>();
+builder.Services.AddScoped<IRepository<WorkplaceModel>, Workplace_Repo>();
+
+// chăm sóc khách hàng
+builder.Services.AddScoped<IRepository<InformationModel>, ClientSupport_Repo>();
+builder.Services.AddScoped<IRepository<InsuranceTypeModel>, InsuranceType_Repo>();
+
+// bảo hiểm xe
 builder.Services.AddScoped<IRepository<VehicleTypeModel>, VehicleType_Repo>();
 builder.Services.AddScoped<IRepository<VehiclePropertyModel>, VehicleProperty_Repo>();
-builder.Services.AddScoped<IRepository<WorkplaceModel>, Workplace_Repo>();
+
+// bảo hiểm nhà ở
+builder.Services.AddScoped<IRepository<HomeCoefficientModel>, HomeCoefficient_Repo>();
+builder.Services.AddScoped<IRepository<HomeTypeModel>, HomeType_Repo>();
+builder.Services.AddScoped<IRepository<SizeTypeModel>, SizeType_Repo>();
+builder.Services.AddScoped<IRepository<RiskCoefficientModel>, RiskCoefficient_Repo>();
 
 
 // Thêm dịch vụ xác thực vào DI container của ứng dụng.

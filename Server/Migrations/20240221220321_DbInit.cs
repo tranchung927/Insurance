@@ -69,6 +69,20 @@ namespace Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "home_type",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_home_type", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "insurance_type",
                 columns: table => new
                 {
@@ -95,6 +109,35 @@ namespace Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_jobs_risk", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "risk_coefficient",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    Value = table.Column<float>(type: "real", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_risk_coefficient", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "size_type",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_size_type", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -263,6 +306,34 @@ namespace Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "home_coefficient",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HomeTypeId = table.Column<int>(type: "int", nullable: false),
+                    SizeTypeId = table.Column<int>(type: "int", nullable: false),
+                    Coefficient = table.Column<float>(type: "real", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_home_coefficient", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_home_coefficient_home_type_HomeTypeId",
+                        column: x => x.HomeTypeId,
+                        principalTable: "home_type",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_home_coefficient_size_type_SizeTypeId",
+                        column: x => x.SizeTypeId,
+                        principalTable: "size_type",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "vehicle_property",
                 columns: table => new
                 {
@@ -324,6 +395,16 @@ namespace Server.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_home_coefficient_HomeTypeId",
+                table: "home_coefficient",
+                column: "HomeTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_home_coefficient_SizeTypeId",
+                table: "home_coefficient",
+                column: "SizeTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_information_InsuranceTypeId",
                 table: "information",
                 column: "InsuranceTypeId");
@@ -360,10 +441,16 @@ namespace Server.Migrations
                 name: "death_rate");
 
             migrationBuilder.DropTable(
+                name: "home_coefficient");
+
+            migrationBuilder.DropTable(
                 name: "information");
 
             migrationBuilder.DropTable(
                 name: "jobs_risk");
+
+            migrationBuilder.DropTable(
+                name: "risk_coefficient");
 
             migrationBuilder.DropTable(
                 name: "vehicle_property");
@@ -373,6 +460,12 @@ namespace Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "home_type");
+
+            migrationBuilder.DropTable(
+                name: "size_type");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
