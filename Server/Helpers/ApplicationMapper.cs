@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Server.Data.ClientSupport;
 using Server.Data.LifeInsurance;
-using Server.Data.Users;
+using Server.Data.VehicleInsurance;
 using Server.Models.ClientSupport;
 using Server.Models.LifeInsurance;
-using Server.Models.Users;
+using Server.Models.VehicleInsurance;
 
 namespace Server.Helpers
 {
@@ -14,21 +14,26 @@ namespace Server.Helpers
         // các cấu hình map
         public ApplicationMapper()
         {
-            // bỏ qua id
+            // Information 
             CreateMap<InformationModel, InformationEntity>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
-            // lấy hết
             CreateMap<InformationEntity, InformationModel>();
 
-            // bỏ qua id
+            // JobsRisk
             CreateMap<JobsRiskModel, JobsRiskEntity>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
-            // lấy hết
             CreateMap<JobsRiskEntity, JobsRiskModel>();
 
-            //CreateMap<VehicleTypeModel, VehicleType>()
-            //    .ForMember(dest => dest.Id, opt => opt.Ignore());
-            //CreateMap<VehicleType, VehicleTypeModel>();
+            // VehicleType
+            CreateMap<VehicleTypeModel, VehicleTypeEntity>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
+            CreateMap<VehicleTypeEntity, VehicleTypeModel>();
+
+            // VehicleType
+            CreateMap<VehiclePropertyModel, VehiclePropertyEntity>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
+            CreateMap<VehiclePropertyEntity, VehiclePropertyModel>();
+
 
             // lấy hết hai chiều
             CreateMap<DeathRateEntity, DeathRateModel>().ReverseMap();

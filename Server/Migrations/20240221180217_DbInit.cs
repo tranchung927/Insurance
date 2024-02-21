@@ -98,6 +98,20 @@ namespace Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "vehicle_type",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_vehicle_type", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "workplace",
                 columns: table => new
                 {
@@ -248,6 +262,28 @@ namespace Server.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "vehicle_property",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Property = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    Value = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    VehicleTypeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_vehicle_property", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_vehicle_property_vehicle_type_VehicleTypeId",
+                        column: x => x.VehicleTypeId,
+                        principalTable: "vehicle_type",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -296,6 +332,11 @@ namespace Server.Migrations
                 name: "IX_information_UsersId",
                 table: "information",
                 column: "UsersId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_vehicle_property_VehicleTypeId",
+                table: "vehicle_property",
+                column: "VehicleTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -325,6 +366,9 @@ namespace Server.Migrations
                 name: "jobs_risk");
 
             migrationBuilder.DropTable(
+                name: "vehicle_property");
+
+            migrationBuilder.DropTable(
                 name: "workplace");
 
             migrationBuilder.DropTable(
@@ -335,6 +379,9 @@ namespace Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "insurance_type");
+
+            migrationBuilder.DropTable(
+                name: "vehicle_type");
         }
     }
 }

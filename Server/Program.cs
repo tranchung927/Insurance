@@ -17,6 +17,8 @@ using Server.Models.ClientSupport;
 using Server.Repositories.ClientSupport;
 using Server.Models.LifeInsurance;
 using Server.Repositories.LifeInsurance;
+using Server.Models.VehicleInsurance;
+using Server.Repositories.VehicleInsurance;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -89,14 +91,13 @@ builder.Services.AddAutoMapper(typeof(Program));
 // sẽ có một thể hiện riêng của các lớp repository, và dữ liệu sẽ không bị lẫn lộn giữa các yêu cầu khác nhau.
 
 builder.Services.AddScoped<IRepository<JobsRiskModel>, JobsRisk_Repo>();
-builder.Services.AddScoped<IUsers_Repo, Users_Repo>();
+builder.Services.AddScoped<IUsers_Repo,Users_Repo>();
 builder.Services.AddScoped<IRepository<InformationModel>, ClientSupport_Repo>();
 builder.Services.AddScoped<IRepository<DeathRateModel>, DeathRate_Repo>();
-
-
-//builder.Services.AddScoped<IVehicleProperty, VehicleProperty_Repo>();
-//builder.Services.AddScoped<IVehicleType, VehicleType_Repo>();
+builder.Services.AddScoped<IRepository<VehicleTypeModel>, VehicleType_Repo>();
+builder.Services.AddScoped<IRepository<VehiclePropertyModel>, VehicleProperty_Repo>();
 builder.Services.AddScoped<IRepository<WorkplaceModel>, Workplace_Repo>();
+
 
 // Thêm dịch vụ xác thực vào DI container của ứng dụng.
 builder.Services.AddAuthentication(options =>
