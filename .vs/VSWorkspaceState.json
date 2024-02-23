@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Controllers"
+    "\\bin",
+    "\\Controllers",
+    "\\wwwroot"
   ],
-  "SelectedNode": "\\Controllers\\NewsController.cs",
+  "SelectedNode": "\\Project3API.sln",
   "PreviewInSolutionExplorer": false
 }
