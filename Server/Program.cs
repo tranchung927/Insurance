@@ -14,14 +14,16 @@ var configuration = builder.Configuration;
 builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
-builder.Services.AddCors(options =>
-    options.AddDefaultPolicy(policy =>
-        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
 builder.Host.RegisterLoggerConfiguration();
 builder.Services.AddHttpContextAccessor();
 builder.Services.RegisterFluentValidation();
 builder.Services.RegisterDatabaseProvider(configuration);
+
+builder.Services.AddCors(options =>
+    options.AddDefaultPolicy(policy =>
+        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+
 builder.Services.RegisterIdentity();
 
 builder.Services.RegisterRepositoryServices();
