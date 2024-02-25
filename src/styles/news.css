@@ -1,0 +1,85 @@
+#newsFeed {
+    max-width: 1200px;
+    margin: 20px auto;
+    display: flex;
+    flex-wrap: wrap; /* Cho phép các phần tử tự động xuống dòng khi không đủ không gian */
+    justify-content: start;
+}
+
+header{ 
+    max-width: 1200px;
+    margin: 20px auto;
+    justify-content: start;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+.newsItem {
+    width: calc(50%); /* Đặt chiều rộng của mỗi phần tử là 50% trừ đi khoảng cách giữa chúng */
+    /* border: 1px solid #ccc; */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px; /* Bo tròn góc */
+    box-sizing: border-box; /* Đảm bảo kích thước của phần tử tính cả padding và border */
+}
+.newsItem:nth-child(n + 3) {
+    width: calc(33.33%); /* 3 items trên mỗi hàng từ item thứ 3 trở đi */
+}
+
+.newsItem:nth-child(n + 3) img {
+    max-height: 213px;
+}
+
+.newsItem p {
+    display: inline-block; /* Để p xuất hiện cùng một dòng */
+    margin-right: 5px; /* Khoảng cách giữa type và date */
+    font-size: 16px;
+}
+header p{
+    padding: 10px;
+}
+
+/* .newsItem p::after, */
+.daucham::after {
+    content: '\25CF'; /* Dấu chấm (Bullet character) */
+    margin: 0 5px; /* Khoảng cách giữa dấu chấm và date */
+    color: #01773D;
+}
+
+.newsItem h2 {
+    margin-top: 0;
+    font-size: 24px; /* Loại bỏ margin top mặc định của h2 */
+}
+
+.newsItem img {
+    width: 100%; /* Đảm bảo rằng ảnh luôn chiếm toàn bộ chiều rộng của phần tử cha */
+    max-height: 325px;
+    height: auto; /* Tự động tính toán chiều cao để giữ tỷ lệ khung hình */
+    border-radius: 4%;
+    transition: transform 0.3s ease; /* Hiệu ứng mượt mà */
+}
+
+.newsItem img:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transform: scale(1.08); /* Phóng to ảnh lên 110% khi di chuột vào */
+}
+.type {
+    color: #01773D;
+}
+/* Responsive CSS */
+@media only screen and (max-width: 600px) {
+    .newsItem {
+        width: 100%; /* Khi màn hình nhỏ hơn 600px, phần tử sẽ chiếm toàn bộ chiều rộng */
+    }
+    .newsItem:nth-child(n + 3) {
+        width: 100%;
+    }
+    .newsItem p, header p {
+        font-size: 12px; /* Giảm kích thước chữ khi màn hình có độ rộng dưới 600px */
+    }
+
+    .newsItem h2 {
+        font-size: 16px; /* Giảm kích thước chữ khi màn hình có độ rộng dưới 600px */
+    }
+}
