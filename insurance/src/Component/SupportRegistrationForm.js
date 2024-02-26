@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, use } from "react";
+import { useContext, useState, useEffect } from "react";
 
 import {
   Stack,
@@ -9,7 +9,7 @@ import {
   Grid,
   TextField,
   Autocomplete,
-  Link,
+  Link,Snackbar,Alert
 } from "@mui/material";
 
 import Card from "@mui/material/Card";
@@ -31,6 +31,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { DataContext } from "../Context/data-context";
+import moment from "moment";
 
 
 
@@ -38,7 +39,17 @@ const City = ["Tp.Hcm", "Hà Nội"];
 
 function SupportRegistration() {
   const[dataProvince,setDataProvince] = useState([]);
-  const {provinces,getAllProvince} = useContext(DataContext)
+  const {provinces,getAllProvince} = useContext(DataContext);
+  const date = moment().utcOffset("+07:00").format("YYYY-MM-DDThh:mm:ss");
+  const[alertCheck,setAlertCheck] = useState(false);
+
+  const handleCloseAlert = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setAlertCheck(false);
+  };
+
 
   useEffect(()=>{
 if(getAllProvince.results != undefined) {
@@ -46,26 +57,55 @@ if(getAllProvince.results != undefined) {
     setDataProvince(provinceIds)
   }
   },[getAllProvince])
+  const formik = useFormik({
+    initialValues: {
+      fullName: "",
+      phoneNumber: "",
+      Email: "",
+      gender: null,
+      selectedCity: null,
+    },
+    validationSchema: Yup.object({
+      fullName: Yup.string().required("Field is required"),
+      phoneNumber: Yup.string().required("Phone Number is required"),
+      email: Yup.string().email("Invalid email format"),
+    }),
+    onSubmit: async (values) => {
+      
+      alert(JSON.stringify(values, null, 2));
+      try {
+        const formData = new FormData();
+        formData.append('fullName', values.fullName);
+        formData.append('phone', values.phoneNumber);
+        formData.append('email', values.Email);
+        formData.append('gender', values.gender);
+        formData.append('province', values.selectedCity.province_name);
   
-    const formik = useFormik({
-        initialValues: {
-          fullName: "",
-          phoneNumber: "",
-          Email: "",
-          gender: null,
-          selectedCity: null,
-        },
-        validationSchema: Yup.object({
-          fullName: Yup.string().required("Field is required"),
-          phoneNumber: Yup.string().required("Phone Number is required"),
-          email: Yup.string().email("Invalid email format"),
-        }),
-        onSubmit: (values) => {
-          alert(JSON.stringify(values, null, 2));
-          console.log(values.fullName);
-          
-        },
-      });
+        // Remove 'Id' if it's not supposed to be manually set
+        // formData.append('Id', 1);
+  
+        // Provide a valid date or remove if not needed
+        formData.append('Id', 1);
+      
+        // Gửi request POST đến endpoint API với FormData
+        const response = await axios.post(
+          'https://localhost:7064/RegisterForConsultation/insert',
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        );
+        setAlertCheck(true);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error inserting data", error);
+      }
+      
+    },
+  });
+  
     return ( <>
     <Stack
           direction={{ xs: "column", sm: "row" }}
@@ -209,6 +249,17 @@ if(getAllProvince.results != undefined) {
             />
           </Stack>
         </Stack>
+         {/* snackbar */}
+         <Snackbar open={alertCheck} autoHideDuration={6000} onClose={handleCloseAlert}>
+        <Alert
+          onClose={handleCloseAlert}
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          Add information success
+        </Alert>
+      </Snackbar>
     </> );
 }
 

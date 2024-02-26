@@ -36,20 +36,22 @@ import { useNavigate } from "react-router-dom";
 const drawerWidth = 240;
 function Header(props) {
   const { window } = props;
-  const [value, setValue] = React.useState("1");
+  
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorElService, setAnchorElService] = React.useState(null);
   const [openChilProduct, setOpenChilProduct] = React.useState(false);
   const [openChilService, setOpenChilService] = React.useState(false);
-  const { insuranceTypes, navItems, valueTab, handleChangeTab } =
+  const { insuranceTypes, navItems,valueNav,setValueNav } =
     useContext(DataContext);
 
   const handleChange = (event, newValue) => {
-    if (newValue !== value) {
-      setValue(newValue);
+    if (newValue !== valueNav) {
+      setValueNav(newValue);
     }
   };
 
+  console.log(valueNav);
+  
   const handleClickProduct = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -65,6 +67,7 @@ function Header(props) {
   const navigate = useNavigate();
   const handleContact = () => {
     navigate("/Contact");
+   
   };
 
 
@@ -202,7 +205,7 @@ function Header(props) {
                 to="/"
                 style={{ textDecoration: "none", color: "#000" }}
                 onClick={() => {
-                  setValue("1");
+                  setValueNav("1");
                 }}
               >
                 Logo
@@ -211,7 +214,7 @@ function Header(props) {
             <Box
               sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center" }}
             >
-              <TabContext value={value}>
+              <TabContext value={valueNav}>
                 <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                   <TabList
                     onChange={handleChange}

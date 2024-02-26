@@ -11,6 +11,7 @@ export const DataProvider = ({children}) => {
   const [provinces,setProvinces] = useState([]);
   const [valueTab, setValueTab] = useState("0");
   const [getAllProvince,setGetAllProvince] = useState([]);
+  const [valueNav, setValueNav] = useState("1");
 
 
   console.log(valueTab)
@@ -181,7 +182,7 @@ console.log(getAllProvince)
     <DataContext.Provider
     value={{ 
       peopleArray,insuranceTypes, navItems, news,productNews,businesslocation,provinces,getAllProvince
-      ,valueTab,handleChangeTab
+      ,valueTab,handleChangeTab,valueNav,setValueNav
     }}
   >
     {children}
