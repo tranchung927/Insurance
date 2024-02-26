@@ -161,7 +161,7 @@ body {
   display: inline-block;
   text-align: center;
   font-weight: 600 !important;
-  
+  border: 1px solid #fff !important;
 }
 .btn-hea-info-white:hover {
   color: #fff !important;
@@ -175,7 +175,6 @@ body {
   border-radius: 10px;
   min-width: 179px;
   border: 1px solid #01773d !important;
- 
   text-align: center;
   font-weight: 600 !important;
 }
