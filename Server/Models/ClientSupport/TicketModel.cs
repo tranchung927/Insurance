@@ -5,9 +5,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Server.Models.ClientSupport
 {
-    public class InformationModel
+    public class TicketModel
     {
         public int Id { get; set; }
+
+        public string Phone { get; set; }
+
+        public string Email { get; set; }
 
         public string Problem { get; set; }
 

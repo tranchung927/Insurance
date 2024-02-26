@@ -28,7 +28,7 @@ namespace Server.Repositories.ClientSupport
 
         async Task<IEnumerable<InsuranceTypeModel>> IRepository<InsuranceTypeModel>.GetAll()
         {
-            var EntityList = await _context.Information?.ToListAsync();
+            var EntityList = await _context.InsuranceType?.ToListAsync();
             return _mapper.Map<List<InsuranceTypeModel>>(EntityList);
         }
 

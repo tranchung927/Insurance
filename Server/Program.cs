@@ -102,7 +102,7 @@ builder.Services.AddScoped<IRepository<DeathRateModel>, DeathRate_Repo>();
 builder.Services.AddScoped<IRepository<WorkplaceModel>, Workplace_Repo>();
 
 // chăm sóc khách hàng
-builder.Services.AddScoped<IRepository<InformationModel>, ClientSupport_Repo>();
+builder.Services.AddScoped<IRepository<TicketModel>, ClientSupport_Repo>();
 builder.Services.AddScoped<IRepository<InsuranceTypeModel>, InsuranceType_Repo>();
 
 // bảo hiểm xe

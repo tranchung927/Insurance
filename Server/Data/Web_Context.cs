@@ -28,7 +28,7 @@ namespace Server.Data
         public DbSet<VehiclePropertyEntity>? VehicleProperty { get; set; }
 
         // chăm sóc khách hàng
-        public DbSet<InformationEntity>? Information { get; set; }
+        public DbSet<TicketEntity>? Ticket { get; set; }
         public DbSet<InsuranceTypeEntity>? InsuranceType { get; set; }
 
         //  bảo hiểm nhà

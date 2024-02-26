@@ -155,41 +155,6 @@ namespace Server.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Server.Data.ClientSupport.InformationEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("InsuranceTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Problem")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UsersId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("InsuranceTypeId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("information");
-                });
-
             modelBuilder.Entity("Server.Data.ClientSupport.InsuranceTypeEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -209,6 +174,51 @@ namespace Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("insurance_type");
+                });
+
+            modelBuilder.Entity("Server.Data.ClientSupport.TicketEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("InsuranceTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("Problem")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsersId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InsuranceTypeId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("ticket");
                 });
 
             modelBuilder.Entity("Server.Data.HomeInsurance.HomeCoefficientEntity", b =>
@@ -568,7 +578,7 @@ namespace Server.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Server.Data.ClientSupport.InformationEntity", b =>
+            modelBuilder.Entity("Server.Data.ClientSupport.TicketEntity", b =>
                 {
                     b.HasOne("Server.Data.ClientSupport.InsuranceTypeEntity", "InsuranceType")
                         .WithMany()

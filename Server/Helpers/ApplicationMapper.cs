@@ -17,9 +17,9 @@ namespace Server.Helpers
         public ApplicationMapper()
         {
             // Information 
-            CreateMap<InformationModel, InformationEntity>()
+            CreateMap<TicketModel, TicketEntity>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
-            CreateMap<InformationEntity, InformationModel>();
+            CreateMap<TicketEntity, TicketModel>();
 
             // JobsRisk
             CreateMap<JobsRiskModel, JobsRiskEntity>()

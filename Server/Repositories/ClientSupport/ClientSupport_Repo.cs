@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Server.Repositories.ClientSupport
 {
-    public class ClientSupport_Repo : IRepository<InformationModel>
+    public class ClientSupport_Repo : IRepository<TicketModel>
     {
         private readonly Web_Context _context;
         private readonly IMapper _mapper;
@@ -18,28 +18,28 @@ namespace Server.Repositories.ClientSupport
             _mapper = mapper;
         }
 
-        async Task<InformationModel> IRepository<InformationModel>.AddNew(InformationModel entity)
+        async Task<TicketModel> IRepository<TicketModel>.AddNew(TicketModel entity)
         {
             // Ánh xạ dữ liệu từ JobsRiskModel sang JobsRisk
-            var NewEntity = _mapper.Map<InformationEntity>(entity);
+            var NewEntity = _mapper.Map<TicketEntity>(entity);
 
             // Đính kèm đối tượng mới với context
             _context.Attach(NewEntity);
 
             // Thêm đối tượng mới vào cơ sở dữ liệu
-            _context.Information!.Add(NewEntity);
+            _context.Ticket!.Add(NewEntity);
 
             // Lưu thay đổi vào cơ sở dữ liệu
             await _context.SaveChangesAsync();
 
             // Trả về đối tượng mới đã được thêm vào cơ sở dữ liệu
-            return _mapper.Map<InformationModel>(NewEntity);
+            return _mapper.Map<TicketModel>(NewEntity);
         }
 
         public async Task Delete(int id)
         {
             // Kiểm tra xem thực thể đã tồn tại trong cơ sở dữ liệu hay không
-            var existingEntity = await _context.Information.FindAsync(id);
+            var existingEntity = await _context.Ticket.FindAsync(id);
             if (existingEntity == null)
             {
                 // Xử lý trường hợp không tìm thấy thực thể
@@ -52,22 +52,22 @@ namespace Server.Repositories.ClientSupport
             await _context.SaveChangesAsync();
         }
 
-        async Task<IEnumerable<InformationModel>> IRepository<InformationModel>.GetAll()
+        async Task<IEnumerable<TicketModel>> IRepository<TicketModel>.GetAll()
         {
-            var EntityList = await _context.Information?.ToListAsync();
-            return _mapper.Map<List<InformationModel>>(EntityList);
+            var EntityList = await _context.Ticket?.ToListAsync();
+            return _mapper.Map<List<TicketModel>>(EntityList);
         }
 
-        async Task<InformationModel> IRepository<InformationModel>.GetById(int id)
+        async Task<TicketModel> IRepository<TicketModel>.GetById(int id)
         {
-            var existingEntity = await _context.Information.FindAsync(id);
-            return _mapper.Map<InformationModel>(existingEntity);
+            var existingEntity = await _context.Ticket.FindAsync(id);
+            return _mapper.Map<TicketModel>(existingEntity);
         }
 
-        async Task IRepository<InformationModel>.Update(InformationModel entity)
+        async Task IRepository<TicketModel>.Update(TicketModel entity)
         {
             // Kiểm tra xem thực thể đã tồn tại trong cơ sở dữ liệu hay không
-            var existingEntity = await _context.Information.FindAsync(entity.Id);
+            var existingEntity = await _context.Ticket.FindAsync(entity.Id);
             if (existingEntity == null)
             {
                 // Xử lý trường hợp không tìm thấy thực thể

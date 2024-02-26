@@ -9,29 +9,29 @@ namespace Server.Controllers.ClientSupport
     public class ClientSupportController : ControllerBase
     {
         // đối tượng _context đại diện cho bảng Information
-        private readonly IRepository<InformationModel> _context;
+        private readonly IRepository<TicketModel> _context;
 
-        public ClientSupportController(IRepository<InformationModel> context)
+        public ClientSupportController(IRepository<TicketModel> context)
         {
             _context = context;
         }
 
         [HttpPost("AddNew")]
-        public async Task<ActionResult<InformationModel>> AddNew(InformationModel entityModel)
+        public async Task<ActionResult<TicketModel>> AddNew(TicketModel entityModel)
         {
             await _context.AddNew(entityModel);
             return Ok();
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<IEnumerable<InformationModel>>> GetAll()
+        public async Task<ActionResult<IEnumerable<TicketModel>>> GetAll()
         {
             var entityModelList = await _context.GetAll();
             return Ok(entityModelList);
         }
 
         [HttpPost("Update")]
-        public async Task<ActionResult<InformationModel>> Update(InformationModel entityModel)
+        public async Task<ActionResult<TicketModel>> Update(TicketModel entityModel)
         {
             await _context.Update(entityModel);
             return Ok();

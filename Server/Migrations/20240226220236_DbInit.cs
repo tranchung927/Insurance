@@ -277,11 +277,13 @@ namespace Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "information",
+                name: "ticket",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Phone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Problem = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
@@ -290,15 +292,15 @@ namespace Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_information", x => x.Id);
+                    table.PrimaryKey("PK_ticket", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_information_AspNetUsers_UsersId",
+                        name: "FK_ticket_AspNetUsers_UsersId",
                         column: x => x.UsersId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_information_insurance_type_InsuranceTypeId",
+                        name: "FK_ticket_insurance_type_InsuranceTypeId",
                         column: x => x.InsuranceTypeId,
                         principalTable: "insurance_type",
                         principalColumn: "Id",
@@ -405,13 +407,13 @@ namespace Server.Migrations
                 column: "SizeTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_information_InsuranceTypeId",
-                table: "information",
+                name: "IX_ticket_InsuranceTypeId",
+                table: "ticket",
                 column: "InsuranceTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_information_UsersId",
-                table: "information",
+                name: "IX_ticket_UsersId",
+                table: "ticket",
                 column: "UsersId");
 
             migrationBuilder.CreateIndex(
@@ -444,13 +446,13 @@ namespace Server.Migrations
                 name: "home_coefficient");
 
             migrationBuilder.DropTable(
-                name: "information");
-
-            migrationBuilder.DropTable(
                 name: "jobs_risk");
 
             migrationBuilder.DropTable(
                 name: "risk_coefficient");
+
+            migrationBuilder.DropTable(
+                name: "ticket");
 
             migrationBuilder.DropTable(
                 name: "vehicle_property");

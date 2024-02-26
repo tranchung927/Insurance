@@ -1,7 +1,4 @@
-
-
-
-// Hàm tạo đối tượng Người dùng
+// Hàm tạo đối tượng đăng nhập
 function SignInUser(userName, password) {
   // Xác thực độ dài và bảo mật của tên người dùng và mật khẩu
   if (userName.length < 8 || password.length < 8) {
@@ -15,12 +12,12 @@ function SignInUser(userName, password) {
     throw new Error('Tên người dùng và mật khẩu phải chứa các ký tự chữ và số.');
   }
   
-
   // Lưu trữ mật khẩu an toàn (băm và muối)
   this.userName = userName;
   this.password = password;
 }
 
+// đối tượng đăng ký
 function SignUpUser(email, password, phone, userName,firstName, lastName) {
   this.userName = userName;
   this.email = email;
@@ -36,6 +33,7 @@ const button = document.getElementById("btn_sign");
 button.addEventListener("click", async (event) => {
   event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu mặc định
 
+  // lấy giá trị từ input
   const email = document.getElementById("email").value;
   const userName = document.getElementById("userName").value;
   const password = document.getElementById("password").value;
@@ -43,9 +41,9 @@ button.addEventListener("click", async (event) => {
   const firstName = document.getElementById("firstName").value;
   const lastName = document.getElementById("lastName").value;
 
-
+  // kiểm tra đang đăng ký hay đăng nhập
   if (button.textContent == "SIGN IN") {
-      const url = "https://localhost:7202/api/Login/SignIn";
+    const url = "https://localhost:7202/api/Login/SignIn";
     const user = new SignInUser(userName, password);
     const data = {
       userName: user.userName,
@@ -55,6 +53,7 @@ button.addEventListener("click", async (event) => {
     console.log("SIGN IN");
 
     try {
+      // gửi request
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -70,6 +69,8 @@ button.addEventListener("click", async (event) => {
 
       const token = await response.text(); // Truy cập mã thông báo trực tiếp
       console.log("Token:", token);
+      // Lưu token vào localStorage
+      localStorage.setItem("token", token);
     } catch (error) {
       console.error("Lỗi tạo người dùng:", error.message);
     }
