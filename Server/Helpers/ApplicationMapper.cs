@@ -26,6 +26,11 @@ namespace Server.Helpers
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
             CreateMap<JobsRiskEntity, JobsRiskModel>();
 
+            // InsuranceType
+            CreateMap<InsuranceTypeModel, InsuranceTypeEntity>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
+            CreateMap<InsuranceTypeEntity, InsuranceTypeModel>();
+
             // VehicleType
             CreateMap<VehicleTypeModel, VehicleTypeEntity>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore());

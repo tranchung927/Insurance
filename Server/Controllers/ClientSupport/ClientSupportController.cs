@@ -9,31 +9,44 @@ namespace Server.Controllers.ClientSupport
     public class ClientSupportController : ControllerBase
     {
         // đối tượng _context đại diện cho bảng Information
-        private readonly IRepository<TicketModel> _context;
+        private readonly IRepository<TicketModel> _context_Ticket;
+        private readonly IRepository<InsuranceTypeModel> _context_InsuranceType;
 
-        public ClientSupportController(IRepository<TicketModel> context)
+
+        public ClientSupportController(
+              IRepository<TicketModel> contextTicket,
+              IRepository<InsuranceTypeModel> contextInsuranceType
+        )
         {
-            _context = context;
+            _context_Ticket = contextTicket;
+            _context_InsuranceType = contextInsuranceType;
         }
 
-        [HttpPost("AddNew")]
-        public async Task<ActionResult<TicketModel>> AddNew(TicketModel entityModel)
+        [HttpPost("AddNewTicket")]
+        public async Task<ActionResult<TicketModel>> AddNewTicket(TicketModel entityModel)
         {
-            await _context.AddNew(entityModel);
+            await _context_Ticket.AddNew(entityModel);
             return Ok();
         }
 
-        [HttpGet("GetAll")]
-        public async Task<ActionResult<IEnumerable<TicketModel>>> GetAll()
+        [HttpGet("GetAllTicket")]
+        public async Task<ActionResult<IEnumerable<InsuranceTypeModel>>> GetAllTicket()
         {
-            var entityModelList = await _context.GetAll();
+            var entityModelList = await _context_Ticket.GetAll();
             return Ok(entityModelList);
         }
 
-        [HttpPost("Update")]
-        public async Task<ActionResult<TicketModel>> Update(TicketModel entityModel)
+        [HttpGet("GetAllInsuranceType")]
+        public async Task<ActionResult<IEnumerable<InsuranceTypeModel>>> GetAllInsuranceType()
         {
-            await _context.Update(entityModel);
+            var entityModelList = await _context_InsuranceType.GetAll();
+            return Ok(entityModelList);
+        }
+
+        [HttpPost("UpdateTicket")]
+        public async Task<ActionResult<TicketModel>> UpdateTicket(TicketModel entityModel)
+        {
+            await _context_Ticket.Update(entityModel);
             return Ok();
         }
     }
