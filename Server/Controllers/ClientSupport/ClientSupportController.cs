@@ -30,7 +30,7 @@ namespace Server.Controllers.ClientSupport
         }
 
         [HttpGet("GetAllTicket")]
-        public async Task<ActionResult<IEnumerable<InsuranceTypeModel>>> GetAllTicket()
+        public async Task<ActionResult<IEnumerable<TicketModel>>> GetAllTicket()
         {
             var entityModelList = await _context_Ticket.GetAll();
             return Ok(entityModelList);

@@ -196,6 +196,11 @@ namespace Server.Migrations
                     b.Property<int>("InsuranceTypeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(15)

@@ -10,6 +10,9 @@ namespace Server.Data.ClientSupport
         [Key]
         public int Id { get; set; }
 
+        [MaxLength(200)]
+        public string Name { get; set; }
+
         [MaxLength(15)]
         public string Phone { get; set; }
 
