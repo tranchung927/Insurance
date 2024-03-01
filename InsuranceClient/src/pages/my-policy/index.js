@@ -11,11 +11,11 @@ import { styled } from '@mui/material/styles'
 import MuiTab from '@mui/material/Tab'
 
 // **  Tabs Imports
-import TabInfo from 'src/views/policy/TabInfo'
-import TabRider from 'src/views/policy/TabRider'
-import TabHistory from 'src/views/policy/TabHistoryPayment'
-import TabBeneficiary from 'src/views/policy/TabBeneficiary'
-import TabServiceAgent from 'src/views/policy/TabServiceAgent'
+import TabInfo from 'src/views/my-policy/TabInfo'
+import TabRider from 'src/views/my-policy/TabRider'
+import TabHistory from 'src/views/my-policy/TabHistoryPayment'
+import TabBeneficiary from 'src/views/my-policy/TabBeneficiary'
+import TabServiceAgent from 'src/views/my-policy/TabServiceAgent'
 
 const Tab = styled(MuiTab)(({ theme }) => ({
     [theme.breakpoints.down('md')]: {
@@ -37,7 +37,7 @@ const Tab = styled(MuiTab)(({ theme }) => ({
 
   const MyPolicy = () => {
     // ** State
-    const [value, setValue] = useState('my-policy')
+    const [value, setValue] = useState('info')
   
     const handleChange = (event, newValue) => {
       setValue(newValue)
@@ -53,45 +53,25 @@ const Tab = styled(MuiTab)(({ theme }) => ({
           >
             <Tab
               value='info'
-              label={
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <TabName>Policies Information</TabName>
-                </Box>
-              }
+              label='Policies Information'
             />
             <Tab
               value='rider'
-              label={
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <TabName>Rider</TabName>
-                </Box>
-              }
+              label='Rider'
             />
             <Tab
               value='history-payment'
-              label={
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <TabName>History Payment</TabName>
-                </Box>
-              }
+              label='History Payment'
             />
 
             <Tab
               value='beneficiary'
-              label={
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <TabName>Beneficiary</TabName>
-                </Box>
-              }
+              label='Beneficiary'
             />
             
             <Tab
               value='service-agent'
-              label={
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <TabName>Service Agent</TabName>
-                </Box>
-              }
+              label='Service Agent'
             />
           </TabList>
   
