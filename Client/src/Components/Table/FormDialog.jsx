@@ -34,9 +34,8 @@ function FormDialog({ open, onClose, selectedRowData }) {
         
 
         <Dialog open={open} onClose={onClose}> {/* Dialog mở/đóng dựa vào trạng thái open */}
-            <DialogTitle>Form Dialog</DialogTitle>
             <DialogContent>
-                <Card sx={{ maxWidth: 600 }}>
+                {/*<Card sx={{ maxWidth: 600 }}>*/}
                     <Grid container spacing={6}>
                         <Grid item xs={12} sm={12}>
                             <CardContent sx={{ padding: theme => `${theme.spacing(3.25, 5.75, 6.25)} !important` }}>
@@ -76,7 +75,7 @@ function FormDialog({ open, onClose, selectedRowData }) {
                         </Grid>
                     </Grid>
                     <InputField comment={selectedRowData && selectedRowData ? selectedRowData.comment : ''} type={selectedRowData && selectedRowData ? selectedRowData.type : ''} problem={selectedRowData && selectedRowData? selectedRowData.problem: ''} />
-                </Card>
+                {/*</Card>*/}
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>Cancel</Button> {/* Nút hủy */}

@@ -7,6 +7,8 @@ import CardContent from '@mui/material/CardContent';
 import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import Button from '@mui/material/Button';
+
 
 import Typography from '@mui/material/Typography';
 import { LockOpenOutline, AccountOutline, StarOutline, TrendingUp } from 'mdi-material-ui'; // Import các biểu tượng
@@ -56,6 +58,11 @@ const SupportForm = ({ selectedRowData } ) => {
                 </Grid>
             </Grid>
             <InputField comment={selectedRowData.comment} type={selectedRowData.type} problem={selectedRowData.problem} />
+            <Grid item xs={12}>
+                <Button type='submit' variant='contained' size='large'>
+                    Submit
+                </Button>
+            </Grid>
         </Card>
     )
 };

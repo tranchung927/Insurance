@@ -3,7 +3,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -82,11 +81,7 @@ const InputField = ({ comment, type, problem }) => {
                                     </FormControl>
                                 </Grid>
                                 
-                                <Grid item xs={12}>
-                                    <Button type='submit' variant='contained' size='large'>
-                                        Submit
-                                    </Button>
-                                </Grid>
+                                
                             </Grid>
                         </form>
                     </CardContent>
