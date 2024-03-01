@@ -8,8 +8,8 @@ import MyTable from './Components/Test/MyTable'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
         {/*<TableStickyHeader />*/}
-        <TableStickyHeader />
-        {/*<Tickets />*/}
+        {/*<TableStickyHeader />*/}
+        <Tickets />
         {/*<FormDialog />*/}
         
 

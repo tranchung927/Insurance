@@ -1,22 +1,24 @@
 ﻿import React, { useState, useEffect } from 'react';
-import Card from '@mui/material/Card';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import {
+    Card,
+    Grid,
+    Button,
+    TextField,
+    CardHeader,
+    CardContent,
+    InputAdornment,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
+    Box,
+    Snackbar,
+    Alert as MuiAlert
+} from '@mui/material';
 import Phone from 'mdi-material-ui/Phone';
 import EmailOutline from 'mdi-material-ui/EmailOutline';
 import AccountOutline from 'mdi-material-ui/AccountOutline';
 import MessageOutline from 'mdi-material-ui/MessageOutline';
-import Box from '@mui/material/Box';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -73,15 +75,15 @@ const Tickets = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Kiểm tra xem người dùng đã chọn loại bảo hiểm hay chưa
-        if (!formData.insuranceTypeId) {
-            setSnackbarMessage('Please select an insurance type');
+        // Kiểm tra các trường TextField không được để trống
+        if (!formData.name || !formData.email || !formData.phone || !formData.problem || !formData.insuranceTypeId) {
+            setSnackbarMessage('Please fill in all fields');
             setSnackbarSeverity('error');
             setSnackbarOpen(true);
             return;
         }
 
-        // Tiếp tục kiểm tra email và số điện thoại
+        // Tiếp tục kiểm tra xác thực email và số điện thoại
         if (!validateEmail(formData.email)) {
             setSnackbarMessage('Invalid email format');
             setSnackbarSeverity('error');
@@ -249,7 +251,7 @@ const Tickets = () => {
                             </Grid>
                         </Grid>
                     </form>
-                    
+
                 </CardContent>
             </Card>
         </Box>
