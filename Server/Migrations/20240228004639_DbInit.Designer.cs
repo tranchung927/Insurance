@@ -12,7 +12,7 @@ using Server.Data;
 namespace Server.Migrations
 {
     [DbContext(typeof(Web_Context))]
-    [Migration("20240227013737_DbInit")]
+    [Migration("20240228004639_DbInit")]
     partial class DbInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -187,7 +187,6 @@ namespace Server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Comment")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -216,7 +215,6 @@ namespace Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UsersId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -595,9 +593,7 @@ namespace Server.Migrations
 
                     b.HasOne("Server.Data.Users.UserEntity", "User")
                         .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UsersId");
 
                     b.Navigation("InsuranceType");
 

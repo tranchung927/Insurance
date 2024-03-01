@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Server.Data.VehicleInsurance;
 using Server.Models.VehicleInsurance;
 using Server.Repositories;
 
@@ -16,6 +17,7 @@ namespace Server.Controllers.VehicleInsurance
         public VehicleInsuranceController(
             IRepository<VehiclePropertyModel> context_VehicleProperty,
             IRepository<VehicleTypeModel> context_VehicleType
+
             )
         {
             _context_VehicleProperty = context_VehicleProperty;
@@ -28,6 +30,8 @@ namespace Server.Controllers.VehicleInsurance
             var entityModelList = await _context_VehicleProperty.GetAll();
             return Ok(entityModelList);
         }
+
+
 
         [HttpGet("AllVehicleType")]
         public async Task<ActionResult<IEnumerable<VehicleTypeModel>>> AllVehicleType()

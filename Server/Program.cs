@@ -22,6 +22,7 @@ using Server.Repositories.VehicleInsurance;
 using Server.Data.HomeInsurance;
 using Server.Repositories.HomeInsurance;
 using Server.Models.HomeInsurance;
+using Server.Data.VehicleInsurance;
 
 var builder = WebApplication.CreateBuilder(args);
 

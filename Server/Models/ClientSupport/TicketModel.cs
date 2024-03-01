@@ -17,11 +17,11 @@ namespace Server.Models.ClientSupport
 
         public string Problem { get; set; }
 
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
 
         public int Status { get; set; }
 
-        public string UsersId { get; set; }
+        public string? UsersId { get; set; }
 
         public int InsuranceTypeId { get; set; }
 

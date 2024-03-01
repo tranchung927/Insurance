@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Server.Data;
+using Server.Data.VehicleInsurance;
 using Server.Models.VehicleInsurance;
 
 namespace Server.Repositories.VehicleInsurance
@@ -42,4 +43,5 @@ namespace Server.Repositories.VehicleInsurance
             throw new NotImplementedException();
         }
     }
+
 }

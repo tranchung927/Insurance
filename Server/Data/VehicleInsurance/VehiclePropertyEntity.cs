@@ -17,11 +17,10 @@ namespace Server.Data.VehicleInsurance
         [Range(0, 9)]
         public int Status { get; set; } = 1;
 
-        // Đây là khóa ngoại của bảng
-        [ForeignKey("VehicleType")] // Chỉ định tên thuộc tính khóa ngoại
+        
         public int VehicleTypeId { get; set; }
 
-        // Navigation property: dùng để truy cập các đối tượng liên quan đến nó
+        [ForeignKey("VehicleTypeId")] 
         public VehicleTypeEntity VehicleType { get; set; }
     }
 }
