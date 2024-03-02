@@ -62,6 +62,7 @@ function FormDialog({ open, onClose, selectedRowData }) {
     const handleSubmit = () => {
         // Truy xuất token từ localStorage
         const token = localStorage.getItem('token');
+        console.log('Token: ', token);
 
         // Gửi dữ liệu đến API
         const apiUrl = 'https://localhost:7202/api/ClientSupport/UpdateTicket';

@@ -68,9 +68,11 @@ button.addEventListener("click", async (event) => {
       }
 
       const token = await response.text(); // Truy cập mã thông báo trực tiếp
-      console.log("Token:", token);
+      console.log("set token:", token);
       // Lưu token vào localStorage
-      localStorage.setItem("token", token);
+        localStorage.setItem("token", token);
+        const tokenxxx = localStorage.getItem('token');
+        console.log("get token:", tokenxxx);
     } catch (error) {
       console.error("Lỗi tạo người dùng:", error.message);
     }

@@ -1,6 +1,8 @@
 ﻿using Server.Models.ClientSupport;
 using Server.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Server.Helpers;
 
 namespace Server.Controllers.ClientSupport
 {
@@ -11,6 +13,7 @@ namespace Server.Controllers.ClientSupport
         // đối tượng _context đại diện cho bảng Information
         private readonly IRepository<TicketModel> _context_Ticket;
         private readonly IRepository<InsuranceTypeModel> _context_InsuranceType;
+        
 
 
         public ClientSupportController(
@@ -43,6 +46,7 @@ namespace Server.Controllers.ClientSupport
             return Ok(entityModelList);
         }
 
+        [Authorize(Roles = AppRole.Customer)]
         [HttpPost("UpdateTicket")]
         public async Task<ActionResult<TicketModel>> UpdateTicket(TicketModel entityModel)
         {
