@@ -11,6 +11,7 @@ import TabContext from '@mui/lab/TabContext'
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 import {
     Card,
@@ -24,6 +25,14 @@ import {
 
 
 const HealthInsuranceForm = ({ allWorkplace, allDeathRate }) => {
+    const [value, setValue] = useState(0);
+
+    // Định dạng giá trị thành tiền tệ Việt Nam
+    const formattedValue = value.toLocaleString('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
+
     const sexArr = [
         { label: 'Nam', sex: 1 },
         { label: 'Nữ', sex: 0 },
@@ -71,13 +80,13 @@ const HealthInsuranceForm = ({ allWorkplace, allDeathRate }) => {
             const maleValue = parseFloat(workplace.factor);
             const money1 = insuranceValue - ((1 - maleDeathRate * 100) + (maleValue) * fix) * 100;
             console.log('result :', money1);
-            return money1;
+            setValue(money1);
         } else {
             const femaleDeathRate = parseFloat(deathRate.female);
             const femaleValue = parseFloat(workplace.factor);
             const money2 = insuranceValue - ((1 - femaleDeathRate * 100) + (femaleValue) * fix) * 100;
             console.log('result :', money2);
-            return money2;
+            setValue(money2);
         }
     }
 
@@ -125,6 +134,10 @@ const HealthInsuranceForm = ({ allWorkplace, allDeathRate }) => {
                 onChange={handleWorkplaceChange}
                 renderInput={(params) => <TextField {...params} label="Work place" />}
             />
+
+            <Typography gutterBottom variant="h6" component="div">
+                {formattedValue}
+            </Typography>
             <Button onClick={() => CalculateLifeInsurance(sex, insuranceValue, parseInt(yearOfBirth), workplace, allDeathRate)} variant="outlined">Calculate</Button>
 
         </>

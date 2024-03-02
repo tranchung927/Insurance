@@ -11,6 +11,7 @@ import TabContext from '@mui/lab/TabContext'
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 import {
     Card,
@@ -29,6 +30,7 @@ const VehicleInsuranceForm = ({ allVehicleProperty, allVehicleType }) => {
     const [property, setProperty] = useState(allVehicleProperty[1]);
     const [type, setType] = useState(allVehicleType[1]);
     const [tempProperty, setTempProperty] = useState('');
+    const [value, setValue] = useState(0);
 
     const handPropertyChange = (event, newValue) => {
         setProperty(newValue);
@@ -51,8 +53,14 @@ const VehicleInsuranceForm = ({ allVehicleProperty, allVehicleType }) => {
     function CalculateVehicleInsurance(property) {
         console.log("vehicleProperty:", property);
         console.log("value:", property.value);
-        return property.value;
+        setValue(property.value)
     }
+
+    // Định dạng giá trị thành tiền tệ Việt Nam
+    const formattedValue = value.toLocaleString('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
 
     return (
         <>
@@ -79,6 +87,9 @@ const VehicleInsuranceForm = ({ allVehicleProperty, allVehicleType }) => {
                 onChange={handPropertyChange}
                 renderInput={(params) => <TextField {...params} label="Vehicle property" />}
             />
+            <Typography gutterBottom variant="h6" component="div">
+                {formattedValue}
+            </Typography>
 
             <Button onClick={() => CalculateVehicleInsurance(property)} variant="outlined">Calculate</Button>
         </>
