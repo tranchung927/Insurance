@@ -153,9 +153,8 @@ const TableStickyHeader = () => {
 
     // Biến trạng thái cho trang hiện tại, khởi tạo là 0
     const [page, setPage] = useState(0)
-    // Biến trạng thái cho số dòng trên mỗi trang, khởi tạo là 10
+    // Biến trạng thái cho số dòng trên mỗi trang, khởi tạo là 25
     const [rowsPerPage, setRowsPerPage] = useState(25)
-
 
     // dialog
 
@@ -171,11 +170,6 @@ const TableStickyHeader = () => {
     const handleCloseDialog = () => {
         setOpenDialog(false); // Đóng Dialog khi được gọi
     };
-
-
-
-
-
 
     // Hàm xử lý thay đổi trang
     const handleChangePage = (event, newPage) => {
@@ -193,9 +187,7 @@ const TableStickyHeader = () => {
     }
 
     return (
-
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label='sticky table'>
                     <TableHead>
@@ -218,7 +210,7 @@ const TableStickyHeader = () => {
                                                 {/*Nếu column.id là 'status', nó sẽ gọi hàm getStatusIcon(value)*/}
                                                 {/*Nếu column.id là 'action', nó sẽ render một nút "Action" và gán một hàm xử lý sự kiện handleButtonClick(row)*/}
                                                 {column.id === 'status' ? getStatusIcon(value) : (column.id === 'action' ? (
-                                                    <Button onClick={() => handleOpenDialog(row)}>Support</Button>
+                                                    <Button onClick={() => handleOpenDialog(row)} size="small" variant="outlined">Support</Button>
                                                 ) : (
                                                     column.format && typeof value === 'number' ? column.format(value) : value
                                                 ))}
@@ -245,8 +237,8 @@ const TableStickyHeader = () => {
             />
             
             {/* Truyền trạng thái mở/đóng và dữ liệu của hàng được chọn vào Dialog */}
-            {console.log('openDialog: ',openDialog) }
-            <FormDialog open={openDialog} onClose={handleCloseDialog} selectedRowData={selectedRowData} />
+            {/*{console.log('openDialog: ',openDialog) }*/}
+            <FormDialog open={openDialog} onClose={handleCloseDialog} selectedRowData={selectedRowData} callback={setSelectedRowData} />
 
         </Paper>
 

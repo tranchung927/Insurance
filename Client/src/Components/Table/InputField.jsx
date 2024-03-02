@@ -14,29 +14,51 @@ import Typography from '@mui/material/Typography';
 import MessageOutline from 'mdi-material-ui/MessageOutline';
 import InputLabel from '@mui/material/InputLabel';
 
-const InputField = ({ comment, type, problem }) => {
+const InputField = ({ comment, status, callback }) => {
 
-    // select
-    const [selectedValue, setSelectedValue] = useState(1);
+    console.log('1.status :', status);
+    const [commentData, setCommentData] = useState({});
+    const [statusData, setStatusData] = useState(status);
+
+    useEffect(() => {
+        setCommentData(comment);
+    }, [comment]);
+
+    useEffect(() => {
+        setStatusData(status);
+    }, [status]);
+
+
 
     const handleChange = (event) => {
-        setSelectedValue(event.target.value);
+        setStatusData(event.target.value)
+        callback(prevState => ({
+            ...prevState,
+            status: statusData
+        }));
+        console.log('statusData :'+statusData);
     };
-
-    // comment
-    const [comments, setComments] = useState('');
-
-  
 
 
 
 
     const handleChangeComment = (event) => {
-        setComments(event.target.value);
-        console.log(comments);
+        setCommentData(event.target.value);
+        callback(prevState => ({
+            ...prevState,
+            comment: commentData
+        }));
+        //console.log(comments);
     };
-    console.log(comment)
-    console.log(type)
+
+
+
+
+
+
+
+    //console.log(comment)
+    //console.log(type)
     return (
         <Grid container justifyContent="center">
             <Grid item xs={12} >
@@ -51,7 +73,7 @@ const InputField = ({ comment, type, problem }) => {
                                         minRows={3}
                                         label='Comments'
                                         placeholder='Note...'
-                                        value={comments} // Đặt giá trị dữ liệu vào TextField
+                                        value={commentData || 'Note...'} // Đặt giá trị dữ liệu vào TextField
                                         onChange={handleChangeComment} // Xử lý sự kiện khi dữ liệu thay đổi
                                         sx={{ '& .MuiOutlinedInput-root': { alignItems: 'baseline' } }}
                                         InputProps={{
@@ -70,18 +92,16 @@ const InputField = ({ comment, type, problem }) => {
                                         <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
-                                            value={selectedValue}
+                                            value={statusData}
                                             label="Change status"
                                             onChange={handleChange}
                                         >
-                                            <MenuItem value={1}>Completed</MenuItem>
-                                            <MenuItem value={2}>In Progress</MenuItem>
-                                            <MenuItem value={3}>Not Supported</MenuItem>
+                                            <MenuItem  value={1}>Processed</MenuItem>
+                                            <MenuItem  value={2}>In progress</MenuItem>
+                                            <MenuItem  value={3}>Not processed yet</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </Grid>
-                                
-                                
                             </Grid>
                         </form>
                     </CardContent>
