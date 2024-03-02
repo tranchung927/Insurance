@@ -11,8 +11,12 @@ namespace Server.Models.ClientSupport
 
         public string Name { get; set; }
 
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Phone must be numeric")]
+        [StringLength(10, MinimumLength = 10, ErrorMessage = "Phone must be 10 digits")]
         public string Phone { get; set; }
 
+
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
 
         public string Problem { get; set; }
@@ -24,6 +28,9 @@ namespace Server.Models.ClientSupport
         public string? UsersId { get; set; }
 
         public int InsuranceTypeId { get; set; }
+
+        // Constructor
+       
 
     }
 }

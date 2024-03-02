@@ -26,10 +26,17 @@ namespace Server.Controllers.ClientSupport
         }
 
         [HttpPost("AddNewTicket")]
-        public async Task<ActionResult<TicketModel>> AddNewTicket(TicketModel entityModel)
+        public async Task<ActionResult<TicketModel>> AddNewTicket(TicketModel model)
         {
-            await _context_Ticket.AddNew(entityModel);
-            return Ok();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); // Trả về một phản hồi Bad Request với các thông tin lỗi từ ModelState
+            }
+
+            // Xử lý logic khi dữ liệu hợp lệ
+            await _context_Ticket.AddNew(model);
+
+            return Ok(); // Trả về một phản hồi thành công
         }
 
         [HttpGet("GetAllTicket")]
@@ -46,11 +53,19 @@ namespace Server.Controllers.ClientSupport
             return Ok(entityModelList);
         }
 
-        [Authorize(Roles = AppRole.Customer)]
+        [Authorize(Roles = "AppRole.Customer, AppRole.Admin")]
         [HttpPost("UpdateTicket")]
         public async Task<ActionResult<TicketModel>> UpdateTicket(TicketModel entityModel)
         {
             await _context_Ticket.Update(entityModel);
+            return Ok();
+        }
+
+        [Authorize(Roles = "AppRole.Customer, AppRole.Admin")]
+        [HttpPost("DeleteTicket")]
+        public async Task<ActionResult<TicketModel>> DeleteTicket(int id)
+        {
+            await _context_Ticket.Delete(id);
             return Ok();
         }
     }

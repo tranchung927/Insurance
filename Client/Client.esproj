@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="login\" />
+    <Folder Include="src\Components\CalculateForm\" />
     <Folder Include="src\Components\Test\" />
   </ItemGroup>
   <ItemGroup>
