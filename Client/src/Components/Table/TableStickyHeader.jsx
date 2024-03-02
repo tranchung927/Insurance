@@ -239,7 +239,6 @@ const TableStickyHeader = () => {
             {/* Truyền trạng thái mở/đóng và dữ liệu của hàng được chọn vào Dialog */}
             {/*{console.log('openDialog: ',openDialog) }*/}
             <FormDialog open={openDialog} onClose={handleCloseDialog} selectedRowData={selectedRowData} callback={setSelectedRowData} />
-
         </Paper>
 
     )
