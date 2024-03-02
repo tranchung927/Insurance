@@ -1,5 +1,5 @@
 ﻿// ** React Imports
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // ** MUI Imports
 import Paper from '@mui/material/Paper'
@@ -81,16 +81,15 @@ const columns = [
 const getStatusIcon = (status) => {
     switch (status) {
         case 1:
-            return <icons.AccountCheckOutline color="primary" />;
+            return <AccountCheckOutline color="primary" />;
         case 2:
-            return <icons.AccountClockOutline color="warning" /> ;
+            return <AccountClockOutline color="warning" />;
         case 3:
-            return <icons.AccountAlertOutline color="error" />;
+            return <AccountAlertOutline color="error" />;
         default:
-            return <icons.AccessPointOff/>;
-            
+            return <AccessPointOff />;
     }
-}
+};
 
 
 // Định nghĩa hàm để lấy dữ liệu từ API 
@@ -130,25 +129,39 @@ function createClientSupport(dataTicket, dataInsuranceType) {
     return clientSupportList;
 }
 
-async function getDataFromAPI() {
-    const responseTicket = await fetch('https://localhost:7202/api/ClientSupport/GetAllTicket');
-    const responseInsuranceType = await fetch('https://localhost:7202/api/ClientSupport/GetAllInsuranceType');
 
-    if (!responseTicket.ok || !responseInsuranceType.ok) {
-        throw new Error('Network response was not ok');
-    }
-    const dataTicket = await responseTicket.json();
-    const dataInsuranceType = await responseInsuranceType.json();
-
-    const list = createClientSupport(dataTicket, dataInsuranceType);
-    return list;
-}
-
-const rows = await getDataFromAPI();
 
 
 // Component chức năng cho một bảng có tiêu đề 
 const TableStickyHeader = () => {
+    const [rows, setRows] = useState([]); // Khởi tạo state cho dữ liệu của bảng
+
+    // Lấy dữ liệu từ API và cập nhật state của rows
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const responseTicket = await fetch('https://localhost:7202/api/ClientSupport/GetAllTicket');
+                const responseInsuranceType = await fetch('https://localhost:7202/api/ClientSupport/GetAllInsuranceType');
+
+                if (!responseTicket.ok || !responseInsuranceType.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const dataTicket = await responseTicket.json();
+                const dataInsuranceType = await responseInsuranceType.json();
+
+                const list = createClientSupport(dataTicket, dataInsuranceType);
+                setRows(list); // Cập nhật state của rows
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
+
     // ** Trạng thái
 
     // Biến trạng thái cho trang hiện tại, khởi tạo là 0

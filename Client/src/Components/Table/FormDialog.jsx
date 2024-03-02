@@ -60,6 +60,9 @@ function FormDialog({ open, onClose, selectedRowData }) {
     };
 
     const handleSubmit = () => {
+        // Truy xuất token từ localStorage
+        const token = localStorage.getItem('token');
+
         // Gửi dữ liệu đến API
         const apiUrl = 'https://localhost:7202/api/ClientSupport/UpdateTicket';
         console.log(formData);
@@ -67,23 +70,24 @@ function FormDialog({ open, onClose, selectedRowData }) {
             method: 'POST',
             headers: {
                 'Accept': 'text/plain',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Thêm token vào tiêu đề Authorization
             },
             body: JSON.stringify(formData)
-            
         })
-        .then(response => {
-            if (response.ok) {
-                console.log('Ticket added successfully.');
-                onClose(); // Đóng dialog sau khi gửi thành công
-            } else {
-                console.error('Failed to add ticket.');
-            }
-        })
-        .catch(error => {
-            console.error('Error adding ticket:', error);
-        });
+            .then(response => {
+                if (response.ok) {
+                    console.log('Ticket added successfully.');
+                    onClose(); // Đóng dialog sau khi gửi thành công
+                } else {
+                    console.error('Failed to add ticket.');
+                }
+            })
+            .catch(error => {
+                console.error('Error adding ticket:', error);
+            });
     };
+
 
     return (
         <Dialog open={open} onClose={onClose} >
