@@ -92,7 +92,7 @@ function FormDialog({ open, onClose, selectedRowData }) {
 
     return (
         <Dialog open={open} onClose={onClose} >
-            <DialogTitle>Support Details</DialogTitle>
+            <DialogTitle>Client information</DialogTitle>
 
             <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 <Card >

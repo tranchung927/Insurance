@@ -13,16 +13,16 @@ namespace Server.Controllers.LifeInsurance
     {
         // đối tượng _context đại diện cho bảng Information
         private readonly IRepository<DeathRateModel> _context_deathRate;
-        private readonly IRepository<JobsRiskModel> _context_jobsRisk;
+        //private readonly IRepository<JobsRiskModel> _context_jobsRisk;
         private readonly IRepository<WorkplaceModel> _context_workplace;
 
         public LifeInsuranceController(
             IRepository<DeathRateModel> context, 
-            IRepository<JobsRiskModel> context_jobsRisk, 
+            //IRepository<JobsRiskModel> context_jobsRisk, 
             IRepository<WorkplaceModel> context_Workplace)
         {
             _context_deathRate = context;
-            _context_jobsRisk = context_jobsRisk;
+            //_context_jobsRisk = context_jobsRisk;
             _context_workplace = context_Workplace;
         }
 
@@ -33,12 +33,12 @@ namespace Server.Controllers.LifeInsurance
             return Ok(entityModelList);
         }
 
-        [HttpGet("AllJobsRisk")]
-        public async Task<ActionResult<IEnumerable<JobsRiskModel>>> AllJobsRisk()
-        {
-            var entityModelList = await _context_jobsRisk.GetAll();
-            return Ok(entityModelList);
-        }
+        //[HttpGet("AllJobsRisk")]
+        //public async Task<ActionResult<IEnumerable<JobsRiskModel>>> AllJobsRisk()
+        //{
+        //    var entityModelList = await _context_jobsRisk.GetAll();
+        //    return Ok(entityModelList);
+        //}
 
         [HttpGet("AllWorkplace")]
         public async Task<ActionResult<IEnumerable<WorkplaceModel>>> AllWorkplace()
