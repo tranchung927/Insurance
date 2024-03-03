@@ -1,28 +1,17 @@
 ﻿
 // ** React Imports
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 // ** MUI Imports
-import TabPanel from '@mui/lab/TabPanel';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import TabList from '@mui/lab/TabList';
-import TabContext from '@mui/lab/TabContext'
+
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 
-import {
-    Card,
-    CardContent,
-    FormControl,
-    Grid,
-    InputLabel,
-    MenuItem,
-    Select
-} from '@mui/material';
+
+
 
 
 
@@ -121,11 +110,14 @@ const LifeInsuranceForm = ({ allWorkplace, allDeathRate }) => {
             {/* Trường dữ liệu tuổi */}
             <TextField
                 id="year-of-birth"
-                label="Year of Birth"
+                label="Age"
                 variant="outlined"
                 value={yearOfBirth}
                 onChange={handleYearOfBirthChange}
+                inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             />
+
+         
 
             {/* Trường dữ liệu môi trường làm việc */}
             <Autocomplete
