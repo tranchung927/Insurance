@@ -24,7 +24,7 @@ const HealthInsuranceForm = ({ allWorkplace, allDeathRate }) => {
     const [value, setValue] = useState(0);
 
     // Định dạng giá trị thành tiền tệ Việt Nam
-    const formattedValue = value.toLocaleString('vi-VN', {
+    const formattedValue = (value/12).toLocaleString('vi-VN', {
         style: 'currency',
         currency: 'VND',
     });
@@ -64,23 +64,23 @@ const HealthInsuranceForm = ({ allWorkplace, allDeathRate }) => {
         console.log('YearOfBirth:', YearOfBirth);
         console.log('workplace:', workplace);
 
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear();
-        const age = currentYear - YearOfBirth;
+        const fix = 0.1;
 
-        const fix = 0.6;
-
-        const deathRate = allDeathRate.find(item => item.id === age);
+        const deathRate = allDeathRate.find(item => item.id === YearOfBirth);
         if (sex.sex === 1) {
             const maleDeathRate = parseFloat(deathRate.male);
-            const maleValue = parseFloat(workplace.factor);
-            const money1 = insuranceValue - ((1 - maleDeathRate * 100) + (maleValue) * fix) * 100;
+            const workPlaceFactor = parseFloat(workplace.factor);
+
+            
+
+            const money1 = (insuranceValue - (1 - maleDeathRate) * fix * insuranceValue * workPlaceFactor);
+
             console.log('result :', money1);
             setValue(money1);
         } else {
             const femaleDeathRate = parseFloat(deathRate.female);
-            const femaleValue = parseFloat(workplace.factor);
-            const money2 = insuranceValue - ((1 - femaleDeathRate * 100) + (femaleValue) * fix) * 100;
+            const workPlaceFactor = parseFloat(workplace.factor);
+            const money2 = (insuranceValue - (1 - femaleDeathRate) * fix * insuranceValue * workPlaceFactor);
             console.log('result :', money2);
             setValue(money2);
         }
@@ -156,7 +156,7 @@ const HealthInsuranceForm = ({ allWorkplace, allDeathRate }) => {
                         {/* Trường dữ liệu tuổi */}
                         <TextField
                             id="year-of-birth"
-                            label="Year of Birth"
+                            label="Age"
                             variant="outlined"
                             value={yearOfBirth}
                             onChange={handleYearOfBirthChange}
@@ -186,7 +186,7 @@ const HealthInsuranceForm = ({ allWorkplace, allDeathRate }) => {
                     </Grid>
                     <Grid item xs={5} style={{ display: 'flex', alignItems: 'flex-start' }}>
                         <Typography gutterBottom variant="h6">
-                            {formattedValue}
+                            {formattedValue} / tháng
                         </Typography>
                     </Grid>
                     
