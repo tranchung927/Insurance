@@ -10,12 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="login\" />
+    <Folder Include="media\" />
     <Folder Include="src\Components\Test\" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptConfiguration Remove="NewFolder\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="NewFolder\**" />
   </ItemGroup>
 </Project>

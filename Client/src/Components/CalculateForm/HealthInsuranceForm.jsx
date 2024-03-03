@@ -1,27 +1,23 @@
 ﻿
 // ** React Imports
-import { useState, useEffect } from 'react'
-
+import { useState } from 'react'
+import { styled } from '@mui/system';
 // ** MUI Imports
-import TabPanel from '@mui/lab/TabPanel';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import TabList from '@mui/lab/TabList';
-import TabContext from '@mui/lab/TabContext'
+
+import {
+    Grid,
+} from '@mui/material';
+
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-
-import {
-    Card,
-    CardContent,
-    FormControl,
-    Grid,
-    InputLabel,
-    MenuItem,
-    Select
-} from '@mui/material';
+import Card from '@mui/material/Card';
+import Box from '@mui/material/Box';
+import CardMedia from '@mui/material/CardMedia';
+import Image from '@mui/material/CardMedia';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 const HealthInsuranceForm = ({ allWorkplace, allDeathRate }) => {
@@ -90,57 +86,165 @@ const HealthInsuranceForm = ({ allWorkplace, allDeathRate }) => {
         }
     }
 
+    const theme = useTheme();
+    const xsToMd = useMediaQuery(useTheme().breakpoints.between('xs', 'md'));
 
+    // bé hơn sm
+    const downSm = useMediaQuery(theme.breakpoints.down('sm'));
+    const upSm = useMediaQuery(theme.breakpoints.up('sm'));
+
+    // lớn hơn
+    const upMd = useMediaQuery(theme.breakpoints.up('md'));
+
+    const imageURL = 'https://vuanem.com/blog/wp-content/uploads/2023/02/gia-dinh.jpg';
     return (
-        <>
-            {/* Trường dữ liệu giá trị bảo hiểm */}
-            <TextField
-                id="outlined-basic"
-                label="Insurance value"
-                variant="outlined"
-                value={insuranceValue}
-                onChange={handleInsuranceValueChange}
-            />
 
-            {/* Trường dữ liệu giới tính */}
-            <Autocomplete
-                disablePortal
-                id="sex-autocomplete"
-                getOptionLabel={(option) => option.label}
-                options={sexArr}
-                sx={{ width: 300 }}
-                value={sex}
-                onChange={handleSexChange}
-                renderInput={(params) => <TextField {...params} label="Sex" />}
-            />
+        <Grid container spacing={2}  >
+            <Grid item xs={12} sm={6}>
+                <Grid item xs={12} >
+                    
+                    {xsToMd  && (
+                        <Card >
+                            <CardMedia
+                                component="img"
+                                sx={{ height: 'auto', width: '100%' }}
+                                image={imageURL}
+                                alt="Ảnh"
+                                xs={{ objectFit: 'contain' }}
+                            />
+                        </Card>
+                    )}
 
-            {/* Trường dữ liệu tuổi */}
-            <TextField
-                id="year-of-birth"
-                label="Year of Birth"
-                variant="outlined"
-                value={yearOfBirth}
-                onChange={handleYearOfBirthChange}
-            />
+                    
+                </Grid>
+                <Card>
+                    {downSm || upMd && (
+                        <Typography gutterBottom variant="h6" component="div" style={{ margin: '10px', fontSize: '16px' }}>
+                            Hãy đảm bảo rằng bạn và gia đình luôn được bảo vệ mọi lúc, mọi nơi.
+                            Đừng để cuộc sống bị gián đoạn bởi những rủi ro y tế không mong muốn.
+                            Hãy liên hệ với chúng tôi ngay hôm nay để biết thêm thông tin về các gói
+                            bảo hiểm y tế tốt nhất phù hợp với nhu cầu của bạn!
+                        </Typography>
+                    )}
 
-            {/* Trường dữ liệu môi trường làm việc */}
-            <Autocomplete
-                disablePortal
-                id="workplace-autocomplete"
-                getOptionLabel={(option) => option.name}
-                options={allWorkplace}
-                sx={{ width: 300 }}
-                value={workplace}
-                onChange={handleWorkplaceChange}
-                renderInput={(params) => <TextField {...params} label="Work place" />}
-            />
+                  
+                    <Grid item xs={12} style={{ margin: '10px' }}>
+                        {/* Trường dữ liệu giá trị bảo hiểm */}
+                        <TextField
+                            id="outlined-basic"
+                            label="Insurance value"
+                            variant="outlined"
+                            value={insuranceValue}
+                            sx={{ width: '100%' }}
+                            onChange={handleInsuranceValueChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12} style={{ margin: '10px' }}>
+                        {/* Trường dữ liệu giới tính */}
+                        <Autocomplete
+                            disablePortal
+                            id="sex-autocomplete"
+                            getOptionLabel={(option) => option.label}
+                            options={sexArr}
+                            sx={{ width: '100%' }}
+                            value={sex}
+                            onChange={handleSexChange}
+                            renderInput={(params) => <TextField {...params} label="Sex" />}
+                        />
+                    </Grid>
+                    <Grid item xs={12} style={{ margin: '10px' }}>
+                        {/* Trường dữ liệu tuổi */}
+                        <TextField
+                            id="year-of-birth"
+                            label="Year of Birth"
+                            variant="outlined"
+                            value={yearOfBirth}
+                            onChange={handleYearOfBirthChange}
+                            sx={{ width: '100%' }}
+                        />
+                    </Grid>
 
-            <Typography gutterBottom variant="h6" component="div">
-                {formattedValue}
-            </Typography>
-            <Button onClick={() => CalculateLifeInsurance(sex, insuranceValue, parseInt(yearOfBirth), workplace, allDeathRate)} variant="outlined">Calculate</Button>
+                    <Grid item xs={12} style={{ margin: '10px' }}>
+                        {/* Trường dữ liệu môi trường làm việc */}
+                        <Autocomplete
+                            disablePortal
+                            id="workplace-autocomplete"
+                            getOptionLabel={(option) => option.name}
+                            options={allWorkplace}
+                            sx={{ width: '100%' }}
+                            value={workplace}
+                            onChange={handleWorkplaceChange}
+                            renderInput={(params) => <TextField {...params} label="Work place" />}
+                        />
+                    </Grid>
 
-        </>
+                </Card>
+                
+                <Grid item container xs={12} style={{ marginTop: '20px' }}>
+                    <Grid item xs={6} >
+                        <Button onClick={() => CalculateLifeInsurance(sex, insuranceValue, parseInt(yearOfBirth), workplace, allDeathRate)} variant="outlined">Calculate</Button>
+                    </Grid>
+                    <Grid item xs={5} style={{ display: 'flex', alignItems: 'flex-start' }}>
+                        <Typography gutterBottom variant="h6">
+                            {formattedValue}
+                        </Typography>
+                    </Grid>
+                    
+                </Grid>
+
+            </Grid>
+            <Grid item xs={12} sm={6}  >
+
+                {downSm || upMd && (
+                    <Card >
+                        <CardMedia
+                            component="img"
+                            sx={{ height: 'auto', width: '100%' }}
+                            image={imageURL}
+                            alt="Ảnh"
+                            xs={{ objectFit: 'contain' }}
+                        />
+                    </Card>
+                
+                )}
+                {xsToMd && (
+                    <Grid style={{ maxHeight: 300 }}>
+                        <Typography gutterBottom variant="h6" component="div" style={{ margin: '10px', fontSize: '16px' }}>
+                            Hãy đảm bảo rằng bạn và gia đình luôn được bảo vệ mọi lúc, mọi nơi.
+                            
+                        </Typography>
+                        <Typography gutterBottom variant="h6" component="div" style={{ margin: '10px', fontSize: '16px' }}>
+                            
+                            Đừng để cuộc sống bị gián đoạn bởi những rủi ro y tế không mong muốn.
+                            
+                        </Typography>
+                        <Typography gutterBottom variant="h6" component="div" style={{ margin: '10px', fontSize: '16px' }}>
+                            
+                            Hãy liên hệ với chúng tôi ngay hôm nay để biết thêm thông tin về các gói
+                            bảo hiểm y tế tốt nhất phù hợp với nhu cầu của bạn!
+                            
+                        </Typography>
+
+
+                        <Typography gutterBottom variant="h6" component="div" style={{ margin: '10px', fontSize: '16px' }}>
+                            An tâm về sức khỏe, yên tâm về tương lai. Bảo hiểm y tế chăm sóc bạn và gia đình mọi lúc, mọi nơi.
+                        </Typography>
+                        <Typography gutterBottom variant="h6" component="div" style={{ margin: '10px', fontSize: '16px' }}>
+                            Bảo hiểm y tế chăm sóc bạn và gia đình mọi lúc, mọi nơi.
+                        </Typography>
+                    </Grid>
+                    
+                )}
+                
+            </Grid>
+            
+            
+            
+        </Grid>
+
+
+        
+           
     );
 }
 

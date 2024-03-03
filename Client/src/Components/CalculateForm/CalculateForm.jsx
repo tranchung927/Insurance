@@ -3,22 +3,15 @@ import { useState, useEffect } from 'react'
 
 // ** MUI Imports
 import TabPanel from '@mui/lab/TabPanel';
-import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import TabList from '@mui/lab/TabList';
 import TabContext from '@mui/lab/TabContext'
-import Autocomplete from '@mui/material/Autocomplete';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import Tabs from '@mui/material/Tabs';
 
 import {
     Card,
     CardContent,
-    FormControl,
-    Grid,
-    InputLabel,
-    MenuItem,
-    Select
+
 } from '@mui/material';
 import LifeInsuranceForm from './LifeInsuranceForm';
 import HealthInsuranceForm from './HealthInsuranceForm';
@@ -116,13 +109,21 @@ const CalculateForm = () => {
     }
 
     return (
-        <Card>
+        <Card >
             <TabContext value={value}>
-                <TabList onChange={handleChange} aria-label='Ví dụ điều hướng thẻ'>
+                <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    variant="scrollable"
+                    scrollButtons
+                    allowScrollButtonsMobile
+                    aria-label="scrollable force tabs example"
+                >
                     {allType.map((type) => (
                         <Tab key={type && type.id} value={String(type && type.id)} label={type.name} />
                     ))}
-                </TabList>
+                </Tabs>
+                
                 
                 {setAllType.length > 0 && (
                     <CardContent>

@@ -33,7 +33,7 @@ const LifeInsuranceForm = ({ allWorkplace, allDeathRate }) => {
     // State lưu trữ giá trị các trường dữ liệu
     const [insuranceValue, setInsuranceValue] = useState('');
     const [sex, setSex] = useState(sexArr[0]); // Khởi tạo giá trị ban đầu là null
-    const [yearOfBirth, setYearOfBirth] = useState('');
+    const [age, setAge] = useState('');
     const [workplace, setWorkplace] = useState(null); // Khởi tạo giá trị ban đầu là null
 
     // Hàm xử lý khi giá trị trường dữ liệu thay đổi
@@ -47,7 +47,7 @@ const LifeInsuranceForm = ({ allWorkplace, allDeathRate }) => {
     };
 
     const handleYearOfBirthChange = (event) => {
-        setYearOfBirth(event.target.value);
+        setAge(event.target.value);
     };
 
     const handleWorkplaceChange = (event, newValue) => {
@@ -55,15 +55,11 @@ const LifeInsuranceForm = ({ allWorkplace, allDeathRate }) => {
     };
 
 
-    function CalculateLifeInsurance(sex, insuranceValue, YearOfBirth, workplace, allDeathRate) {
+    function CalculateLifeInsurance(sex, insuranceValue, age, workplace, allDeathRate) {
         console.log("sex:", sex);
         console.log('insuranceValue:', insuranceValue);
-        console.log('YearOfBirth:', YearOfBirth);
+        console.log('age:', age);
         console.log('workplace:', workplace);
-
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear();
-        const age = currentYear - YearOfBirth;
 
         const fix = 0.6;
 
@@ -112,7 +108,7 @@ const LifeInsuranceForm = ({ allWorkplace, allDeathRate }) => {
                 id="year-of-birth"
                 label="Age"
                 variant="outlined"
-                value={yearOfBirth}
+                value={age}
                 onChange={handleYearOfBirthChange}
                 inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             />
@@ -136,7 +132,7 @@ const LifeInsuranceForm = ({ allWorkplace, allDeathRate }) => {
             </Typography>
 
 
-            <Button onClick={() => CalculateLifeInsurance(sex, insuranceValue, parseInt(yearOfBirth), workplace, allDeathRate)} variant="outlined">Calculate</Button>
+            <Button onClick={() => CalculateLifeInsurance(sex, insuranceValue, parseInt(age), workplace, allDeathRate)} variant="outlined">Calculate</Button>
 
         </>
     );
