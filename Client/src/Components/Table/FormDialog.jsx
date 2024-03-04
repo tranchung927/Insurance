@@ -66,7 +66,7 @@ function FormDialog({ open, onClose, selectedRowData }) {
         console.log('Token: ', token);
 
         // Gửi dữ liệu đến API
-        const apiUrl = '';
+        const apiUrl = 'https://localhost:7202/api/ClientSupport/UpdateTicket';
         console.log(formData);
         fetch(apiUrl, {
             method: 'POST',

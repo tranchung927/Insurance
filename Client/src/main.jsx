@@ -8,7 +8,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
      {/*   <TableStickyHeader />*/}
         <TableStickyHeader />
-        {/*<Tickets/>*/}
+        <Tickets/>
         {/*<FormDialog />*/}
         {/*<ComponentA/>*/}
         {/*<DialogTest/>*/}
