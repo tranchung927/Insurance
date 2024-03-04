@@ -12,7 +12,7 @@ using Server.Data;
 namespace Server.Migrations
 {
     [DbContext(typeof(Web_Context))]
-    [Migration("20240228004639_DbInit")]
+    [Migration("20240304161914_DbInit")]
     partial class DbInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

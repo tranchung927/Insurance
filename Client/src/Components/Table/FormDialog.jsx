@@ -21,7 +21,7 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import CallIcon from '@mui/icons-material/Call';
 import AddModeratorOutlinedIcon from '@mui/icons-material/AddModeratorOutlined';
 import MessageOutline from 'mdi-material-ui/MessageOutline'
-
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 
 function FormDialog({ open, onClose, selectedRowData }) {
@@ -105,7 +105,7 @@ function FormDialog({ open, onClose, selectedRowData }) {
                                 <Typography variant='body2'>Phone: {formData && formData.phone}</Typography>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <AlternateEmailIcon sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
+                                <AccountBoxIcon sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
                                 <Typography variant='body2'>Name: {formData && formData.name}</Typography>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -158,7 +158,7 @@ function FormDialog({ open, onClose, selectedRowData }) {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <FormControl fullWidth>
-                                        <InputLabel id="demo-simple-select-label"></InputLabel>
+                                        <InputLabel id="demo-simple-select-label">Change status</InputLabel>
                                         <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"

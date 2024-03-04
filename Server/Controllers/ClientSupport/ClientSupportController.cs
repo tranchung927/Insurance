@@ -53,7 +53,7 @@ namespace Server.Controllers.ClientSupport
             return Ok(entityModelList);
         }
 
-        //[Authorize(Roles = "AppRole.Customer, AppRole.Admin")]
+        //z[Authorize(Roles = "AppRole.Customer, AppRole.Admin")]
         [HttpPost("UpdateTicket")]
         public async Task<ActionResult<TicketModel>> UpdateTicket(TicketModel entityModel)
         {

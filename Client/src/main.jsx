@@ -7,11 +7,11 @@ import Tickets from './Components/Tickets/Tickets'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
      {/*   <TableStickyHeader />*/}
-     {/*   <TableStickyHeader />*/}
-        <Tickets/>
+        <TableStickyHeader />
+        {/*<Tickets/>*/}
         {/*<FormDialog />*/}
         {/*<ComponentA/>*/}
         {/*<DialogTest/>*/}
-        {/*<CalculateForm/>*/}
+       {/* <CalculateForm/>*/}
   </React.StrictMode>
 )
