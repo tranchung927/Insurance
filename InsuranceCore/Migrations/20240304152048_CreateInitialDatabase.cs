@@ -27,6 +27,34 @@ namespace InsuranceCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cities",
+                schema: "Identity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CityName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cities", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Product",
+                schema: "Identity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Product", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 schema: "Identity",
                 columns: table => new
@@ -57,38 +85,24 @@ namespace InsuranceCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Districts",
                 schema: "Identity",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    ProfilePictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    UserDescription = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    RegisteredAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValueSql: "SYSDATETIMEOFFSET()"),
-                    LastLogin = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValueSql: "SYSDATETIMEOFFSET()"),
-                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RefreshTokenExpiration = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                    DistrictName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CityId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Districts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Districts_Cities_CityId",
+                        column: x => x.CityId,
+                        principalSchema: "Identity",
+                        principalTable: "Cities",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -130,6 +144,106 @@ namespace InsuranceCore.Migrations
                         column: x => x.RoleId,
                         principalSchema: "Identity",
                         principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Addresses",
+                schema: "Identity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AddressId = table.Column<int>(type: "int", nullable: false),
+                    FullAddress = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Addresses_Cities_AddressId",
+                        column: x => x.AddressId,
+                        principalSchema: "Identity",
+                        principalTable: "Cities",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Addresses_Districts_AddressId",
+                        column: x => x.AddressId,
+                        principalSchema: "Identity",
+                        principalTable: "Districts",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                schema: "Identity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    ProfilePictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    UserDescription = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    RegisteredAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValueSql: "SYSDATETIMEOFFSET()"),
+                    LastLogin = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValueSql: "SYSDATETIMEOFFSET()"),
+                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RefreshTokenExpiration = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Addresses_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Identity",
+                        principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Policies",
+                schema: "Identity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Policies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Policies_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalSchema: "Identity",
+                        principalTable: "Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Policies_Users_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Identity",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -288,10 +402,34 @@ namespace InsuranceCore.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Addresses_AddressId",
+                schema: "Identity",
+                table: "Addresses",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DefaultRoles_RoleId",
                 schema: "Identity",
                 table: "DefaultRoles",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Districts_CityId",
+                schema: "Identity",
+                table: "Districts",
+                column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Policies_ProductId",
+                schema: "Identity",
+                table: "Policies",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Policies_UserId",
+                schema: "Identity",
+                table: "Policies",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_CategoryId",
@@ -350,6 +488,13 @@ namespace InsuranceCore.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Users_UserId",
+                schema: "Identity",
+                table: "Users",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 schema: "Identity",
                 table: "Users",
@@ -362,6 +507,10 @@ namespace InsuranceCore.Migrations
         {
             migrationBuilder.DropTable(
                 name: "DefaultRoles",
+                schema: "Identity");
+
+            migrationBuilder.DropTable(
+                name: "Policies",
                 schema: "Identity");
 
             migrationBuilder.DropTable(
@@ -389,6 +538,10 @@ namespace InsuranceCore.Migrations
                 schema: "Identity");
 
             migrationBuilder.DropTable(
+                name: "Product",
+                schema: "Identity");
+
+            migrationBuilder.DropTable(
                 name: "Posts",
                 schema: "Identity");
 
@@ -406,6 +559,18 @@ namespace InsuranceCore.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users",
+                schema: "Identity");
+
+            migrationBuilder.DropTable(
+                name: "Addresses",
+                schema: "Identity");
+
+            migrationBuilder.DropTable(
+                name: "Districts",
+                schema: "Identity");
+
+            migrationBuilder.DropTable(
+                name: "Cities",
                 schema: "Identity");
         }
     }

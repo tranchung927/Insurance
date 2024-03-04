@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsuranceCore.Migrations
 {
     [DbContext(typeof(MsSqlDbContext))]
-    [Migration("20240226165802_CreateInitialDatabase")]
+    [Migration("20240304152048_CreateInitialDatabase")]
     partial class CreateInitialDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,28 @@ namespace InsuranceCore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("InsuranceCore.Data.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FullAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.ToTable("Addresses", "Identity");
+                });
 
             modelBuilder.Entity("InsuranceCore.Data.Category", b =>
                 {
@@ -43,6 +65,23 @@ namespace InsuranceCore.Migrations
                     b.ToTable("Categories", "Identity");
                 });
 
+            modelBuilder.Entity("InsuranceCore.Data.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cities", "Identity");
+                });
+
             modelBuilder.Entity("InsuranceCore.Data.DefaultRoles", b =>
                 {
                     b.Property<int>("Id")
@@ -59,6 +98,28 @@ namespace InsuranceCore.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("DefaultRoles", "Identity");
+                });
+
+            modelBuilder.Entity("InsuranceCore.Data.District", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DistrictName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.ToTable("Districts", "Identity");
                 });
 
             modelBuilder.Entity("InsuranceCore.Data.JoiningEntity.PostTag", b =>
@@ -89,6 +150,33 @@ namespace InsuranceCore.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles", "Identity");
+                });
+
+            modelBuilder.Entity("InsuranceCore.Data.Policy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Policies", "Identity");
                 });
 
             modelBuilder.Entity("InsuranceCore.Data.Post", b =>
@@ -133,6 +221,23 @@ namespace InsuranceCore.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Posts", "Identity");
+                });
+
+            modelBuilder.Entity("InsuranceCore.Data.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Product", "Identity");
                 });
 
             modelBuilder.Entity("InsuranceCore.Data.Role", b =>
@@ -267,6 +372,9 @@ namespace InsuranceCore.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasMaxLength(256)
@@ -281,6 +389,9 @@ namespace InsuranceCore.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Users", "Identity");
                 });
@@ -373,6 +484,25 @@ namespace InsuranceCore.Migrations
                     b.ToTable("UserTokens", "Identity");
                 });
 
+            modelBuilder.Entity("InsuranceCore.Data.Address", b =>
+                {
+                    b.HasOne("InsuranceCore.Data.City", "City")
+                        .WithMany("Addresses")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("InsuranceCore.Data.District", "District")
+                        .WithMany("Addresses")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("City");
+
+                    b.Navigation("District");
+                });
+
             modelBuilder.Entity("InsuranceCore.Data.DefaultRoles", b =>
                 {
                     b.HasOne("InsuranceCore.Data.Role", "Role")
@@ -382,6 +512,17 @@ namespace InsuranceCore.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("InsuranceCore.Data.District", b =>
+                {
+                    b.HasOne("InsuranceCore.Data.City", "City")
+                        .WithMany("Districts")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("InsuranceCore.Data.JoiningEntity.PostTag", b =>
@@ -422,6 +563,25 @@ namespace InsuranceCore.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("InsuranceCore.Data.Policy", b =>
+                {
+                    b.HasOne("InsuranceCore.Data.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("InsuranceCore.Data.User", "User")
+                        .WithMany("Policies")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("InsuranceCore.Data.Post", b =>
                 {
                     b.HasOne("InsuranceCore.Data.Category", "Category")
@@ -439,6 +599,17 @@ namespace InsuranceCore.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("InsuranceCore.Data.User", b =>
+                {
+                    b.HasOne("InsuranceCore.Data.Address", "Address")
+                        .WithOne("User")
+                        .HasForeignKey("InsuranceCore.Data.User", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -477,9 +648,27 @@ namespace InsuranceCore.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("InsuranceCore.Data.Address", b =>
+                {
+                    b.Navigation("User")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("InsuranceCore.Data.Category", b =>
                 {
                     b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("InsuranceCore.Data.City", b =>
+                {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("Districts");
+                });
+
+            modelBuilder.Entity("InsuranceCore.Data.District", b =>
+                {
+                    b.Navigation("Addresses");
                 });
 
             modelBuilder.Entity("InsuranceCore.Data.Post", b =>
@@ -501,6 +690,8 @@ namespace InsuranceCore.Migrations
 
             modelBuilder.Entity("InsuranceCore.Data.User", b =>
                 {
+                    b.Navigation("Policies");
+
                     b.Navigation("Posts");
 
                     b.Navigation("UserRoles");
