@@ -46,5 +46,11 @@ namespace InsuranceCore.Data
 
         [ForeignKey("UserId")]
         public virtual ICollection<Post> Posts { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual ICollection<Policy> Policies { get; set; }
+
+        [ForeignKey("UserId")]
+        [Required] public Address Address { get; set; }
     }
 }

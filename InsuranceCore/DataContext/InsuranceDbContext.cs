@@ -31,6 +31,10 @@ namespace InsuranceCore.DataContext
         public DbSet<Category> Categories { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
         public DbSet<DefaultRoles> DefaultRoles { get; set; }
+        public DbSet<District> Districts { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Policy> Policies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -54,9 +58,24 @@ namespace InsuranceCore.DataContext
                     .HasForeignKey(x => x.UserId);
             });
 
-            builder.Entity<Post>().HasOne(s => s.Category).WithMany(s => s.Posts).IsRequired().OnDelete(DeleteBehavior.NoAction);
-            builder.Entity<Post>().HasOne(s => s.Author).WithMany(s => s.Posts).IsRequired().OnDelete(DeleteBehavior.NoAction);
-            builder.Entity<DefaultRoles>().HasOne(s => s.Role).WithMany(s => s.DefaultRoles).OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Post>().HasOne(e => e.Category).WithMany(e => e.Posts).IsRequired().OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Post>().HasOne(e => e.Author).WithMany(e => e.Posts).IsRequired().OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<DefaultRoles>().HasOne(e => e.Role).WithMany(e => e.DefaultRoles).OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<District>().HasOne(e => e.City).WithMany(e => e.Districts).IsRequired().OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Address>(entity =>
+            {
+                entity
+                    .HasOne(e => e.City)
+                    .WithMany(e => e.Addresses)
+                    .IsRequired()
+                    .OnDelete(DeleteBehavior.NoAction);
+
+                entity
+                     .HasOne(e => e.District)
+                     .WithMany(e => e.Addresses)
+                     .IsRequired()
+                     .OnDelete(DeleteBehavior.NoAction);
+            });
 
             builder.Entity<User>(entity =>
             {
