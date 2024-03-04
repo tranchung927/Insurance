@@ -1,108 +1,200 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/addnews.css';
 
 function AddPostForm() {
-    const [showPopup, setShowPopup] = useState(true);
+    const [posts, setPosts] = useState([]);
+    const [formData, setFormData] = useState({
+        title: '',
+        content: '',
+        shortContent: '',
+        personId: '',
+        type: '',
+        img: null
+    });
+    const [isEditing, setIsEditing] = useState(false); // State để kiểm tra xem người dùng đang chỉnh sửa hay không
+    const [editId, setEditId] = useState(null); // State để lưu ID của bài viết đang được chỉnh sửa
 
-    const handleLogin = async (event) => {
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+
+    const fetchPosts = () => {
+        fetch('https://localhost:7252/api/News/all')
+            .then(response => response.json())
+            .then(data => setPosts(data))
+            .catch(error => console.error('Error fetching posts:', error));
+    };
+
+    const handleSubmit = (event) => {
         event.preventDefault();
+        const postData = new FormData();
+        postData.append('title', formData.title);
+        postData.append('content', formData.content);
+        postData.append('shortContent', formData.shortContent);
+        postData.append('personId', formData.personId);
+        postData.append('type', formData.type);
+        postData.append('img', formData.img);
 
-        const username = event.target.elements.username.value;
-        const password = event.target.elements.password.value;
-
-        try {
-            const response = await fetch(`https://localhost:7252/api/Login/getaccount/${username}/${password}`);
-            const data = await response.json();
-
-            if (data.role === 'admin') {
-                setShowPopup(false);
-            } else {
-                alert('Bạn không có quyền truy cập.');
-            }
-        } catch (error) {
-            console.error('Có lỗi xảy ra:', error);
+        if (isEditing && editId) {
+            updatePost(editId, postData); // Nếu đang chỉnh sửa, gọi hàm updatePost
+        } else {
+            addPost(postData); // Nếu không, gọi hàm addPost
         }
     };
 
-    const handleAddPost = async (event) => {
-        event.preventDefault();
-
-        const title = event.target.elements.title.value;
-        const content = event.target.elements.content.value;
-        const shortContent = event.target.elements.shortContent.value;
-        const personId = event.target.elements.personId.value;
-        const type = event.target.elements.type.value;
-        const img = event.target.elements.img.files[0];
-
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('content', content);
-        formData.append('shortContent', shortContent);
-        formData.append('personId', personId);
-        formData.append('type', type);
-        formData.append('img', img);
-
-        try {
-            const response = await fetch('https://localhost:7252/insert', {
-                method: 'POST',
-                body: formData
+    const addPost = (postData) => {
+        fetch('https://localhost:7252/insert', {
+            method: 'POST',
+            body: postData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert('Post added successfully');
+                fetchPosts();
+                clearFormData();
+            })
+            .catch(error => {
+                console.error('There was a problem adding the post:', error);
             });
+    };
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
+    const editPost = (newsId) => {
+        setIsEditing(true);
+        setEditId(newsId);
+        fetch(`https://localhost:7252/getNews/${newsId}`)
+            .then(response => response.json())
+            .then(data => {
+                setFormData({
+                    title: data.title,
+                    content: data.content,
+                    shortContent: data.shortContent,
+                    personId: data.personId,
+                    type: data.type,
+                    img: null
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching post details:', error);
+            });
+    };
 
-            const responseData = await response.json();
-            alert('Post added successfully:', responseData);
-        } catch (error) {
-            console.error('There was a problem adding the post:', error);
+    const updatePost = (newsId, postData) => {
+        fetch(`https://localhost:7252/update/${newsId}`, {
+            method: 'PUT',
+            body: postData
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert('Bài viết đã được cập nhật thành công:', data);
+                fetchPosts();
+                clearFormData();
+                setIsEditing(false);
+                setEditId(null);
+            })
+            .catch(error => {
+                console.error('Lỗi khi cập nhật bài viết:', error);
+            });
+    };
+
+    const deletePost = (newsId) => {
+        if (window.confirm("Bạn có chắc chắn muốn xóa bài viết này không?")) {
+            fetch(`https://localhost:7252/delete/${newsId}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert(`Bài viết có ID ${newsId} đã được xóa thành công.`);
+                        fetchPosts();
+                    } else {
+                        alert(`Lỗi khi xóa bài viết có ID ${newsId}.`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi khi gửi yêu cầu xóa bài viết:', error);
+                });
+        } else {
+            alert('Người dùng đã hủy xóa bài viết.');
         }
+    };
+
+    const clearFormData = () => {
+        setFormData({
+            title: '',
+            content: '',
+            shortContent: '',
+            personId: '',
+            type: '',
+            img: null
+        });
     };
 
     return (
         <div>
-            {showPopup && (
-                <div className="popup-overlay" id="popup-overlay">
-                    <div className="popup" id="popup">
-                        <h2>Login</h2>
-                        <form id="loginForm" onSubmit={handleLogin}>
-                            <label htmlFor="username">Username:</label>
-                            <input type="text" id="username" name="username" placeholder="Enter your username" required />
-                            <label htmlFor="password">Password:</label>
-                            <input type="password" id="password" name="password" placeholder="Enter your password" required />
-                            <button type="submit" id="loginButton">Login</button>
-                        </form>
-                    </div>
-                </div>
-            )}
-
             <div className="container">
-                <form id="addPostForm" encType="multipart/form-data" onSubmit={handleAddPost}>
-                    <h1>Add News</h1>
+                <form onSubmit={handleSubmit} encType="multipart/form-data">
+                    <h1>{isEditing ? 'Update News' : 'Add News'}</h1>
                     <label htmlFor="title">Title:</label>
-                    <input type="text" id="title" name="title" required />
+                    <input type="text" id="title" name="title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required />
 
+                    {/* Các trường input khác */}
                     <label htmlFor="content">Content:</label>
-                    <textarea id="content" name="content" rows="4" required></textarea>
+                    <textarea id="content" name="content" rows="4" value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })} required></textarea>
 
                     <label htmlFor="shortContent">Short Content:</label>
-                    <input type="text" id="shortContent" name="shortContent" required />
+                    <input type="text" id="shortContent" name="shortContent" value={formData.shortContent} onChange={(e) => setFormData({ ...formData, shortContent: e.target.value })} required />
 
                     <label htmlFor="personId">PersonId:</label>
-                    <input type="text" id="personId" name="personId" required />
+                    <input type="text" id="personId" name="personId" value={formData.personId} onChange={(e) => setFormData({ ...formData, personId: e.target.value })} required />
 
                     <label htmlFor="type">Type:</label>
-                    <select id="type" name="type" required>
+                    <select id="type" name="type" value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value })} required>
                         <option value="Business">Business</option>
-                        <option value="Technology">Technology</option>
+                        <option value="Techlonogy">Techlonogy</option>
                         <option value="Customer">Customer</option>
                     </select>
 
                     <label htmlFor="img">Image:</label>
-                    <input type="file" id="img" name="img" accept="image/*" required />
+                    <input type="file" id="img" name="img" accept="image/*" onChange={(e) => setFormData({ ...formData, img: e.target.files[0] })} required />
 
-                    <input type="submit" value="Add Post" id="addpost" />
+                    <input type="submit" value={isEditing ? 'Update Post' : 'Add Post'} />
                 </form>
+            </div>
+
+            <div className="table-container">
+                <table id="postTable">
+                    <thead>
+                        <tr>
+                            <th>NewsId</th>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>Type</th>
+                            <th>Short Content</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {posts.map(post => (
+                            <tr key={post.newsId}>
+                                <td>{post.newsId}</td>
+                                <td>{post.title}</td>
+                                <td>{post.content}</td>
+                                <td>{post.type}</td>
+                                <td>{post.shortContent}</td>
+                                <td><img src={`https://localhost:7252/${post.imageUrl}`} style={{ maxWidth: '100px' }} alt="Post" /></td>
+                                <td>
+                                    <button className="bt-edit" onClick={() => editPost(post.newsId)}>Edit</button>
+                                    <button className="bt-delete" onClick={() => deletePost(post.newsId)}>Delete</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div>
     );

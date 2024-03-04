@@ -4,6 +4,7 @@ import News from './pages/news';
 import AddPostForm from './pages/addnews';
 import PaymentDetails from './pages/paymentdetails';
 
+
 function App() {
   return (
     <Router>
