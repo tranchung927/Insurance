@@ -22,3 +22,8 @@ code:not([class*='language-']):after {
 code[class*='language-'] {
   padding: 0;
 }
+.footer-page {
+  background-color: #01773d;
+  color: #fff;
+  padding: 3% 0%;
+}
