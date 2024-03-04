@@ -23,6 +23,7 @@ import AddModeratorOutlinedIcon from '@mui/icons-material/AddModeratorOutlined';
 import MessageOutline from 'mdi-material-ui/MessageOutline'
 
 
+
 function FormDialog({ open, onClose, selectedRowData }) {
     console.log('x.selectedRowData: ', selectedRowData);
     // khi selectedRowData có sự thay đổi (ở đây là từ null thành có giá trị)
@@ -65,7 +66,7 @@ function FormDialog({ open, onClose, selectedRowData }) {
         console.log('Token: ', token);
 
         // Gửi dữ liệu đến API
-        const apiUrl = 'https://localhost:7202/api/ClientSupport/UpdateTicket';
+        const apiUrl = '';
         console.log(formData);
         fetch(apiUrl, {
             method: 'POST',

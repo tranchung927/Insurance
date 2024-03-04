@@ -100,9 +100,8 @@ const HealthInsuranceForm = ({ allWorkplace, allDeathRate }) => {
     return (
 
         <Grid container spacing={2}  >
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} spacing={2}>
                 <Grid item xs={12} >
-                    
                     {xsToMd  && (
                         <Card >
                             <CardMedia
@@ -114,21 +113,19 @@ const HealthInsuranceForm = ({ allWorkplace, allDeathRate }) => {
                             />
                         </Card>
                     )}
-
-                    
                 </Grid>
-                <Card>
-                    {downSm || upMd && (
-                        <Typography gutterBottom variant="h6" component="div" style={{ margin: '10px', fontSize: '16px' }}>
-                            Hãy đảm bảo rằng bạn và gia đình luôn được bảo vệ mọi lúc, mọi nơi.
-                            Đừng để cuộc sống bị gián đoạn bởi những rủi ro y tế không mong muốn.
-                            Hãy liên hệ với chúng tôi ngay hôm nay để biết thêm thông tin về các gói
-                            bảo hiểm y tế tốt nhất phù hợp với nhu cầu của bạn!
-                        </Typography>
-                    )}
-
-                  
-                    <Grid item xs={12} style={{ margin: '10px' }}>
+                <Grid container spacing={2} >
+                    <Grid item xs={12} >
+                        {downSm || upMd && (
+                            <Typography gutterBottom variant="h6" component="div" style={{ fontSize: '16px' }}>
+                                Hãy đảm bảo rằng bạn và gia đình luôn được bảo vệ mọi lúc, mọi nơi.
+                                Đừng để cuộc sống bị gián đoạn bởi những rủi ro y tế không mong muốn.
+                                Hãy liên hệ với chúng tôi ngay hôm nay để biết thêm thông tin về các gói
+                                bảo hiểm y tế tốt nhất phù hợp với nhu cầu của bạn!
+                            </Typography>
+                        )}
+                    </Grid>
+                    <Grid item xs={12} >
                         {/* Trường dữ liệu giá trị bảo hiểm */}
                         <TextField
                             id="outlined-basic"
@@ -139,7 +136,7 @@ const HealthInsuranceForm = ({ allWorkplace, allDeathRate }) => {
                             onChange={handleInsuranceValueChange}
                         />
                     </Grid>
-                    <Grid item xs={12} style={{ margin: '10px' }}>
+                    <Grid item xs={12} >
                         {/* Trường dữ liệu giới tính */}
                         <Autocomplete
                             disablePortal
@@ -152,7 +149,7 @@ const HealthInsuranceForm = ({ allWorkplace, allDeathRate }) => {
                             renderInput={(params) => <TextField {...params} label="Sex" />}
                         />
                     </Grid>
-                    <Grid item xs={12} style={{ margin: '10px' }}>
+                    <Grid item xs={12} >
                         {/* Trường dữ liệu tuổi */}
                         <TextField
                             id="year-of-birth"
@@ -164,7 +161,7 @@ const HealthInsuranceForm = ({ allWorkplace, allDeathRate }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12} style={{ margin: '10px' }}>
+                    <Grid item xs={12} >
                         {/* Trường dữ liệu môi trường làm việc */}
                         <Autocomplete
                             disablePortal
@@ -178,7 +175,10 @@ const HealthInsuranceForm = ({ allWorkplace, allDeathRate }) => {
                         />
                     </Grid>
 
-                </Card>
+
+                    
+
+                </Grid>
                 
                 <Grid item container xs={12} style={{ marginTop: '20px' }}>
                     <Grid item xs={6} >

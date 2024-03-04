@@ -113,42 +113,39 @@ const LifeInsuranceForm = ({ allWorkplace, allDeathRate }) => {
     return (
 
         <Grid container spacing={2}  >
-            <Grid item xs={12} sm={6}>
-                <Grid item xs={12} >
-
-                    {xsToMd && (
-                        <Card >
-                            <CardMedia
-                                component="img"
-                                sx={{ height: 'auto', width: '100%' }}
-                                image={imageURL}
-                                alt="Ảnh"
-                                xs={{ objectFit: 'contain' }}
-                            />
-                        </Card>
-                    )}
-
-
+            <Grid item container xs={12} sm={6} spacing={2}>
+                <Grid item xs={12} container spacing={2}>
+                    <Grid item>
+                        {xsToMd && (
+                            <Card >
+                                <CardMedia
+                                    component="img"
+                                    sx={{ height: 'auto', width: '100%' }}
+                                    image={imageURL}
+                                    alt="Ảnh"
+                                    xs={{ objectFit: 'contain' }}
+                                />
+                            </Card>
+                        )}
+                    </Grid>
                 </Grid>
-                <Card>
+                <Grid item container spacing={2}>
                     {downSm || upMd && (
-                        <Grid>
-                            <Typography gutterBottom variant="h6" component="div" style={{ margin: '10px', fontSize: '16px' }}>
+                        <Grid item>
+                            <Typography gutterBottom variant="h6" component="div" style={{ fontSize: '16px' }}>
                                 An tâm về tài chính: Với bảo hiểm nhân thọ, bạn có thể yên tâm rằng bạn và gia đình sẽ được
                                 bảo vệ tài chính trong trường hợp bất kỳ sự kiện không mong muốn nào xảy ra, bao gồm tử vong,
                                 mất khả năng làm việc hoặc bệnh tật nghiêm trọng.
                             </Typography>
-                            <Typography gutterBottom variant="h6" component="div" style={{ margin: '10px', fontSize: '16px' }}>
+                            <Typography gutterBottom variant="h6" component="div" style={{  fontSize: '16px' }}>
                                 Bảo vệ cho gia đình: Bảo hiểm nhân thọ không chỉ là về bảo vệ cá nhân mà còn là về việc bảo vệ cho
                                 những người thân yêu của bạn. Đảm bảo rằng họ sẽ không phải lo lắng về tài chính trong tình huống khẩn cấp.
                             </Typography>
                            
                         </Grid>
-                        
                     )}
 
-
-                    <Grid item xs={12} style={{ margin: '10px' }}>
+                    <Grid item xs={12} >
                         {/* Trường dữ liệu giá trị bảo hiểm */}
                         <TextField
                             id="outlined-basic"
@@ -159,7 +156,7 @@ const LifeInsuranceForm = ({ allWorkplace, allDeathRate }) => {
                             onChange={handleInsuranceValueChange}
                         />
                     </Grid>
-                    <Grid item xs={12} style={{ margin: '10px' }}>
+                    <Grid item xs={12} >
                         {/* Trường dữ liệu giới tính */}
                         <Autocomplete
                             disablePortal
@@ -172,8 +169,8 @@ const LifeInsuranceForm = ({ allWorkplace, allDeathRate }) => {
                             renderInput={(params) => <TextField {...params} label="Sex" />}
                         />
                     </Grid>
-                    <Grid item container xs={12} sx={{ marginLeft: '10px' }}>
-                        <Grid item xs={5} >
+                    <Grid container item xs={12} spacing={2}>
+                        <Grid item xs={6} >
                         {/* Trường dữ liệu tuổi */}
                             <TextField
                                 id="year-of-birth"
@@ -184,7 +181,7 @@ const LifeInsuranceForm = ({ allWorkplace, allDeathRate }) => {
                                 sx={{ width: '100%' }}
                             />
                         </Grid>
-                        <Grid item xs={6} sx={{ marginLeft: '20px' }}>
+                        <Grid item xs={6} >
                             {/* Trường thời hạn hợp đồng */}
                             <TextField
                                 id="Effective-time"
@@ -192,12 +189,12 @@ const LifeInsuranceForm = ({ allWorkplace, allDeathRate }) => {
                                 variant="outlined"
                                 value={effectiveTime}
                                 onChange={handleEffectiveTimeChange}
-                                sx={{ width: '105%' }}
+                                sx={{ width: '100%' }}
                             />
                         </Grid>
                     </Grid>
 
-                    <Grid item xs={12} style={{ margin: '10px' }}>
+                    <Grid item xs={12} >
                         {/* Trường dữ liệu môi trường làm việc */}
                         <Autocomplete
                             disablePortal
@@ -211,9 +208,9 @@ const LifeInsuranceForm = ({ allWorkplace, allDeathRate }) => {
                         />
                     </Grid>
 
-                </Card>
+                </Grid>
 
-                <Grid item container xs={12} style={{ marginTop: '20px' }}>
+                <Grid item container xs={12} >
                     <Grid item xs={6} >
                         <Button onClick={() => CalculateLifeInsurance(sex, insuranceValue, parseInt(yearOfBirth), workplace, allDeathRate, parseInt(effectiveTime) )} variant="outlined">Calculate</Button>
                     </Grid>

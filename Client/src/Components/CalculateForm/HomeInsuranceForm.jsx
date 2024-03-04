@@ -3,13 +3,18 @@
 import { useState } from 'react'
 
 // ** MUI Imports
-
+import Card from '@mui/material/Card';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-
-
+import {
+    Grid,
+} from '@mui/material';
+import CardMedia from '@mui/material/CardMedia';
+import img_house_1 from './house_1.jpg';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const HomeInsuranceForm = ({ allHomeCoefficient, allHomeType, allSizeType, allRiskCoefficient }) => {
 
@@ -45,7 +50,7 @@ const HomeInsuranceForm = ({ allHomeCoefficient, allHomeType, allSizeType, allRi
         setRiskCoefficient(newValue);
     };
 
-    const HouseValueChange = (event) => {
+    const handleHouseValueChange = (event) => {
         const newValue = event.target.value;
         // Kiểm tra nếu giá trị mới không phải là một số thì không cập nhật state
         if (!isNaN(newValue)) {
@@ -75,8 +80,8 @@ const HomeInsuranceForm = ({ allHomeCoefficient, allHomeType, allSizeType, allRi
         const coefficientValue = coefficient.coefficient;
 
         // Thực hiện phép nhân giữa giá trị nhà, hệ số rủi ro và hệ số của loại nhà và kích thước
-        const result = houseValue * riskCoefficient.value * coefficientValue*0.01;
-
+        const result = houseValue * riskCoefficient.value * coefficientValue*0.001;
+        console.log('result:', result);
         // Cập nhật giá trị state
         setValue(result);
     }
@@ -88,60 +93,134 @@ const HomeInsuranceForm = ({ allHomeCoefficient, allHomeType, allSizeType, allRi
         currency: 'VND',
     });
 
+    // bé hơn sm
+    const theme = useTheme();
+    const downSm = useMediaQuery(theme.breakpoints.down('sm'));
+    const upSm = useMediaQuery(theme.breakpoints.up('sm'));
+   
     return (
         <>
-            {/* Trường dữ liệu giá trị nhà */}
-            <TextField
-                id="outlined-basic"
-                label="House value"
-                variant="outlined"
-                value={houseValue}
-                onChange={HouseValueChange}
-            />
+            <Grid container spacing={2}  >
+                <Grid item xs={12} sm={7}  >
+                    <Card >
+                        <CardMedia
+                            component="img"
+                            sx={{ height: 'auto', width: '100%' }}
+                            image={img_house_1}
+                            alt="Ảnh"
+                            xs={{ objectFit: 'contain' }}
+                        />
+                    </Card>
+                </Grid>
+                
+                <Grid item xs={ 12} sm={5} container spacing={2}>
+                    <Grid item xs={12} >
+                        {/* Trường dữ liệu giá trị Nhà */}
+                        <TextField
+                            id="outlined-basic"
+                            label="Insurance value"
+                            variant="outlined"
+                            value={houseValue}
+                            sx={{ width: '100%' }}
+                            onChange={handleHouseValueChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12} >
+                        {/* Loại nhà */}
+                        <Autocomplete
+                            disablePortal
+                            id="workplace-autocomplete"
+                            getOptionLabel={(option) => option.name}
+                            options={allHomeType}
+                            sx={{ width: '100%' }}
+                            value={homeType}
+                            onChange={homeTypeChange}
+                            renderInput={(params) => <TextField {...params} label="Home type" />}
+                        />
+                    </Grid>
+                    <Grid item xs={12} >
+                        {/* kích thước nhà */}
+                        <Autocomplete
+                            disablePortal
+                            id="workplace-autocomplete"
+                            getOptionLabel={(option) => option.name}
+                            options={allSizeType}
+                            sx={{ width: '100%' }}
+                            value={sizeType}
+                            onChange={sizeTypeChange}
+                            renderInput={(params) => <TextField {...params} label="Size type" />}
+                        />
+                    </Grid>
+                    <Grid item xs={12} >
+                        {/* mức độ rủi ro */}
+                        <Autocomplete
+                            disablePortal
+                            id="workplace-autocomplete"
+                            getOptionLabel={(option) => option.name}
+                            options={allRiskCoefficient}
+                            sx={{ width: '100%' }}
+                            value={riskCoefficient}
+                            onChange={riskCoefficientChange}
+                            renderInput={(params) => <TextField {...params} label="Risk coefficient" />}
+                        />
+                    </Grid>
+                    <Grid item container xs={12} spacing={2}>
+                        <Grid item xs={6} >
+                            <Button onClick={() => CalculateHomeInsurance(homeType, sizeType, riskCoefficient, houseValue)} variant="outlined">Calculate</Button>
+                        </Grid>
+                        <Grid item xs={6} >
+                            <Typography gutterBottom variant="h6" component="div">
+                                {formattedValue}/Tháng
+                            </Typography>
+                        </Grid>
+                      
+
+                    </Grid>
+                </Grid>
+                <Grid item xs={12} spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                            <Typography gutterBottom variant="h6" component="div" style={{ fontSize: '16px' }}>
+                                🏠 Bảo Vệ Ngôi Nhà Của Bạn với Bảo Hiểm Nhà!
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography gutterBottom variant="h6" component="div" style={{ fontSize: '16px' }}>
+                                🛡️ Bảo vệ chống lại thiên tai, hỏa hoạn, và các rủi ro khác.
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography gutterBottom variant="h6" component="div" style={{ fontSize: '16px' }}>
+                                💸 Bồi thường cho thiệt hại tài sản và chi phí sửa chữa.
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography gutterBottom variant="h6" component="div" style={{ fontSize: '16px' }}>
+                                🏡 Bảo hiểm tài sản nội thất và ngoại thất.
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography gutterBottom variant="h6" component="div" style={{ fontSize: '16px' }}>
+                                🗝️ Bảo vệ pháp lý và trách nhiệm dân sự.
+                            </Typography>
+                        </Grid>
+                </Grid>
+
+
+                
+                
+            </Grid>
+            
 
             
-            {/* Loại nhà */}
-            <Autocomplete
-                disablePortal
-                id="workplace-autocomplete"
-                getOptionLabel={(option) => option.name}
-                options={allHomeType}
-                sx={{ width: 300 }}
-                value={homeType}
-                onChange={homeTypeChange}
-                renderInput={(params) => <TextField {...params} label="Home type" />}
-            />
+            
 
-            {/* kích thước nhà */}
-            <Autocomplete
-                disablePortal
-                id="workplace-autocomplete"
-                getOptionLabel={(option) => option.name}
-                options={allSizeType}
-                sx={{ width: 300 }}
-                value={sizeType}
-                onChange={sizeTypeChange}
-                renderInput={(params) => <TextField {...params} label="Size type" />}
-            />
+            
 
-            {/* mức độ rủi ro */}
-            <Autocomplete
-                disablePortal
-                id="workplace-autocomplete"
-                getOptionLabel={(option) => option.name}
-                options={allRiskCoefficient}
-                sx={{ width: 300 }}
-                value={riskCoefficient}
-                onChange={riskCoefficientChange}
-                renderInput={(params) => <TextField {...params} label="Risk coefficient" />}
-            />
+            
 
-           
-            <Typography gutterBottom variant="h6" component="div">
-                {formattedValue}
-            </Typography>
+            
 
-            <Button onClick={() => CalculateHomeInsurance(homeType, sizeType, riskCoefficient, houseValue)} variant="outlined">Calculate</Button>
+            
         </>
     );
 }
