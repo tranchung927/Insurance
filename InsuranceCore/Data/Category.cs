@@ -10,7 +10,7 @@ namespace InsuranceCore.Data
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string Name { get; set; }
 
         [ForeignKey("CategoryId")]

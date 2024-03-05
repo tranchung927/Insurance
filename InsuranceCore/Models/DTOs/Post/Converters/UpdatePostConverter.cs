@@ -33,14 +33,6 @@ namespace InsuranceCore.Models.DTOs.Post.Converters
             destination.Content = source.Content;
             destination.Name = source.Name;
             destination.ThumbnailUrl = string.IsNullOrEmpty(source.ThumbnailUrl) ? null : source.ThumbnailUrl;
-            if (source.Tags != null)
-                destination.PostTags = source.Tags.Select(x => new PostTag()
-                {
-                    PostId = destination.Id,
-                    TagId = x
-                }).ToList();
-            else
-                destination.PostTags = new List<PostTag>();
             return destination;
         }
     }

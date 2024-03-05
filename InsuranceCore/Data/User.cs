@@ -35,7 +35,7 @@ namespace InsuranceCore.Data
         public DateTimeOffset RegisteredAt { get; set; }
 
         [Required]
-        public  DateTimeOffset LastLogin { get; set; }
+        public DateTimeOffset LastLogin { get; set; }
 
         public string? RefreshToken { get; set; }
 
@@ -51,6 +51,8 @@ namespace InsuranceCore.Data
         public virtual ICollection<Policy> Policies { get; set; }
 
         [ForeignKey("UserId")]
-        [Required] public Address Address { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
+
+        [Required] public string Address { get; set; }
     }
 }

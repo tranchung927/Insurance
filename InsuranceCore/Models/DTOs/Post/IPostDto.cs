@@ -16,7 +16,5 @@ namespace InsuranceCore.Models.DTOs.Post
         public new int Author { get; set; }
 
         public int Category { get; set; }
-
-        public IEnumerable<int> Tags { get; set; }
     }
 }

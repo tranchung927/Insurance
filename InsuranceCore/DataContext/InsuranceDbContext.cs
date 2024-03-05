@@ -27,23 +27,24 @@ namespace InsuranceCore.DataContext
 
         #endregion
         public DbSet<Post> Posts { get; set; }
-        public DbSet<Tag> Tags { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<PostTag> PostTags { get; set; }
         public DbSet<DefaultRoles> DefaultRoles { get; set; }
-        public DbSet<District> Districts { get; set; }
-        public DbSet<City> Cities { get; set; }
-        public DbSet<Address> Addresses { get; set; }
         public DbSet<Policy> Policies { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<DeathRate> DeathRates { get; set; }
+        public DbSet<Workplace> Workplaces { get; set; }
+        public DbSet<HouseCoefficient> HouseCoefficients { get; set; }
+        public DbSet<HouseSize> HouseSizes { get; set; }
+        public DbSet<HouseType> HouseTypes { get; set; }
+        public DbSet<VehicleProperty> VehicleProperties { get; set; }
+        public DbSet<VehicleType> VehicleTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.HasDefaultSchema("Identity");
-
-            builder.Entity<PostTag>()
-               .HasKey(pt => new { pt.PostId, pt.TagId });
 
             builder.Entity<UserRole>(entity =>
             {
@@ -61,21 +62,6 @@ namespace InsuranceCore.DataContext
             builder.Entity<Post>().HasOne(e => e.Category).WithMany(e => e.Posts).IsRequired().OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Post>().HasOne(e => e.Author).WithMany(e => e.Posts).IsRequired().OnDelete(DeleteBehavior.NoAction);
             builder.Entity<DefaultRoles>().HasOne(e => e.Role).WithMany(e => e.DefaultRoles).OnDelete(DeleteBehavior.NoAction);
-            builder.Entity<District>().HasOne(e => e.City).WithMany(e => e.Districts).IsRequired().OnDelete(DeleteBehavior.NoAction);
-            builder.Entity<Address>(entity =>
-            {
-                entity
-                    .HasOne(e => e.City)
-                    .WithMany(e => e.Addresses)
-                    .IsRequired()
-                    .OnDelete(DeleteBehavior.NoAction);
-
-                entity
-                     .HasOne(e => e.District)
-                     .WithMany(e => e.Addresses)
-                     .IsRequired()
-                     .OnDelete(DeleteBehavior.NoAction);
-            });
 
             builder.Entity<User>(entity =>
             {

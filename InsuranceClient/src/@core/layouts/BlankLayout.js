@@ -1,7 +1,7 @@
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
-
+import AppBar from './components/main/appBar'
 // Styled component for Blank Layout component
 const BlankLayoutWrapper = styled(Box)(({ theme }) => ({
   height: '100vh',
@@ -27,7 +27,9 @@ const BlankLayoutWrapper = styled(Box)(({ theme }) => ({
 const BlankLayout = ({ children }) => {
   return (
     <BlankLayoutWrapper className='layout-wrapper'>
-      <Box className='app-content' sx={{ minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>
+      
+       <Box className='app-content' sx={{ minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>
+       <AppBar/>
         {children}
       </Box>
     </BlankLayoutWrapper>

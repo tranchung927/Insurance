@@ -18,9 +18,5 @@
         public DateTimeOffset PublishedAt { get; set; }
 
         public DateTimeOffset? ModifiedAt { get; set; }
-
-        public IEnumerable<int> Likes { get; set; }
-
-        public virtual IEnumerable<int> Tags { get; set; }
     }
 }

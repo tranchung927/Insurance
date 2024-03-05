@@ -22,10 +22,6 @@ namespace InsuranceCore.Data
         public DateTimeOffset PublishedAt { get; set; }
 
         public DateTimeOffset? ModifiedAt { get; set; }
-
-        [ForeignKey("PostId")]
-        public virtual ICollection<PostTag> PostTags { get; set; }
-
         public string ThumbnailUrl { get; set; }
     }
 }
