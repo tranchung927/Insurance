@@ -44,7 +44,7 @@ namespace InsuranceCore.DataContext
         {
             base.OnModelCreating(builder);
 
-            builder.HasDefaultSchema("Identity");
+           // builder.HasDefaultSchema("Identity");
 
             builder.Entity<UserRole>(entity =>
             {
