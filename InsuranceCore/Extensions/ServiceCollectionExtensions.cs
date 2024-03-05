@@ -38,6 +38,12 @@ using InsuranceCore.Repositories.HouseSize;
 using InsuranceCore.Repositories.HouseType;
 using InsuranceCore.Repositories.DeathRate;
 using InsuranceCore.Repositories.Workplace;
+using InsuranceCore.Services.DeathRate;
+using InsuranceCore.Services.VehiclePropertyService;
+using InsuranceCore.Services.VehicleTypeService;
+using InsuranceCore.Services.HouseCoefficient;
+using InsuranceCore.Services.HouseSize;
+using InsuranceCore.Services.HouseType;
 
 namespace InsuranceCore.Extensions
 {
@@ -144,6 +150,12 @@ namespace InsuranceCore.Extensions
             services.AddScoped<IUrlService, UrlService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IWorkplaceService, WorkplaceService>();
+            services.AddScoped<IDeathRateService, DeathRateService>();
+            services.AddScoped<IVehiclePropertyService, VehiclePropertyService>();
+            services.AddScoped<IVehicleTypeService, VehicleTypeService>();
+            services.AddScoped<IHouseCoefficientService, HouseCoefficientService>();
+            services.AddScoped<IHouseSizeService, HouseSizeService>();
+            services.AddScoped<IHouseTypeService, HouseTypeService>();
             return services;
         }
 

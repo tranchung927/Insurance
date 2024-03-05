@@ -1,5 +1,6 @@
 ﻿using System;
 using InsuranceCore.Data;
+using InsuranceCore.Models.DTOs.VehicleType;
 using InsuranceCore.Models.DTOs.Workplace;
 using InsuranceCore.Specifications;
 using InsuranceCore.Specifications.FilterSpecifications;
@@ -19,7 +20,8 @@ namespace InsuranceCore.Services.Workplace
 
         Task<GetWorkplaceDto> GetWorkplace(int id);
 
-        Task<GetWorkplaceDto> AddWorkplace(AddWorkplaceDto Workplace);
+        Task<GetWorkplaceDto> AddWorkplace(AddWorkplaceDto workplace);
+        Task UpdateWorkplace(UpdateWorkplaceDto workplace);
 
         Task DeleteWorkplace(int id);
     }

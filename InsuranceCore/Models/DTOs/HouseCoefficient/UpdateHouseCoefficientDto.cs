@@ -1,7 +1,7 @@
 ﻿using System;
 namespace InsuranceCore.Models.DTOs.HouseCoefficient
 {
-	public class UpdateHouseCoefficientDto: IHouseCoefficientDto
+	public class UpdateHouseCoefficientDto : ADto, IHouseCoefficientDto
 	{
         public int HouseTypeId { get; set; }
 
