@@ -30,8 +30,8 @@ const HealthInsuranceForm = ({ allWorkplace, allDeathRate }) => {
     });
 
     const sexArr = [
-        { label: 'Nam', sex: 1 },
-        { label: 'Nữ', sex: 0 },
+        { label: 'Male', sex: 1 },
+        { label: 'Female', sex: 0 },
     ]
     // State lưu trữ giá trị các trường dữ liệu
     const [insuranceValue, setInsuranceValue] = useState('');
