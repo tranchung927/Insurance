@@ -10,13 +10,6 @@
         public Task<IEnumerable<Data.Post>> GetPostsFromUser(int id);
 
         /// <summary>
-        /// Method used to see the existing posts from a tag giving its Id.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public Task<IEnumerable<Data.Post>> GetPostsFromTag(int id);
-
-        /// <summary>
         /// Method used to see the existing posts from a category giving its Id.
         /// </summary>
         /// <param name="id"></param>

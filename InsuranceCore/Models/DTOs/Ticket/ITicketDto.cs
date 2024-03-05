@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 namespace InsuranceCore.Models.DTOs.Ticket
 {
     /// <summary>
-    /// Interface of <see cref="Ticket"/> Dto containing all the common properties of Post Dto Type (GET, ADD, UPDATE).
+    /// Interface of <see cref="Ticket"/> Dto containing all the common properties of Ticket Dto Type (GET, ADD, UPDATE).
     /// </summary>
     public interface ITicketDto
     {

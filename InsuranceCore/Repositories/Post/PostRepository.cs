@@ -25,7 +25,6 @@ namespace InsuranceCore.Repositories.Post
         {
             var query = GenerateQuery(filterSpecification, pagingSpecification, sortSpecification);
             return await query.Include(x => x.Author)
-                .Include(x => x.PostTags)
                 .Include(x => x.Category).ToListAsync();
         }
 
@@ -35,8 +34,6 @@ namespace InsuranceCore.Repositories.Post
             try
             {
                 return await _context.Set<Data.Post>().Include(x => x.Author)
-                    .Include(x => x.PostTags)
-                    .ThenInclude(x => x.Tag)
                     .Include(x => x.Category)
                     .SingleAsync(x => x.Id == id);
             }
@@ -52,7 +49,6 @@ namespace InsuranceCore.Repositories.Post
             try
             {
                 return _context.Set<Data.Post>().Include(x => x.Author)
-                    .Include(x => x.PostTags)
                     .Include(x => x.Category)
                     .Single(x => x.Id == id);
             }
@@ -66,7 +62,6 @@ namespace InsuranceCore.Repositories.Post
         public override IEnumerable<Data.Post> GetAll()
         {
             return _context.Set<Data.Post>().Include(x => x.Author)
-                .Include(x => x.PostTags)
                 .Include(x => x.Category).ToList();
         }
 
@@ -74,35 +69,22 @@ namespace InsuranceCore.Repositories.Post
         public override async Task<IEnumerable<Data.Post>> GetAllAsync()
         {
             return await _context.Set<Data.Post>().Include(x => x.Author)
-                .Include(x => x.PostTags)
                 .Include(x => x.Category).ToListAsync();
         }
 
         /// <inheritdoc />
         public async Task<IEnumerable<Data.Post>> GetPostsFromUser(int id)
         {
-            return await _context.Set<Data.Post>().Include(x => x.PostTags)
+            return await _context.Set<Data.Post>()
                 .Include(x => x.Category)
                 .Include(x => x.Author)
                 .Where(x => x.Author.Id == id).ToListAsync();
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Data.Post>> GetPostsFromTag(int id)
-        {
-            var postTags = await _context.Set<PostTag>().Include(x => x.Post.Author)
-                .Include(x => x.Post.Category)
-                .Include(x => x.Tag)
-                .Include(x => x.Post)
-                .Where(x => x.TagId == id).ToListAsync();
-            return postTags.Select(x => x.Post);
-        }
-
-        /// <inheritdoc />
         public async Task<IEnumerable<Data.Post>> GetPostsFromCategory(int id)
         {
             return await _context.Set<Data.Post>().Include(x => x.Author)
-                .Include(x => x.PostTags)
                 .Include(x => x.Category)
                 .Where(x => x.Category.Id == id).ToListAsync();
         }

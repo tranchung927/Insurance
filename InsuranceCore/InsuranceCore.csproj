@@ -29,6 +29,20 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Models\DTOs\Ticket\Converters\" />
+    <Folder Include="Repositories\Ticket\" />
+    <Folder Include="Repositories\Product\" />
+    <Folder Include="Services\TicketService\" />
+    <Folder Include="Models\Builders\Specifications\Ticket\" />
+    <Folder Include="Models\DTOs\Product\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Models\DTOs\Ticket\Converters\" />
+    <None Remove="Repositories\Ticket\" />
+    <None Remove="Repositories\Product\" />
+    <None Remove="Services\TicketService\" />
+    <None Remove="Models\Builders\Specifications\Ticket\" />
+    <None Remove="Models\DTOs\Product\" />
+  </ItemGroup>
 </Project>

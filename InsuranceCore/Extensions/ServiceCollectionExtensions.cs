@@ -14,21 +14,19 @@ using InsuranceCore.Models.DTOs.Account;
 using InsuranceCore.Models.DTOs.Category;
 using InsuranceCore.Models.DTOs.Post;
 using InsuranceCore.Models.DTOs.Role;
-using InsuranceCore.Models.DTOs.Tag;
 using InsuranceCore.Models.Exceptions;
 using InsuranceCore.Repositories.Category;
 using InsuranceCore.Repositories.Post;
 using InsuranceCore.Repositories.Role;
-using InsuranceCore.Repositories.Tag;
 using InsuranceCore.Repositories.UnitOfWork;
 using InsuranceCore.Repositories.User;
 using InsuranceCore.Services.CategoryService;
 using InsuranceCore.Services.PostService;
 using InsuranceCore.Services.RoleService;
-using InsuranceCore.Services.TagService;
 using InsuranceCore.Services.UrlService;
 using InsuranceCore.Services.UserService;
 using InsuranceCore.Validators;
+using InsuranceCore.Repositories.Ticket;
 
 namespace InsuranceCore.Extensions
 {
@@ -105,7 +103,7 @@ namespace InsuranceCore.Extensions
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
-            services.AddScoped<ITagRepository, TagRepository>();
+            services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             return services;
@@ -121,7 +119,7 @@ namespace InsuranceCore.Extensions
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IRoleService, RoleService>();
-            services.AddScoped<ITagService, TagService>();
+            services.AddScoped<ITic, TagService>();
             services.AddScoped<IUserService, UserService>();
             services.AddHttpClient<IUrlService, UrlService>();
             services.AddScoped<IUrlService, UrlService>();
@@ -138,7 +136,7 @@ namespace InsuranceCore.Extensions
             services.AddScoped<IValidator<ICategoryDto>, CategoryDtoValidator>();
             services.AddScoped<IValidator<IPostDto>, PostDtoValidator>();
             services.AddScoped<IValidator<IRoleDto>, RoleDtoValidator>();
-            services.AddScoped<IValidator<ITagDto>, TagDtoValidator>();
+            //services.AddScoped<IValidator<ITagDto>, TagDtoValidator>();
             services.AddScoped<IValidator<IAccountDto>, AccountDtoValidator>();
             return services;
         }

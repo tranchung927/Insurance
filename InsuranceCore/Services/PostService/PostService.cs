@@ -22,18 +22,16 @@ namespace InsuranceCore.Services.PostService
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
         private readonly ICategoryRepository _categoryRepository;
-        private readonly ITagRepository _tagRepository;
         private readonly IValidator<IPostDto> _dtoValidator;
 
         public PostService(IPostRepository repository, IMapper mapper, IUnitOfWork unitOfWork, IUserRepository userRepository,
-            ICategoryRepository categoryService, ITagRepository tagRepository, IValidator<IPostDto> dtoValidator)
+            ICategoryRepository categoryService, IValidator<IPostDto> dtoValidator)
         {
             _repository = repository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
             _categoryRepository = categoryService;
-            _tagRepository = tagRepository;
             _dtoValidator = dtoValidator;
         }
 
@@ -42,7 +40,6 @@ namespace InsuranceCore.Services.PostService
             return (await _repository.GetAllAsync()).Select(x =>
             {
                 var postDto = _mapper.Map<GetPostDto>(x);
-                postDto.Tags = x.PostTags.Select(y => y.TagId);
                 return postDto;
             }).ToList();
         }
@@ -55,7 +52,6 @@ namespace InsuranceCore.Services.PostService
                 .Select(x =>
                 {
                     var postDto = _mapper.Map<GetPostDto>(x);
-                    postDto.Tags = x.PostTags.Select(y => y.TagId);
                     return postDto;
                 });
         }
@@ -71,7 +67,6 @@ namespace InsuranceCore.Services.PostService
             return posts.Select(x =>
             {
                 var postDto = _mapper.Map<GetPostDto>(x);
-                postDto.Tags = x.PostTags.Select(y => y.TagId);
                 return postDto;
             }).ToList();
         }
@@ -81,7 +76,6 @@ namespace InsuranceCore.Services.PostService
             return (await _repository.GetPostsFromTag(id)).Select(x =>
             {
                 var postDto = _mapper.Map<GetPostDto>(x);
-                postDto.Tags = x.PostTags.Select(y => y.TagId);
                 return postDto;
             }).ToList();
         }
@@ -91,7 +85,6 @@ namespace InsuranceCore.Services.PostService
             return (await _repository.GetPostsFromCategory(id)).Select(x =>
             {
                 var postDto = _mapper.Map<GetPostDto>(x);
-                postDto.Tags = x.PostTags.Select(y => y.TagId);
                 return postDto;
             }).ToList();
         }
@@ -100,20 +93,12 @@ namespace InsuranceCore.Services.PostService
         {
             var post = await _repository.GetAsync(id);
             var postDto = _mapper.Map<GetPostDto>(post);
-            postDto.Tags = post.PostTags.Select(x => x.TagId);
             return postDto;
         }
 
         private async Task<bool> PostAlreadyExistsWithSameProperties(UpdatePostDto post)
         {
             var postDb = await _repository.GetAsync(post.Id);
-            if ((postDb.PostTags != null && post.Tags == null) ||
-                (postDb.PostTags == null && post.Tags != null))
-                return false;
-            if (postDb.PostTags != null && post.Tags != null &&
-                !(postDb.PostTags.Select(x => x.Tag.Id).SequenceEqual(post.Tags) &&
-                  postDb.PostTags.Count() == post.Tags.Count()))
-                return false;
             return postDb.Name == post.Name &&
                    postDb.Author.Id == post.Author &&
                    postDb.Category.Id == post.Category &&
@@ -127,14 +112,6 @@ namespace InsuranceCore.Services.PostService
                 throw new ResourceNotFoundException("Author doesn't exist.");
             if (await _categoryRepository.GetAsync(post.Category) == null)
                 throw new ResourceNotFoundException("Category doesn't exist.");
-            post.Tags?.ToList().ForEach(x =>
-            {
-                var tag = _tagRepository.Get(x);
-                if (tag == null)
-                    throw new ResourceNotFoundException("Tag id " + x + " doesn't exist.");
-            });
-            if (post.Tags != null && post.Tags.GroupBy(x => x).Any(y => y.Count() > 1))
-                throw new InvalidRequestException("There can't be duplicate tags.");
         }
 
         public async Task CheckPostValidity(AddPostDto post)
@@ -157,20 +134,12 @@ namespace InsuranceCore.Services.PostService
             await _dtoValidator.ValidateAndThrowAsync(post);
             await CheckPostValidity(post);
             var pocoPost = _mapper.Map<Post>(post);
-            if (post.Tags != null)
-                pocoPost.PostTags = post.Tags.Select(x => new PostTag()
-                {
-                    PostId = pocoPost.Id,
-                    TagId = x
-                }).ToList();
+            
             pocoPost.ThumbnailUrl = string.IsNullOrEmpty(pocoPost.ThumbnailUrl) ? null : pocoPost.ThumbnailUrl;
 
             var result = await _repository.AddAsync(pocoPost);
             _unitOfWork.Save();
             var getPost = _mapper.Map<GetPostDto>(result);
-            getPost.Tags = result.PostTags != null ?
-                result.PostTags.Select(x => x.TagId).ToList() :
-                new List<int>();
             return getPost;
         }
 
