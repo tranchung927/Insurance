@@ -1,7 +1,7 @@
 .banner-product {
-    background-image: url('../../../Img/banner-product-ínurance.jpeg'); /* Đặt đường dẫn đến hình nền của bạn */
-  background-size: cover; /* Chọn kiểu kích thước hình nền */
-  background-position: center; /* Căn chỉnh vị trí hình nền */
+    background-image: url('../../../Img/banner-product-insurance.jpeg'); /* Đặt đường dẫn đến hình nền của bạn */
+    background-size: cover; /* Chọn kiểu kích thước hình nền */
+    background-position: center; /* Căn chỉnh vị trí hình nền */
 }
 .banner-online {
   background-image: url('../../../Img/Banner-online.png'); /* Đặt đường dẫn đến hình nền của bạn */
