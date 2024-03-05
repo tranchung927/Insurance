@@ -62,6 +62,7 @@ namespace InsuranceCore.DataContext
             builder.Entity<Post>().HasOne(e => e.Category).WithMany(e => e.Posts).IsRequired().OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Post>().HasOne(e => e.Author).WithMany(e => e.Posts).IsRequired().OnDelete(DeleteBehavior.NoAction);
             builder.Entity<DefaultRoles>().HasOne(e => e.Role).WithMany(e => e.DefaultRoles).OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Ticket>().HasOne(e => e.User).WithMany(e => e.Tickets).IsRequired().OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<User>(entity =>
             {

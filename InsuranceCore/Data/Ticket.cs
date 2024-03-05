@@ -27,7 +27,6 @@ namespace InsuranceCore.Data
         [Range(0, 9)]
         public int Status { get; set; }
 
-        [ForeignKey("UserId")]
         public User? User { get; set; }
 
         [Required]
