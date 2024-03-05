@@ -1,7 +1,7 @@
 ﻿using System;
 namespace InsuranceCore.Models.DTOs.Workplace
 {
-	public class UpdateWorkplaceDto: IWorkplaceDto
+	public class UpdateWorkplaceDto : ADto, IWorkplaceDto
     {
 
         public string Name { get; set; }

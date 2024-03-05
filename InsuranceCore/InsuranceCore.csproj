@@ -52,6 +52,12 @@
     <Folder Include="Models\DTOs\VehicleType\Conveters\" />
     <Folder Include="Services\ProductService\" />
     <Folder Include="Services\Workplace\" />
+    <Folder Include="Services\HouseSize\" />
+    <Folder Include="Services\DeathRate\" />
+    <Folder Include="Services\HouseType\" />
+    <Folder Include="Services\HouseCoefficient\" />
+    <Folder Include="Services\VehiclePropertyService\" />
+    <Folder Include="Services\VehicleTypeService\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -78,5 +84,11 @@
     <None Remove="Models\DTOs\VehicleType\Conveters\" />
     <None Remove="Services\ProductService\" />
     <None Remove="Services\Workplace\" />
+    <None Remove="Services\HouseSize\" />
+    <None Remove="Services\DeathRate\" />
+    <None Remove="Services\HouseType\" />
+    <None Remove="Services\HouseCoefficient\" />
+    <None Remove="Services\VehiclePropertyService\" />
+    <None Remove="Services\VehicleTypeService\" />
   </ItemGroup>
 </Project>

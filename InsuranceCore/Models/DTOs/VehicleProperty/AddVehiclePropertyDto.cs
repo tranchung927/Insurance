@@ -1,7 +1,7 @@
 ﻿using System;
 namespace InsuranceCore.Models.DTOs.VehicleProperty
 {
-	public class AddVehiclePropertyDto : IVehiclePropertyDto
+	public class AddVehiclePropertyDto : ADto, IVehiclePropertyDto
     {
 
         public string Property { get; set; }

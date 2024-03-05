@@ -3,7 +3,7 @@
     /// <summary>
     /// Add Dto type of <see cref="Post"/>.
     /// </summary>
-    public class AddPostDto : IPostDto
+    public class AddPostDto : ADto, IPostDto
     {
         public string Content { get; set; }
 

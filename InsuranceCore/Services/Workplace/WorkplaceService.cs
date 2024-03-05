@@ -7,6 +7,7 @@ using InsuranceCore.Repositories.UnitOfWork;
 using InsuranceCore.Specifications;
 using InsuranceCore.Specifications.FilterSpecifications;
 using InsuranceCore.Specifications.SortSpecification;
+using InsuranceCore.Models.DTOs.VehicleType;
 
 namespace InsuranceCore.Services.Workplace
 {
@@ -45,11 +46,18 @@ namespace InsuranceCore.Services.Workplace
             return _mapper.Map<GetWorkplaceDto>(await _repository.GetAsync(id));
         }
 
-        public async Task<GetWorkplaceDto> AddWorkplace(AddWorkplaceDto Workplace)
+        public async Task<GetWorkplaceDto> AddWorkplace(AddWorkplaceDto workplace)
         {
-            var result = await _repository.AddAsync(_mapper.Map<Data.Workplace>(Workplace));
+            var result = await _repository.AddAsync(_mapper.Map<Data.Workplace>(workplace));
             _unitOfWork.Save();
             return _mapper.Map<GetWorkplaceDto>(result);
+        }
+
+        public async Task UpdateWorkplace(UpdateWorkplaceDto workplace)
+        {
+            var WorkplaceEntity = await _repository.GetAsync(workplace.Id);
+            _mapper.Map(workplace, WorkplaceEntity);
+            _unitOfWork.Save();
         }
 
         public async Task DeleteWorkplace(int id)
