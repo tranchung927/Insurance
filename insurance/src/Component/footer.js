@@ -63,7 +63,9 @@ function Footer() {
                   </Typography>
                 </Stack>
               </Box>
-              <Box className="social">
+
+              {/* <Box className="social">
+
                 <Stack
                   direction={{ xs: "column", sm: "row" }}
                   spacing={{ xs: 1, sm: 2, md: 4 }}
@@ -108,7 +110,9 @@ function Footer() {
                     </Link>
                   </Stack>
                 </Stack>
-              </Box>
+
+              </Box> */}
+
             </Grid>
             {/* ... Các cột khác */}
             <Grid item xs={12} sm={4}>
