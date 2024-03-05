@@ -36,6 +36,8 @@ using InsuranceCore.Repositories.VehicleType;
 using InsuranceCore.Repositories.HouseCoefficient;
 using InsuranceCore.Repositories.HouseSize;
 using InsuranceCore.Repositories.HouseType;
+using InsuranceCore.Repositories.DeathRate;
+using InsuranceCore.Repositories.Workplace;
 
 namespace InsuranceCore.Extensions
 {
@@ -121,6 +123,8 @@ namespace InsuranceCore.Extensions
             services.AddScoped<IHouseCoefficientRepository, HouseCoefficientRepository>();
             services.AddScoped<IHouseSizeRepository, HouseSizeRepository>();
             services.AddScoped<IHouseTypeRepository, HouseTypeRepository>();
+            services.AddScoped<IWorkplaceRepository, WorkplaceRepository>();
+            services.AddScoped<IDeathRateRepository, DeathRateRepository>();
             return services;
         }
 
