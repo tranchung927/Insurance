@@ -10,7 +10,8 @@ import HomeInsurance from "../Page/section/Insurance-product/Home-Insurance";
 import Contact from "../Page/Contact";
 import BuyInsurance from "../Page/section/Insurance-online/Buy-Insurance"
 import RegisterForConsultation from "../Page/section/Insurance-online/Register-for-consultation";
-
+import News from "../Page/ListNews"
+import Policy from "../Page/Policy"
 function InsuranceRouter() {
   
   return (
@@ -27,6 +28,8 @@ function InsuranceRouter() {
           <Route path="/insurance-online/Buy-Insurance" element={<BuyInsurance/>}/>
           <Route path="/insurance-online/Register-for-consultation" element={<RegisterForConsultation/>}/>
           <Route path="/Calculate" element={<CalculateForm />} />
+          <Route path="/News" element={<News />} />
+          <Route path="/Policy" element={<Policy />} />
         </Routes>
       </div>
     </Router>

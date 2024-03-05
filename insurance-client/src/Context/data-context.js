@@ -55,20 +55,7 @@ export const DataProvider = ({ children }) => {
         setValueTab(newValue);
     };
 
-    // get all product
-    // useEffect(() => {
-    //   axios
-    //     .get("https://localhost:7064/InsuranceType/getAll")
-    //     .then((response) => {
-    //       setInsuranceType(response.data);
-    //     })
-    //     .catch((error) => {
-    //       setInsuranceType(_insuranceTypes);
 
-    //       console.error("Lỗi khi gọi API:", error);
-    //     });
-    // }, _insuranceTypes);
-    // gett all product news
     useEffect(() => {
         axios
             .get("https://localhost:7064/NewsInsuranceType/GetAllNewsInsuranceType")
