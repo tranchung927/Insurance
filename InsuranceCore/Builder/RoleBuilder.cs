@@ -25,7 +25,6 @@ namespace InsuranceCore.Builder
             WithCanReadAll(PermissionTarget.Like);
             WithCanReadAll(PermissionTarget.Post);
             WithCanReadAll(PermissionTarget.Role);
-            WithCanReadAll(PermissionTarget.Tag);
             WithCanReadAll(PermissionTarget.User);
             WithCanReadAll(PermissionTarget.Permission);
             return this;
@@ -38,7 +37,6 @@ namespace InsuranceCore.Builder
             WithCanUpdateAll(PermissionTarget.Like);
             WithCanUpdateAll(PermissionTarget.Post);
             WithCanUpdateAll(PermissionTarget.Role);
-            WithCanUpdateAll(PermissionTarget.Tag);
             WithCanUpdateAll(PermissionTarget.Permission);
             WithCanUpdateAll(PermissionTarget.Account);
             return this;
@@ -51,7 +49,6 @@ namespace InsuranceCore.Builder
             WithCanCreateAll(PermissionTarget.Like);
             WithCanCreateAll(PermissionTarget.Post);
             WithCanCreateAll(PermissionTarget.Role);
-            WithCanCreateAll(PermissionTarget.Tag);
             WithCanCreateAll(PermissionTarget.Permission);
             WithCanCreateAll(PermissionTarget.Account);
             return this;
@@ -64,7 +61,6 @@ namespace InsuranceCore.Builder
             WithCanDeleteAll(PermissionTarget.Like);
             WithCanDeleteAll(PermissionTarget.Post);
             WithCanDeleteAll(PermissionTarget.Role);
-            WithCanDeleteAll(PermissionTarget.Tag);
             WithCanDeleteAll(PermissionTarget.Permission);
             WithCanDeleteAll(PermissionTarget.Account);
             return this;

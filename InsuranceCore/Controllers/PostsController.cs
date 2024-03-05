@@ -58,7 +58,6 @@ namespace InsuranceCore.Controllers
                 .WithInContent(parameters.InContent)
                 .WithToPublishedAt(parameters.ToPublicationDate)
                 .WithFromPublishedAt(parameters.FromPublicationDate)
-                .WithTags(parameters.Tagged)
                 .Build();
             var data = await _postService.GetPosts(filterSpecification,
                 pagingSpecificationBuilder.Build(), new SortPostFilter(parameters.OrderBy, parameters.SortBy).GetSorting());

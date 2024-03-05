@@ -35,6 +35,23 @@
     <Folder Include="Services\TicketService\" />
     <Folder Include="Models\Builders\Specifications\Ticket\" />
     <Folder Include="Models\DTOs\Product\" />
+    <Folder Include="Models\DTOs\Product\Converters\" />
+    <Folder Include="Repositories\DeathRate\" />
+    <Folder Include="Models\DTOs\Workplace\" />
+    <Folder Include="Models\DTOs\Workplace\Converters\" />
+    <Folder Include="Repositories\Workplace\" />
+    <Folder Include="Repositories\HouseCoefficient\" />
+    <Folder Include="Repositories\HouseSize\" />
+    <Folder Include="Models\DTOs\HouseSize\" />
+    <Folder Include="Models\DTOs\HouseSize\Converters\" />
+    <Folder Include="Models\DTOs\HouseType\" />
+    <Folder Include="Models\DTOs\HouseType\Converters\" />
+    <Folder Include="Models\DTOs\VehicleProperty\" />
+    <Folder Include="Models\DTOs\VehicleProperty\Converters\" />
+    <Folder Include="Models\DTOs\VehicleType\" />
+    <Folder Include="Models\DTOs\VehicleType\Conveters\" />
+    <Folder Include="Services\ProductService\" />
+    <Folder Include="Services\Workplace\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,5 +61,22 @@
     <None Remove="Services\TicketService\" />
     <None Remove="Models\Builders\Specifications\Ticket\" />
     <None Remove="Models\DTOs\Product\" />
+    <None Remove="Models\DTOs\Product\Converters\" />
+    <None Remove="Repositories\DeathRate\" />
+    <None Remove="Models\DTOs\Workplace\" />
+    <None Remove="Models\DTOs\Workplace\Converters\" />
+    <None Remove="Repositories\Workplace\" />
+    <None Remove="Repositories\HouseCoefficient\" />
+    <None Remove="Repositories\HouseSize\" />
+    <None Remove="Models\DTOs\HouseSize\" />
+    <None Remove="Models\DTOs\HouseSize\Converters\" />
+    <None Remove="Models\DTOs\HouseType\" />
+    <None Remove="Models\DTOs\HouseType\Converters\" />
+    <None Remove="Models\DTOs\VehicleProperty\" />
+    <None Remove="Models\DTOs\VehicleProperty\Converters\" />
+    <None Remove="Models\DTOs\VehicleType\" />
+    <None Remove="Models\DTOs\VehicleType\Conveters\" />
+    <None Remove="Services\ProductService\" />
+    <None Remove="Services\Workplace\" />
   </ItemGroup>
 </Project>

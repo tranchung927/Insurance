@@ -8,13 +8,7 @@ namespace InsuranceCore.Models.DTOs.Product
     {
         public string Name { get; set; }
 
-        public string? ThumbnailUrl { get; set; }
-
-        public string Name { get; set; }
-
-        public new int Author { get; set; }
-
-        public int Category { get; set; }
+        public string? Alias { get; set; }
     }
 }
 

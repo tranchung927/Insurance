@@ -34,7 +34,6 @@ namespace InsuranceCore.DataContext
             await new RoleBuilder(roleManager)
                 .WithName(RedactorRole)
                 .WithCanCreateAll(PermissionTarget.Category)
-                .WithCanCreateAll(PermissionTarget.Tag)
                 .WithCanCreateOwn(PermissionTarget.Post)
                 .WithCanUpdateOwn(PermissionTarget.Post)
                 .WithCanDeleteOwn(PermissionTarget.Post)

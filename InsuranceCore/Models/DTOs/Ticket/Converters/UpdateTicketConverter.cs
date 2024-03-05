@@ -1,7 +1,6 @@
 ﻿using System;
 using AutoMapper;
 using InsuranceCore.Repositories.Product;
-using InsuranceCore.Repositories.Ticket;
 using InsuranceCore.Repositories.User;
 
 namespace InsuranceCore.Models.DTOs.Ticket.Converters

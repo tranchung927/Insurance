@@ -56,11 +56,5 @@ namespace InsuranceCore.Models.Queries
         /// </summary>
         [FromQuery(Name = "maximumLikes")]
         public int? MaximumLikes { get; set; } = null;
-
-        /// <summary>
-        /// Returns only posts that have the specified tag given in the parameter
-        /// </summary>
-        [FromQuery(Name = "tagged")]
-        public List<string> Tagged { get; set; } = null;
     }
 }

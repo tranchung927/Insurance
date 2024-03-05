@@ -18,8 +18,6 @@ namespace InsuranceCore.Services.PostService
 
         Task<IEnumerable<GetPostDto>> GetPostsFromUser(int id);
 
-        Task<IEnumerable<GetPostDto>> GetPostsFromTag(int id);
-
         Task<IEnumerable<GetPostDto>> GetPostsFromCategory(int id);
 
         Task<GetPostDto> GetPost(int id);

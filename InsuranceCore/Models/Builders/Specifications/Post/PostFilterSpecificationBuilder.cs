@@ -15,7 +15,6 @@ namespace InsuranceCore.Models.Builders.Specifications.Post
         private string _inContent;
         private DateTimeOffset? _toPublishedAt;
         private DateTimeOffset? _fromPublishedAt;
-        private List<string> _tags;
 
         public PostFilterSpecificationBuilder WithInContent(string inContent)
         {
@@ -38,12 +37,6 @@ namespace InsuranceCore.Models.Builders.Specifications.Post
         public PostFilterSpecificationBuilder WithFromPublishedAt(DateTimeOffset? fromPublishedAt)
         {
             _fromPublishedAt = fromPublishedAt;
-            return this;
-        }
-
-        public PostFilterSpecificationBuilder WithTags(List<string> tags)
-        {
-            _tags = tags;
             return this;
         }
 
@@ -75,15 +68,6 @@ namespace InsuranceCore.Models.Builders.Specifications.Post
                 filter = filter == null ?
                     new PublishedAfterDateSpecification<Data.Post>(_fromPublishedAt.Value)
                     : filter & new PublishedAfterDateSpecification<Data.Post>(_fromPublishedAt.Value);
-            }
-            if (_tags != null)
-            {
-                foreach (var tag in _tags)
-                {
-                    filter = filter == null
-                        ? new TagSpecification<Data.Post>(tag)
-                        : filter & new TagSpecification<Data.Post>(tag);
-                }
             }
 
             return filter;

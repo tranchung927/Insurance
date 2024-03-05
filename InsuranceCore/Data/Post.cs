@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InsuranceCore.Data
 {
-    public class Post : IPoco, IHasContent, IHasName, IHasAuthor, IHasCategory, IHasCreationDate, IHasModificationDate, IHasPostTag
+    public class Post : IPoco, IHasContent, IHasName, IHasAuthor, IHasCategory, IHasCreationDate, IHasModificationDate
     {
         [Key]
         public int Id { get; set; }
@@ -13,6 +13,8 @@ namespace InsuranceCore.Data
         [Required] public string Content { get; set; }
 
         [Required][MaxLength(250)] public string Name { get; set; }
+
+        public string? ShortName { get; set; }
 
         [Required] public User Author { get; set; }
 

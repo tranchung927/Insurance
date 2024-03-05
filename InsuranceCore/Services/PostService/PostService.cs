@@ -6,7 +6,6 @@ using InsuranceCore.Models.DTOs.Post;
 using InsuranceCore.Models.Exceptions;
 using InsuranceCore.Repositories.Category;
 using InsuranceCore.Repositories.Post;
-using InsuranceCore.Repositories.Tag;
 using InsuranceCore.Repositories.UnitOfWork;
 using InsuranceCore.Repositories.User;
 using InsuranceCore.Specifications.FilterSpecifications;
@@ -65,15 +64,6 @@ namespace InsuranceCore.Services.PostService
         {
             var posts = await _repository.GetPostsFromUser(id);
             return posts.Select(x =>
-            {
-                var postDto = _mapper.Map<GetPostDto>(x);
-                return postDto;
-            }).ToList();
-        }
-
-        public async Task<IEnumerable<GetPostDto>> GetPostsFromTag(int id)
-        {
-            return (await _repository.GetPostsFromTag(id)).Select(x =>
             {
                 var postDto = _mapper.Map<GetPostDto>(x);
                 return postDto;

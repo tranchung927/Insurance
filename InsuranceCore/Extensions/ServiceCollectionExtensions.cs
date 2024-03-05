@@ -27,6 +27,15 @@ using InsuranceCore.Services.UrlService;
 using InsuranceCore.Services.UserService;
 using InsuranceCore.Validators;
 using InsuranceCore.Repositories.Ticket;
+using InsuranceCore.Services.TicketService;
+using InsuranceCore.Services.ProductService;
+using InsuranceCore.Services.Workplace;
+using InsuranceCore.Repositories.Product;
+using InsuranceCore.Repositories.VehicleProperty;
+using InsuranceCore.Repositories.VehicleType;
+using InsuranceCore.Repositories.HouseCoefficient;
+using InsuranceCore.Repositories.HouseSize;
+using InsuranceCore.Repositories.HouseType;
 
 namespace InsuranceCore.Extensions
 {
@@ -106,6 +115,12 @@ namespace InsuranceCore.Extensions
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IVehiclePropertyRepository, VehiclePropertyRepository>();
+            services.AddScoped<IVehicleTypeRepository, VehicleTypeRepository>();
+            services.AddScoped<IHouseCoefficientRepository, HouseCoefficientRepository>();
+            services.AddScoped<IHouseSizeRepository, HouseSizeRepository>();
+            services.AddScoped<IHouseTypeRepository, HouseTypeRepository>();
             return services;
         }
 
@@ -119,10 +134,12 @@ namespace InsuranceCore.Extensions
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IRoleService, RoleService>();
-            services.AddScoped<ITic, TagService>();
+            services.AddScoped<ITicketService, TicketService>();
             services.AddScoped<IUserService, UserService>();
             services.AddHttpClient<IUrlService, UrlService>();
             services.AddScoped<IUrlService, UrlService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IWorkplaceService, WorkplaceService>();
             return services;
         }
 
@@ -150,7 +167,7 @@ namespace InsuranceCore.Extensions
         {
             // Resource Handlers
             services.AddScoped<IAuthorizationHandler, HasAllPermissionRangeAuthorizationHandler<Role>>();
-            services.AddScoped<IAuthorizationHandler, HasAllPermissionRangeAuthorizationHandler<Tag>>();
+            //services.AddScoped<IAuthorizationHandler, HasAllPermissionRangeAuthorizationHandler<Tag>>();
             services.AddScoped<IAuthorizationHandler, HasAllPermissionRangeAuthorizationHandler<Category>>();
             services.AddScoped<IAuthorizationHandler, HasOwnOrAllPermissionRangeForHasAuthorEntityAuthorizationHandler<Post>>();
             services.AddScoped<IAuthorizationHandler, HasOwnOrAllPermissionRangeForUserResourceAuthorizationHandler>();
