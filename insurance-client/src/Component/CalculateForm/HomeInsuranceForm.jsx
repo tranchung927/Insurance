@@ -20,13 +20,9 @@ const HomeInsuranceForm = ({ allHomeCoefficient, allHomeType, allSizeType, allRi
 
     // State lưu trữ giá trị các trường dữ liệu
     const [homeType, setHomeType] = useState(allHomeType[1]);
-
     const [houseValue, setHouseValue] = useState("");
-
-
     const [sizeType, setSizeType] = useState(allSizeType[1]);
     const [riskCoefficient, setRiskCoefficient] = useState(allRiskCoefficient[1]);
-
     const [value, setValue] = useState(0);
 
 
@@ -58,15 +54,11 @@ const HomeInsuranceForm = ({ allHomeCoefficient, allHomeType, allSizeType, allRi
         }
     };
 
-  
-
-
     function CalculateHomeInsurance(homeType, sizeType, riskCoefficient, houseValue) {
-        console.log('homeType:', homeType);
-        console.log('homeType.id:', homeType.id);
-        console.log('sizeType.id:', sizeType.id);
-        console.log('allHomeCoefficient:', allHomeCoefficient);
-
+        // console.log('homeType:', homeType);
+        // console.log('homeType.id:', homeType.id);
+        // console.log('sizeType.id:', sizeType.id);
+        // console.log('allHomeCoefficient:', allHomeCoefficient);
         // Tìm hệ số dựa trên loại nhà, kích thước và status
         const coefficient = searchObject(allHomeCoefficient, homeType.id, sizeType.id, 1);
 
@@ -112,7 +104,7 @@ const HomeInsuranceForm = ({ allHomeCoefficient, allHomeType, allSizeType, allRi
                 </Card>
             </Grid>
             
-            <Grid item xs={ 12} sm={5} container >
+            <Grid item xs={ 12} sm={5} container spacing={2}>
                 <Grid item xs={12} >
                     {/* Trường dữ liệu giá trị Nhà */}
                     <TextField
@@ -176,30 +168,42 @@ const HomeInsuranceForm = ({ allHomeCoefficient, allHomeType, allSizeType, allRi
 
                 </Grid>
             </Grid>
-            <Grid item xs={12} spacing={2}>
-            <Grid item xs={12} sm={6}>
-            <Typography gutterBottom variant="h6" component="div" style={{ fontSize: '16px' }}>
-                🏠 Protect Your Home with Home Insurance!
-            </Typography>
-            </Grid>
-                <Grid item xs={12} sm={6}>
+
+            <Grid item container xs={12} spacing={1}>
+
+                <Grid item xs={12} md={6}>
+                    <Typography gutterBottom variant="h6" component="div" style={{ fontSize: '16px' }}>
+                        🏠 Protect Your Home with Home Insurance!
+                    </Typography>
+                </Grid>
+
+                <Grid item xs={12} md={6}>
                     <Typography gutterBottom variant="h6" component="div" style={{ fontSize: '16px' }}>
                         🛡️ Protect against natural disasters, fire, and other risks.
                     </Typography>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+
+                <Grid item xs={12} md={6}>
                     <Typography gutterBottom variant="h6" component="div" style={{ fontSize: '16px' }}>
                         💸 Compensation for property damage and repair costs.
                     </Typography>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+
+                <Grid item xs={12} md={6}>
                     <Typography gutterBottom variant="h6" component="div" style={{ fontSize: '16px' }}>
                         🏡 Insurance for interior and exterior property.
                     </Typography>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+
+                <Grid item xs={12} md={6}>
                     <Typography gutterBottom variant="h6" component="div" style={{ fontSize: '16px' }}>
                         🗝️ Legal protection and civil liability coverage.
+                    </Typography>
+                </Grid>
+
+                <Grid item xs={12} md={6}>
+                    <Typography gutterBottom variant="h6" component="div" style={{ fontSize: '16px' }}>
+                    🌐 24/7 support and assistance for any emergencies or claims, ensuring you're never alone in times of crisis.
                     </Typography>
                 </Grid>
             </Grid>
