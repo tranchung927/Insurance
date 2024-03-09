@@ -10,9 +10,6 @@ import {
   Box,
   CardActionArea,
   Grid,
-  TextField,
-  Autocomplete,
-  Link,
   Snackbar,
   Alert,
 } from "@mui/material";
@@ -26,7 +23,7 @@ import "../../../App.css";
 import moment from "moment";
 import SupportRegistration from "../../../Component/SupportRegistrationForm";
 import { useNavigate } from "react-router-dom";
-
+import ImagePath from "@image-path";
 const City = ["Tp.Hcm", "Hà Nội"];
 
 function LifeInsurance() {
@@ -38,7 +35,7 @@ function LifeInsurance() {
   const [alertCheck, setAlertCheck] = useState(false);
     const navigate = useNavigate();
 
-  const { provinces, getAllProvince,insuranceTypes, productNews } = useContext(DataContext);
+  const { provinces, getAllProvince,products, productNews } = useContext(DataContext);
   const date = moment().utcOffset("+07:00").format("YYYY-MM-DDThh:mm:ss");
 
 
@@ -64,31 +61,31 @@ function LifeInsurance() {
   
 
   useEffect(() => {
-    const filteredInsuranceTypes = insuranceTypes.filter(
-      (item) => item.typeId === 1
+    const filteredproducts = products.filter(
+      (item) => item.code === "life-insurance"
     );
-    if (filteredInsuranceTypes.length > 0) {
-      setInsuranceType(filteredInsuranceTypes[0]);
+    if (filteredproducts.length > 0) {
+      setInsuranceType(filteredproducts[0]);
     }
-  }, [insuranceTypes]);
+  }, [products]);
 
   useEffect(() => {
     // Ensure insuranceType is not an empty object
     if (insuranceType && Object.keys(insuranceType).length > 0) {
-      const data = productNews.filter((x) => x.typeId === insuranceType.typeId);
+      const data = productNews.filter((x) => x.code === insuranceType.code);
       setFinterData(data);
     }
   }, [insuranceType, productNews]);
 
-  // Access the TypeId of the first object in the array
+  // Access the code of the first object in the array
   useEffect(() => {
-    if (insuranceTypes && Object.keys(insuranceType).length > 0) {
-      const data = insuranceTypes.filter(
-        (x) => x.typeId !== insuranceType.typeId
+    if (products && Object.keys(insuranceType).length > 0) {
+      const data = products.filter(
+        (x) => x.code !== insuranceType.code
       );
       setOtherProduct(data);
     }
-  }, [insuranceTypes, insuranceType]);
+  }, [products, insuranceType]);
 
   return (
     <>
@@ -120,7 +117,7 @@ function LifeInsurance() {
                 color: "#fff",
               }}
             >
-              {insuranceType.typeName}
+              {insuranceType.name}
             </Typography>
           </Stack>
         </Stack>
@@ -153,7 +150,7 @@ function LifeInsurance() {
                   marginBottom: "24px",
                 }}
               >
-                {insuranceType.typeName}
+                {insuranceType.name}
               </Typography>
               <Typography
                 variant="body2"
@@ -186,8 +183,8 @@ function LifeInsurance() {
             </div>
           </Stack>
           <Stack sx={{ flex: 1 }}>
-            <img
-              src={`https://localhost:7064/InsuranceType/${insuranceType.typeId}`}
+          <img
+              src={ImagePath.getImageURL(`${insuranceType.code}.jpeg`)}
               alt="Insurance House"
               style={{
                 width: "100%",
@@ -301,7 +298,7 @@ function LifeInsurance() {
                     color: "#02904a",
                   }}
                 >
-                  {insuranceType.typeName}
+                  {insuranceType.name}
                 </Typography>
               </Stack>
             </Stack>
@@ -374,19 +371,17 @@ function LifeInsurance() {
               </Stack>
             </Stack>
             <Grid container spacing={2} sx={{ margin: "0px -18px !important" }}>
-              {otherProduct.map((item, index) => (
+              {otherProduct.map((product, index) => (
                 <Grid item key={index} xs={12} sm={6} md={4}>
                   <a
-                    href={`http://localhost:3000/product/${item.typeName
-                      .split(" ")
-                      .join("")}`}
+                    href={`http://localhost:3000/product/${product.code}`}
                     style={{ textDecoration: "none" }}
                   >
                     <Card sx={{ height: 550 }}>
                       <CardActionArea>
                         <CardMedia
                           component="img"
-                          image={`https://localhost:7064/InsuranceType/${item.typeId}`}
+                          image={ImagePath.getImageURL(`${product.code}.jpeg`)}
                           alt="green iguana"
                           height="240"
                         />
@@ -395,18 +390,18 @@ function LifeInsurance() {
                           spacing={2}
                           sx={{ padding: "16px 0px 0px 16px" }}
                         >
-                          <Typography variant="h5">{item.typeName}</Typography>
+                          <Typography variant="h5">{product.name}</Typography>
                         </Stack>
                         <CardContent sx={{ paddingTop: "0px" }}>
                           <Typography gutterBottom variant="h5" component="div">
-                            {item.title}
+                            {product.title}
                           </Typography>
                           <Typography
                             variant="body2"
                             color="text.secondary"
                             minHeight={"240px"}
                           >
-                            {item.description}
+                            {product.description}
                           </Typography>
                         </CardContent>
                       </CardActionArea>

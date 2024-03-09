@@ -1,17 +1,19 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useEffect } from "react";
 import BannerNew from "../Img/banner-news.webp";
 import InsuranceHouse from "../Img/banner-news.webp";
-import axios from "axios";
+import axios from '@axios';
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
-    const [setInsuranceType] = useState([]);
+    const [product, setProduct] = useState([]);
+    const [products, setProducts] = useState([]);
     const [productNews, setProductNews] = useState([]);
     const [businesslocation, getBussinessLocation] = useState([]);
     const [provinces, setProvinces] = useState([]);
     const [valueTab, setValueTab] = useState("0");
     const [getAllProvince, setGetAllProvince] = useState([]);
     const [valueNav, setValueNav] = useState("1");
+
     const insuranceTypes = [
         {
             Id: 1,
@@ -50,11 +52,20 @@ export const DataProvider = ({ children }) => {
         },
     ];
 
-    console.log(valueTab)
     const handleChangeTab = (event, newValue) => {
         setValueTab(newValue);
     };
 
+    useEffect(() => {
+        axios
+            .get("Product")
+            .then((response) => {
+                setProducts(response.data.data)
+            })
+            .catch((error) => {
+                console.error("Lỗi khi gọi API:", error);
+            });
+    }, []);
 
     useEffect(() => {
         axios
@@ -66,24 +77,12 @@ export const DataProvider = ({ children }) => {
                 console.error("Lỗi khi gọi API:", error);
             });
     }, []);
-    // gett all business location
-    useEffect(() => {
-        axios
-            .get("https://localhost:7064/BusinessLocation/GetAll")
-            .then((response) => {
-                getBussinessLocation(response.data);
-            })
-            .catch((error) => {
-                console.error("Lỗi khi gọi API:", error);
-            });
-    }, []);
 
-    // gett all province
     useEffect(() => {
         axios
-            .get("https://localhost:7064/Province/GetProvince")
+            .get("https://localhost:7064/NewsInsuranceType/GetAllNewsInsuranceType")
             .then((response) => {
-                setProvinces(response.data);
+                setProductNews(response.data);
             })
             .catch((error) => {
                 console.error("Lỗi khi gọi API:", error);
@@ -173,13 +172,24 @@ export const DataProvider = ({ children }) => {
             newsType: "Business activities",
         },
     ];
-
-    console.log(getAllProvince)
     return (
         <DataContext.Provider
             value={{
-                peopleArray, insuranceTypes, navItems, news, productNews, businesslocation, provinces, getAllProvince
-                , valueTab, handleChangeTab, valueNav, setValueNav
+                peopleArray,
+                insuranceTypes,
+                navItems,
+                news,
+                productNews,
+                businesslocation,
+                provinces,
+                getAllProvince,
+                valueTab,
+                handleChangeTab,
+                valueNav,
+                setValueNav,
+                products,
+                product,
+                setProduct
             }}
         >
             {children}

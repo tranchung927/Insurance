@@ -112,6 +112,30 @@ namespace InsuranceCore.Migrations
                     b.ToTable("HouseCoefficients");
                 });
 
+            modelBuilder.Entity("InsuranceCore.Data.HouseRiskCoefficient", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Value")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HouseRiskCoefficients");
+                });
+
             modelBuilder.Entity("InsuranceCore.Data.HouseSize", b =>
                 {
                     b.Property<int>("Id")

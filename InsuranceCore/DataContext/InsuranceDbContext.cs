@@ -35,6 +35,7 @@ namespace InsuranceCore.DataContext
         public DbSet<DeathRate> DeathRates { get; set; }
         public DbSet<Workplace> Workplaces { get; set; }
         public DbSet<HouseCoefficient> HouseCoefficients { get; set; }
+        public DbSet<HouseRiskCoefficient> HouseRiskCoefficients { get; set; }
         public DbSet<HouseSize> HouseSizes { get; set; }
         public DbSet<HouseType> HouseTypes { get; set; }
         public DbSet<VehicleProperty> VehicleProperties { get; set; }

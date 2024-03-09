@@ -30,6 +30,7 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="Models\DTOs\Ticket\Converters\" />
+    <Folder Include="wwwroot\" />
     <Folder Include="Repositories\Ticket\" />
     <Folder Include="Repositories\Product\" />
     <Folder Include="Services\TicketService\" />

@@ -6,7 +6,7 @@ namespace InsuranceCore.Models.DTOs.Product
 	public class AddProductDto : ADto, IProductDto
     {
         public string Name { get; set; }
-        public string Alias { get; set; }
+        public string Code { get; set; }
     }
 }
 

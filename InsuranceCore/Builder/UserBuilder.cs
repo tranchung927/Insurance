@@ -48,7 +48,8 @@ namespace InsuranceCore.Builder
                 LastName = _lastName,
                 Email = _email,
                 UserName = _username,
-                UserDescription = _userDescription
+                UserDescription = _userDescription,
+                Address = ""
             };
         }
     }

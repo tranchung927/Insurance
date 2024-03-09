@@ -6,33 +6,25 @@ import {
   Button,
   CardActionArea,
   CardActions,
-  AppBar,
-  IconButton,
-  Drawer,
   Stack,
 } from "@mui/material";
-import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
-import Tab from "@mui/material/Tab";
-import "../App.css";
-
+import "@Style";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-
 import { useContext } from "react";
 import { DataContext } from "../Context/data-context";
-
-import Header from "../Component/header";
-import Footer from "../Component/footer";
+import Header from "@HeaderLayout";
+import Footer from "@FooterLayout";
+import ImagePath from "@image-path";
 import BusinessLocation from "../Component/Business-location";
 
 const HomePage = () => {
-  const { peopleArray, insuranceTypes, navItems, news } =
+  const { peopleArray, products, news } =
     useContext(DataContext);
 
   return (
@@ -193,17 +185,17 @@ const HomePage = () => {
         </Stack>
         
         <Grid container spacing={2} sx={{ margin: "0px -18px !important" }}>
-          {insuranceTypes.map((item, index) => (
+          {products.map((product, index) => (
             <Grid item key={index} xs={12} sm={6} md={3}>
               <a
-                href={`http://localhost:3000/product/${item.typeName}`}
+                href={`http://localhost:3000/product/${product.code}`}
                 style={{ textDecoration: "none" }}
               >
                 <Card sx={{ height: "660px" }}>
                   <CardActionArea>
                     <CardMedia
                       component="img"
-                      image={`https://localhost:7064/InsuranceType/${item.typeId}`}
+                      image={ImagePath.getImageURL(`${product.code}.jpeg`)}
                       alt="green iguana"
                       height="240px"
                     />
@@ -212,7 +204,7 @@ const HomePage = () => {
                       spacing={2}
                       sx={{ padding: "16px 0px 0px 16px" }}
                     >
-                      <Typography variant="h5">{item.typeName}</Typography>
+                      <Typography variant="h5">{product.name}</Typography>
                     </Stack>
                     <CardContent sx={{ paddingTop: "0px" }}>
                       <Typography
@@ -220,7 +212,7 @@ const HomePage = () => {
                         color="text.secondary"
                         minHeight={"260px"}
                       >
-                        {item.description}
+                        {product.description}
                       </Typography>
                     </CardContent>
                     

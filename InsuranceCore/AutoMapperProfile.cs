@@ -29,6 +29,10 @@ using InsuranceCore.Models.DTOs.VehicleType.Conveters;
 using InsuranceCore.Models.DTOs.Workplace.Converters;
 using InsuranceCore.Models.DTOs.HouseType.Converters;
 using InsuranceCore.Models.DTOs.HouseCoefficient.Converters;
+using InsuranceCore.Models.DTOs.Product;
+using InsuranceCore.Models.DTOs.Product.Converters;
+using InsuranceCore.Models.DTOs.HouseRiskCoefficient;
+using InsuranceCore.Models.DTOs.HouseRiskCoefficient.Converters;
 
 namespace InsuranceCore
 {
@@ -51,6 +55,8 @@ namespace InsuranceCore
             CreateMap<AddHouseTypeDto, HouseType>();
             CreateMap<AddHouseCoefficientDto, HouseCoefficient>();
             CreateMap<AddHouseSizeDto, HouseSize>();
+            CreateMap<AddProductDto, Product>();
+            CreateMap<AddHouseRiskCoefficientDto, HouseRiskCoefficient>();
 
             CreateMap<Category, GetCategoryDto>();
             CreateMap<Post, GetPostDto>();
@@ -65,7 +71,8 @@ namespace InsuranceCore
             CreateMap<HouseType, GetHouseTypeDto>();
             CreateMap<HouseCoefficient, GetHouseCoefficientDto>();
             CreateMap<HouseSize, GetHouseSizeDto>();
-
+            CreateMap<Product, GetProductDto>();
+            CreateMap<HouseRiskCoefficient, GetHouseRiskCoefficientDto>();
 
             CreateMap<GetCategoryDto, UpdateCategoryDto>();
             CreateMap<GetPostDto, UpdatePostDto>();
@@ -79,6 +86,8 @@ namespace InsuranceCore
             CreateMap<GetHouseTypeDto, UpdateHouseTypeDto>();
             CreateMap<GetHouseCoefficientDto, UpdateHouseCoefficientDto>();
             CreateMap<GetHouseSizeDto, UpdateHouseSizeDto>();
+            CreateMap<GetProductDto, UpdateProductDto>();
+            CreateMap<GetHouseRiskCoefficientDto, UpdateHouseRiskCoefficientDto>();
 
             CreateMap<UpdateCategoryDto, GetCategoryDto>();
             CreateMap<UpdatePostDto, GetPostDto>();
@@ -92,6 +101,8 @@ namespace InsuranceCore
             CreateMap<UpdateHouseTypeDto, GetHouseTypeDto>();
             CreateMap<UpdateHouseCoefficientDto, GetHouseCoefficientDto>();
             CreateMap<UpdateHouseSizeDto, GetHouseSizeDto>();
+            CreateMap<UpdateProductDto, GetProductDto>();
+            CreateMap<UpdateHouseRiskCoefficientDto, GetHouseRiskCoefficientDto>();
 
             CreateMap<Post, int>().ConvertUsing(x => x.Id);
             CreateMap<User, int>().ConvertUsing(x => x.Id);
@@ -105,6 +116,8 @@ namespace InsuranceCore
             CreateMap<HouseType, int>().ConvertUsing(x => x.Id);
             CreateMap<HouseCoefficient, int>().ConvertUsing(x => x.Id);
             CreateMap<HouseSize, int>().ConvertUsing(x => x.Id);
+            CreateMap<Product, int>().ConvertUsing(x => x.Id);
+            CreateMap<HouseRiskCoefficient, int>().ConvertUsing(x => x.Id);
 
             CreateMap<int, Post>().ConvertUsing<PostIdConverter>();
             CreateMap<int, User>().ConvertUsing<UserIdConverter>();
@@ -118,6 +131,8 @@ namespace InsuranceCore
             CreateMap<int, HouseType>().ConvertUsing<HouseTypeIdConverter>();
             CreateMap<int, HouseCoefficient>().ConvertUsing<HouseCoefficientIdConverter>();
             CreateMap<int, HouseSize>().ConvertUsing<HouseSizeIdConverter>();
+            CreateMap<int, Product>().ConvertUsing<ProductIdConverter>();
+            CreateMap<int, HouseRiskCoefficient>().ConvertUsing<HouseRiskCoefficientIdConverter>();
 
             CreateMap<UpdateCategoryDto, Category>().ConvertUsing<UpdateCategoryConverter>();
             CreateMap<UpdateAccountDto, User>().ConvertUsing(new UpdateAccountConverter());
@@ -130,6 +145,8 @@ namespace InsuranceCore
             CreateMap<UpdateHouseTypeDto, HouseType>();
             CreateMap<UpdateHouseCoefficientDto, HouseCoefficient>();
             CreateMap<UpdateHouseSizeDto, HouseSize>();
+            CreateMap<UpdateProductDto, Product>();
+            CreateMap<UpdateHouseRiskCoefficientDto, HouseRiskCoefficient>();
 
             CreateMap<Permission, PermissionDto>();
             CreateMap<PermissionAction, PermissionActionDto>().ConvertUsing(new PermissionActionConverter());

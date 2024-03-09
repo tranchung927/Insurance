@@ -1,8 +1,6 @@
 import React from "react";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, AppBar, IconButton, Drawer, Stack } from "@mui/material";
-import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import "../App.css";
@@ -10,9 +8,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
-
 import Typography from "@mui/material/Typography";
-
 import MenuIcon from "@mui/icons-material/Menu";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -20,17 +16,12 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
-
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-
 import Collapse from "@mui/material/Collapse";
-
 import { Link } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { DataContext } from "../Context/data-context";
-
-import Contact from "../Page/Contact";
 import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -41,7 +32,7 @@ function Header(props) {
     const [anchorElService, setAnchorElService] = React.useState(null);
     const [openChilProduct, setOpenChilProduct] = React.useState(false);
     const [openChilService, setOpenChilService] = React.useState(false);
-    const { insuranceTypes, navItems, valueNav, setValueNav } =
+    const { products, navItems, valueNav, setValueNav, setProduct } =
         useContext(DataContext);
 
     const handleChange = (event, newValue) => {
@@ -49,9 +40,6 @@ function Header(props) {
             setValueNav(newValue);
         }
     };
-
-    console.log('valueNav: ',valueNav);
-    console.log('navItems: ', navItems);
 
     const handleClickProduct = (event) => {
         setAnchorEl(event.currentTarget);
@@ -70,8 +58,10 @@ function Header(props) {
         navigate("/Contact");
 
     };
+    const handleNews = () => {
+        navigate("/News");
 
-
+    };
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
     const handleDrawerToggle = () => {
@@ -115,14 +105,14 @@ function Header(props) {
 
                 <Collapse in={openChilProduct} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                        {insuranceTypes.map((chil, index) => (
+                        {products.map((product, index) => (
                             <Link
-                                to={`http://localhost:3000/product/${chil.Alias}`}
+                                to={`http://localhost:3000/product/${product.code}`}
                                 key={index}
                                 style={{ textDecoration: "none", color: "inherit" }}
                             >
                                 <ListItemButton sx={{ pl: 4, textAlign: "center" }}>
-                                    <ListItemText primary={chil.Name} />
+                                    <ListItemText primary={product.name} />
                                 </ListItemButton>
                             </Link>
                         ))}
@@ -271,6 +261,7 @@ function Header(props) {
                                             label={navItems[3].label}
                                             value="4"
                                             className="tap-btn"
+                                            onClick={handleNews}
                                         />
                                         <Tab
                                             label={navItems[4].label}
@@ -291,8 +282,8 @@ function Header(props) {
                                     "aria-labelledby": "basic-button",
                                 }}
                             >
-                                {insuranceTypes.map((item, index) => {
-                                    const productLink = `/${"product/" + item.Alias
+                                {products.map((product, index) => {
+                                    const productLink = `/${"product/" + product.code
                                         }`;
 
                                     return (
@@ -301,7 +292,7 @@ function Header(props) {
                                                 to={productLink}
                                                 style={{ textDecoration: "none", color: "#000" }}
                                             >
-                                                {item.Name}
+                                                {product.name}
                                             </Link>
                                         </MenuItem>
                                     );

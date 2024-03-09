@@ -10,48 +10,31 @@ import {
   Box,
   CardActionArea,
   Grid,
-  TextField,
-  Autocomplete,
-  Link,
   Snackbar,
   Alert,
 } from "@mui/material";
 
 import { DataContext } from "../../../Context/data-context";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import "../../../App.css";
-import axios from "axios";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import moment from "moment";
 import SupportRegistration from "../../../Component/SupportRegistrationForm";
 import { useNavigate } from "react-router-dom";
+import ImagePath from "@image-path";
 
 const City = ["Tp.Hcm", "Hà Nội"];
 
 function LifeInsurance() {
+  const [dataProvince, setDataProvince] = useState([]);
   const [insuranceType, setInsuranceType] = useState({});
   const [finterData, setFinterData] = useState([]);
   const [otherProduct, setOtherProduct] = useState([]);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [dataProvince, setDataProvince] = useState([]);
   const [alertCheck, setAlertCheck] = useState(false);
     const navigate = useNavigate();
     
-  const { provinces, getAllProvince,insuranceTypes, productNews } = useContext(DataContext);
+  const { provinces, getAllProvince, products, productNews } = useContext(DataContext);
   const date = moment().utcOffset("+07:00").format("YYYY-MM-DDThh:mm:ss");
 
 
@@ -74,40 +57,32 @@ function LifeInsurance() {
     }
   }, [getAllProvince]);
 
-  const handleClickOpenDialog = () => {
-    setOpenDialog(true);
-  };
-
-  const handleClose = () => {
-    setOpenDialog(false);
-  };
-
   useEffect(() => {
-    const filteredInsuranceTypes = insuranceTypes.filter(
-      (item) => item.typeId === 4
+    const filteredInsuranceTypes = products.filter(
+      (item) => item.code === "home-insurance"
     );
     if (filteredInsuranceTypes.length > 0) {
       setInsuranceType(filteredInsuranceTypes[0]);
     }
-  }, [insuranceTypes]);
+  }, [products]);
 
   useEffect(() => {
     // Ensure insuranceType is not an empty object
     if (insuranceType && Object.keys(insuranceType).length > 0) {
-      const data = productNews.filter((x) => x.typeId === insuranceType.typeId);
+      const data = productNews.filter((x) => x.code === insuranceType.code);
       setFinterData(data);
     }
   }, [insuranceType, productNews]);
 
   // Access the TypeId of the first object in the array
   useEffect(() => {
-    if (insuranceTypes && Object.keys(insuranceType).length > 0) {
-      const data = insuranceTypes.filter(
-        (x) => x.typeId !== insuranceType.typeId
+    if (products && Object.keys(insuranceType).length > 0) {
+      const data = products.filter(
+        (x) => x.code !== insuranceType.code
       );
       setOtherProduct(data);
     }
-  }, [insuranceTypes, insuranceType]);
+  }, [products, insuranceType]);
 
   return (
     <>
@@ -139,7 +114,7 @@ function LifeInsurance() {
                 color: "#fff",
               }}
             >
-              {insuranceType.typeName}
+              {insuranceType.name}
             </Typography>
           </Stack>
         </Stack>
@@ -172,7 +147,7 @@ function LifeInsurance() {
                   marginBottom: "24px",
                 }}
               >
-                {insuranceType.typeName}
+                {insuranceType.name}
               </Typography>
               <Typography
                 variant="body2"
@@ -206,7 +181,7 @@ function LifeInsurance() {
           </Stack>
           <Stack sx={{ flex: 1 }}>
             <img
-              src={`https://localhost:7064/InsuranceType/${insuranceType.typeId}`}
+              src={ImagePath.getImageURL(`${insuranceType.code}.jpeg`)}
               alt="Insurance House"
               style={{
                 width: "100%",

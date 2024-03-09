@@ -53,6 +53,6 @@ namespace InsuranceCore.Data
         [ForeignKey("UserId")]
         public virtual ICollection<Ticket> Tickets { get; set; }
 
-        [Required] public string Address { get; set; }
+        [Required] public string? Address { get; set; }
     }
 }

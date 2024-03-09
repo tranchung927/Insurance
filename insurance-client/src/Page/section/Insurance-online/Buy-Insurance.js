@@ -21,12 +21,13 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import CloseIcon from "@mui/icons-material/Close";
+import ImagePath from "@image-path";
 
 function BuyInsurance() {
   const [otherProduct, setOtherProduct] = useState([]);
   const location = useLocation();
-  const { insuranceType } = location.state || {};
-  const { insuranceTypes } = useContext(DataContext);
+  const { product } = location.state || {};
+  const { products } = useContext(DataContext);
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -37,15 +38,15 @@ function BuyInsurance() {
     setOpen(false);
   };
 
-  console.log(insuranceType);
+  console.log("ChungTV", product);
   useEffect(() => {
-    if (insuranceTypes && Object.keys(insuranceType).length > 0) {
-      const data = insuranceTypes.filter(
-        (item) => item.typeId !== insuranceType.typeId
+    if (products && Object.keys(product).length > 0) {
+      const data = products.filter(
+        (item) => item.code !== product.code
       );
       setOtherProduct(data);
     }
-  }, [insuranceTypes, insuranceType]);
+  }, [products, product]);
 
   return (
     <>
@@ -74,7 +75,7 @@ function BuyInsurance() {
               color: "#fff",
             }}
           >
-            {insuranceType.typeName}
+            {product.name}
           </Typography>
         </Stack>
       </Stack>
@@ -131,7 +132,7 @@ function BuyInsurance() {
         >
           <Stack sx={{ flex: 1 }}>
             <img
-              src={`https://localhost:7064/InsuranceType/${insuranceType.typeId}`}
+              src={ImagePath.getImageURL(`${product.code}.jpeg`)}
               alt="Insurance House"
               style={{
                 width: "100%",
@@ -156,13 +157,13 @@ function BuyInsurance() {
                   color: "#4D3219",
                 }}
               >
-                {insuranceType.typeName}
+                {product.name}
               </Typography>
               <Typography
                 variant="body2"
                 sx={{ marginBottom: "24px", fontSize: "16px" }}
               >
-                {insuranceType.description}
+                {product.description}
               </Typography>
               <Stack
                 direction={{ xs: "column", sm: "row" }}
@@ -256,17 +257,17 @@ function BuyInsurance() {
             </Stack>
           </Stack>
           <Grid container spacing={2} sx={{ margin: "0px -18px !important" }}>
-            {otherProduct.map((item, index) => (
+            {otherProduct.map((product, index) => (
               <Grid item key={index} xs={12} sm={6} md={4}>
                 <a
-                  href={`http://localhost:3000/product/${item.typeName}`}
+                  href={`http://localhost:3000/product/${product.name}`}
                   style={{ textDecoration: "none" }}
                 >
                   <Card sx={{ height: 550 }}>
                     <CardActionArea>
                       <CardMedia
                         component="img"
-                        image={`https://localhost:7064/InsuranceType/${item.typeId}`}
+                        image={ImagePath.getImageURL(`${product.code}.jpeg`)}
                         alt="green iguana"
                         height="240"
                       />
@@ -275,18 +276,18 @@ function BuyInsurance() {
                         spacing={2}
                         sx={{ padding: "16px 0px 0px 16px" }}
                       >
-                        <Typography variant="h5">{item.typeName}</Typography>
+                        <Typography variant="h5">{product.name}</Typography>
                       </Stack>
                       <CardContent sx={{ paddingTop: "0px" }}>
                         <Typography gutterBottom variant="h5" component="div">
-                          {item.title}
+                          {product.title}
                         </Typography>
                         <Typography
                           variant="body2"
                           color="text.secondary"
                           minHeight={"200px"}
                         >
-                          {item.description}
+                          {product.description}
                         </Typography>
                         <Stack alignItems={"center"}>
                           <Button
