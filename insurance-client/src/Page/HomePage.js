@@ -209,10 +209,10 @@ const HomePage = () => {
                     <CardContent sx={{ paddingTop: "0px" }}>
                       <Typography
                         variant="body2"
-                        color="text.secondary"
+                        color="#000000"
                         minHeight={"260px"}
                       >
-                        {product.description}
+                        "sakdhlaskdlskahdslkdlskadsladh"
                       </Typography>
                     </CardContent>
                     

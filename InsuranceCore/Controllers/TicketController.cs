@@ -15,7 +15,6 @@ namespace InsuranceCore.Controllers
     /// Controller used to expose Category resources of the API.
     /// </summary>
     [ApiController]
-    [Authorize]
     [Route("[controller]")]
     public class TicketController : ControllerBase
     {
@@ -39,6 +38,7 @@ namespace InsuranceCore.Controllers
         /// <param name="parameters"></param>
         /// <returns></returns>
         [HttpGet]
+        [Authorize]
         [AllowAnonymous]
         [ProducesResponseType(typeof(PageInsuranceResponse<GetTicketDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetTickets([FromQuery] GetTicketQueryParameters parameters)
@@ -64,6 +64,7 @@ namespace InsuranceCore.Controllers
         /// <returns></returns>
         [HttpGet("{id:int}")]
         [AllowAnonymous]
+        [Authorize]
         [ProducesResponseType(typeof(GetTicketDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(InsuranceErrorResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(int id)
@@ -98,6 +99,7 @@ namespace InsuranceCore.Controllers
         /// <param name="ticket"></param>
         /// <returns></returns>
         [HttpPut]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [PermissionWithPermissionRangeAllRequired(PermissionAction.CanUpdate, PermissionTarget.Ticket)]
         [ProducesResponseType(typeof(InsuranceErrorResponse), StatusCodes.Status400BadRequest)]
@@ -119,6 +121,7 @@ namespace InsuranceCore.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id:int}")]
+        [Authorize]
         [PermissionWithPermissionRangeAllRequired(PermissionAction.CanDelete, PermissionTarget.Ticket)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(InsuranceErrorResponse), StatusCodes.Status404NotFound)]
