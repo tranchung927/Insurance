@@ -1,15 +1,13 @@
 // ** MUI Imports
-import Box from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
 // ** Layout Imports
-import BlankLayout from 'src/@core/layouts/BlankLayout'
+// !Do not remove this Layout import
+import MainLayout from 'src/@core/layouts/MainLayout'
 
 // ** Navigation Imports
 import NavItems from 'src/navigation/user'
 
-// ** Component Import
-import UpgradeToProButton from './components/UpgradeToProButton'
 import UserAppBarContent from './components/user/AppBarContent'
 
 // ** Hook Import
@@ -20,31 +18,27 @@ const UserLayout = ({ children }) => {
   const { settings, saveSettings } = useSettings()
   const hidden = useMediaQuery(theme => theme.breakpoints.down('lg'))
 
-  const UpgradeToProImg = () => {
-    return (
-      <Box sx={{ mx: 'auto' }}>
-        <a
-          target='_blank'
-          rel='noreferrer'
-          href='https://themeselection.com/products/materio-mui-react-nextjs-admin-template/'
-        >
-          <img width={230} alt='upgrade to premium' src={`/images/misc/upgrade-banner-${settings.mode}.png`} />
-        </a>
-      </Box>
-    )
-  }
-
   return (
-    <BlankLayout>
-      <UserAppBarContent
+    <MainLayout
+      hidden={true}
+      settings={settings}
+      saveSettings={saveSettings}
+      navItems={NavItems()}
+      mainAppBarContent={(
+        props
+      ) => (
+        <UserAppBarContent
           hidden={hidden}
           settings={settings}
           saveSettings={saveSettings}
+          toggleNavVisibility={props.toggleNavVisibility}
           pages={NavItems()}
         />
+      )
+      }
+    >
       {children}
-      <UpgradeToProButton />
-    </BlankLayout>
+    </MainLayout>
   )
 }
 

@@ -1,42 +1,56 @@
-import { useState } from 'react'
-import { useRouter } from 'next/router'
+import { useState, useEffect, useRef } from 'react'
 import Box from '@mui/material/Box'
-import { styled, useTheme } from '@mui/material/styles'
+import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
-import MenuDown from 'mdi-material-ui/MenuDown'
-import URLFormat from 'url';
+import IconMenuDown from 'mdi-material-ui/MenuDown'
 import Link from 'next/link'
 import ListItemButton from '@mui/material/ListItemButton'
 import Grow from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 
-const NavItemHover = props => {
-  // ** Props
+const Dropdown = props => {
   const { page } = props
-
-  // ** States
-  const [anchorEl, setAnchorEl] = useState(null)
-  // ** Hooks
-  const router = useRouter()
+  const [dropdown, setDropdown] = useState(false);
   const theme = useTheme()
+  let ref = useRef();
+  useEffect(() => {
+    const handler = (event) => {
+      if (dropdown && ref.current && !ref.current.contains(event.target)) {
+        setDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    document.addEventListener("touchstart", handler);
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("touchstart", handler);
+    };
+  }, [dropdown]);
 
-  const handleDropdownOpen = event => {
-    setAnchorEl(event.currentTarget)
-  }
+  const onMouseEnter = () => {
+    setDropdown(true);
+  };
 
-  const handleDropdownClose = url => {
-    if (url && URLFormat.format(url)) {
-      router.push(url)
-    }
-    setAnchorEl(null)
-  }
+  const onMouseLeave = () => {
+    setDropdown(false);
+  };
+
+  const toggleDropdown = () => {
+    setDropdown((prev) => !prev);
+  };
+
+  const closeDropdown = () => {
+    dropdown && setDropdown(false);
+  };
 
   return (
-    <>
+    <Box ref={ref}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onClick={closeDropdown}>
       <Link passHref href={page.path === undefined ? '/' : `${page.path}`}>
         <ListItemButton
-          onMouseEnter={handleDropdownOpen}
-          onMouseLeave={handleDropdownClose}
           component={'a'}
           {...(page.openInNewTab ? { target: '_blank' } : null)}
           onClick={e => {
@@ -58,7 +72,7 @@ const NavItemHover = props => {
           <Box sx={{ position: 'relative', overflow: 'hidden', py: 2 }}>
             <Typography sx={{
               fontWeight: 600,
-              color: (anchorEl ? theme.palette.primary.main : theme.palette.text.primary)
+              color: (dropdown ? theme.palette.primary.main : theme.palette.text.primary)
             }}>{page?.title}</Typography>
             <Box sx={{
               position: 'absolute',
@@ -67,22 +81,22 @@ const NavItemHover = props => {
               width: '100%',
               height: 4,
               background: theme.palette.primary.main,
-              transform: (anchorEl ? 'scaleX(1)' : 'scaleX(0)'),
-              transformOrigin: (anchorEl ? 'bottom left' : 'bottom right'),
+              transform: (dropdown ? 'scaleX(1)' : 'scaleX(0)'),
+              transformOrigin: (dropdown ? 'bottom left' : 'bottom right'),
               transition: 'transform 0.2s ease'
             }} />
           </Box>
-          {page?.items ? <MenuDown
+          {page?.items ? <IconMenuDown
             style={{
-              color: anchorEl ? theme.palette.primary.main : theme.palette.text.primary,
+              color: dropdown ? theme.palette.primary.main : theme.palette.text.primary,
               transition: 'transform 0.2s ease',
-              transform: anchorEl ? 'rotate(180deg)' : 'rotate(0deg)'
+              transform: dropdown ? 'rotate(180deg)' : 'rotate(0deg)'
             }} /> : null}
 
         </ListItemButton>
       </Link>
       {page.items ? <Grow
-        in={anchorEl}
+        in={dropdown}
         sx={{
           position: 'absolute',
           right: 0,
@@ -92,7 +106,6 @@ const NavItemHover = props => {
         }} >
         <Paper elevation={3} style={{ padding: 20, boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
           {page?.items?.map((item, index) => {
-            
             return (<Link key={index} passHref href={item.path === undefined ? '/' : `${item.path}`}>
               <ListItemButton
                 component={'a'}
@@ -105,26 +118,26 @@ const NavItemHover = props => {
                 }}
                 sx={{
                   ...({
+                    fontWeight: 400,
+                    color: theme.palette.text.primary,
                     cursor: 'pointer',
                     '&:hover': {
                       backgroundColor: 'transparent',
+                      color: theme.palette.primary.main
                     },
                     padding: 0,
                   })
                 }}
               >
-                <Typography sx={{
-                  fontWeight: 500,
-                  color: theme.palette.text.primary
-                }}>{item?.title}</Typography>
+                {item?.title}
               </ListItemButton>
             </Link>
             )
           })}
         </Paper>
       </Grow> : null}
-    </>
-  )
-}
+    </Box>
+  );
+};
 
-export default NavItemHover
+export default Dropdown

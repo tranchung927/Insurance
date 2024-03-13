@@ -10,7 +10,7 @@ import { styled, useTheme } from '@mui/material/styles'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
 // ** Component Imports
-import Drawer from './Drawer'
+import Drawer from '../../drawer'
 import VerticalNavItems from './VerticalNavItems'
 import VerticalNavHeader from './VerticalNavHeader'
 
